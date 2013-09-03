@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <table name="app_user">
+        <column>id</column>
+        <column>username</column>
+        <column>password</column>
+        <column>first_name</column>
+        <column>last_name</column>
+        <column>address</column>
+        <column>city</column>
+        <column>country</column>
+        <column>email</column>
+        <column>phone_number</column>
+        <column>postal_code</column>
+        <column>province</column>
+        <column>website</column>
+        <column>password_hint</column>
+        <column>version</column>
+        <column>account_enabled</column>
+        <column>account_expired</column>
+        <column>account_locked</column>
+        <column>credentials_expired</column>
+        <row>
+            <value description="id">-1</value>
+            <value description="username">user</value>
+            <value description="password">b6b1f4781776979c0775c71ebdd8bdc084aac5fe</value>
+            <value description="first_name">Tomcat</value>
+            <value description="last_name">User</value>
+            <value description="address"></value>
+            <value description="city">Denver</value>
+            <value description="country">US</value>
+            <value description="email">matt_raible@yahoo.com</value>
+            <value description="phone_number"></value>
+            <value description="postal_code">80210</value>
+            <value description="province">CO</value>
+            <value description="website">http://tomcat.apache.org</value>
+            <value description="password_hint"><![CDATA[A male kitty.]]></value>
+            <value description="version">1</value>
+            <value description="account_enabled">1</value>
+            <value description="account_expired">0</value>
+            <value description="account_locked">0</value>
+            <value description="credentials_expired">0</value>
+        </row>
+        <row>
+            <value description="id">-2</value>
+            <value description="username">admin</value>
+            <value description="password">a40546cc4fd6a12572828bb803380888ad1bfdab</value>
+            <value description="first_name">Matt</value>
+            <value description="last_name">Raible</value>
+            <value description="address"></value>
+            <value description="city">Denver</value>
+            <value description="country">US</value>
+            <value description="email">matt@raibledesigns.com</value>
+            <value description="phone_number"></value>
+            <value description="postal_code">80210</value>
+            <value description="province">CO</value>
+            <value description="website">http://raibledesigns.com</value>
+            <value description="password_hint"><![CDATA[Not a female kitty.]]></value>
+            <value description="version">1</value>
+            <value description="account_enabled">1</value>
+            <value description="account_expired">0</value>
+            <value description="account_locked">0</value>
+            <value description="credentials_expired">0</value>
+        </row>
+        <row>
+            <value description="id">-3</value>
+            <value description="username">two_roles_user</value>
+            <value description="password">a40546cc4fd6a12572828bb803380888ad1bfdab</value>
+            <value description="first_name">Two Roles</value>
+            <value description="last_name">User</value>
+            <value description="address"></value>
+            <value description="city">Denver</value>
+            <value description="country">US</value>
+            <value description="email">two_roles_user@appfuse.org</value>
+            <value description="phone_number"></value>
+            <value description="postal_code">80210</value>
+            <value description="province">CO</value>
+            <value description="website">http://raibledesigns.com</value>
+            <value description="password_hint"><![CDATA[Not a female kitty.]]></value>
+            <value description="version">1</value>
+            <value description="account_enabled">1</value>
+            <value description="account_expired">0</value>
+            <value description="account_locked">0</value>
+            <value description="credentials_expired">0</value>
+        </row>        
+    </table>
+    <table name="role">
+        <column>id</column>
+        <column>name</column>
+        <column>description</column>
+        <row>
+            <value description="id">-1</value>
+            <value description="name">ROLE_ADMIN</value>
+            <value description="description"><![CDATA[Administrator role (can edit Users)]]></value>
+        </row>
+        <row>
+            <value description="id">-2</value>
+            <value description="name">ROLE_USER</value>
+            <value description="description"><![CDATA[Default role for all Users]]></value>
+        </row>
+    </table>
+    <table name="user_role">
+        <column>user_id</column>
+        <column>role_id</column>
+        <row>
+            <value description="user_id">-1</value>
+            <value description="role_id">-2</value>
+        </row>
+        <row>
+            <value description="user_id">-2</value>
+            <value description="role_id">-1</value>
+        </row>
+        <row>
+            <value description="user_id">-3</value>
+            <value description="role_id">-1</value>
+        </row>
+        <row>
+            <value description="user_id">-3</value>
+            <value description="role_id">-2</value>
+        </row>
+    </table>
+    <!--BonLivraison-START-->
+    <table name="bon_livraison">
+        <column>bon_livraison_id</column>
+        <column>date_facturation</column>
+        <column>heure_debut</column>
+        <column>heure_fin</column>
+        <column>montant_factural</column>
+        <column>num_doc</column>
+    <row>
+        <value description="bon_livraison_id">-1</value>
+        <value description="date_facturation">2013-08-30</value>
+        <value description="heure_debut">2013-08-30</value>
+        <value description="heure_fin">2013-08-30</value>
+        <value description="montant_factural">2.1921326E38</value>
+        <value description="num_doc">822976251</value>
+    </row>
+    <row>
+        <value description="bon_livraison_id">-2</value>
+        <value description="date_facturation">2013-08-30</value>
+        <value description="heure_debut">2013-08-30</value>
+        <value description="heure_fin">2013-08-30</value>
+        <value description="montant_factural">3.8764413E37</value>
+        <value description="num_doc">316612091</value>
+    </row>
+    <row>
+        <value description="bon_livraison_id">-3</value>
+        <value description="date_facturation">2013-08-30</value>
+        <value description="heure_debut">2013-08-30</value>
+        <value description="heure_fin">2013-08-30</value>
+        <value description="montant_factural">3.342824E38</value>
+        <value description="num_doc">1385521521</value>
+    </row>
+    </table>
+    <!--BonLivraison-END-->
+    <!--Client-START-->
+    <table name="client">
+        <column>client_id</column>
+        <column>cin</column>
+        <column>nom</column>
+        <column>prenom</column>
+        <column>telephone</column>
+    <row>
+        <value description="client_id">-1</value>
+        <value description="cin">WyAwXxPjHxVlHmF</value>
+        <value description="nom">Sahimi</value>
+        <value description="prenom">Ahmed</value>
+        <value description="telephone">065254125</value>
+    </row>
+    <row>
+        <value description="client_id">-2</value>
+        <value description="cin">XfKxZxXkLjEwRiP</value>
+        <value description="nom">Latifi</value>
+        <value description="prenom">Hicham</value>
+        <value description="telephone">0625325145</value>
+    </row>
+    <row>
+        <value description="client_id">-3</value>
+        <value description="cin">RvAjJdOmJeOrKqY</value>
+        <value description="nom">Karimi</value>
+        <value description="prenom">Khaled</value>
+        <value description="telephone">054215498</value>
+    </row>
+    </table>
+    <!--Client-END-->
+    <!--Forme-START-->
+    <table name="forme">
+        <column>forme_id</column>
+        <column>type_medicament</column>
+    <row>
+        <value description="forme_id">-1</value>
+        <value description="type_medicament">Sirop</value>
+    </row>
+    <row>
+        <value description="forme_id">-2</value>
+        <value description="type_medicament">Comprimé</value>
+    </row>
+    <row>
+        <value description="forme_id">-3</value>
+        <value description="type_medicament">Gélule </value>
+    </row>
+    </table>
+    <!--Forme-END-->
+    <!--Fournisseur-START-->
+    <table name="fournisseur">
+        <column>fournisseur_id</column>
+        <column>nom</column>
+        <column>telephone</column>
+    <row>
+        <value description="fournisseur_id">-1</value>
+        <value description="nom">Bayer SA</value>
+        <value description="telephone">0522545452</value>
+    </row>
+    <row>
+        <value description="fournisseur_id">-2</value>
+        <value description="nom">AFRIC PHAR</value>
+        <value description="telephone">052214548754</value>
+    </row>
+    <row>
+        <value description="fournisseur_id">-3</value>
+        <value description="nom">ROCHE</value>
+        <value description="telephone">052224954122</value>
+    </row>
+    </table>
+    <!--Fournisseur-END-->
+    <!--Medicament-START-->
+    <table name="medicament">
+        <column>medicament_id</column>
+        <column>supprime</column>
+        <column>forme_id</column>
+        <column>designation</column>
+        <column>seuil_bas_stock</column>
+        <column>quantite_stock</column>
+        <column>prix_unitaire_achat</column>
+        <column>prix_unitaire</column>
+    <row>
+        <value description="medicament_id">-1</value>
+        <value description="supprime">0</value>
+        <value description="forme_id">-1</value>
+        <value description="designation">ACIDAC</value>
+        <value description="seuil_bas_stock">1736587483</value>
+        <value description="quantite_stock">657352775</value>
+        <value description="prix_unitaire_achat">2.9213049E38</value>
+        <value description="prix_unitaire">9.003253E37</value>
+    </row>
+    <row>
+        <value description="medicament_id">-2</value>
+        <value description="supprime">0</value>
+        <value description="forme_id">-2</value>
+        <value description="designation">ALFAPROXINE</value>
+        <value description="seuil_bas_stock">421420197</value>
+        <value description="quantite_stock">1014506425</value>
+        <value description="prix_unitaire_achat">3.0168147E38</value>
+        <value description="prix_unitaire">2.2921532E38</value>
+    </row>
+    <row>
+        <value description="medicament_id">-3</value>
+        <value description="supprime">0</value>
+        <value description="forme_id">-3</value>
+        <value description="designation">ANCOTIL</value>
+        <value description="seuil_bas_stock">827878355</value>
+        <value description="quantite_stock">1116578300</value>
+        <value description="prix_unitaire_achat">2.100259E38</value>
+        <value description="prix_unitaire">2.585542E37</value>
+    </row>
+    </table>
+    <!--Medicament-END-->
+    <!--Pharmacie-START-->
+    <table name="pharmacie">
+        <column>pharmacie_id</column>
+        <column>nom</column>
+        <column>telephone</column>
+    <row>
+        <value description="pharmacie_id">-1</value>
+        <value description="nom">Zoubir</value>
+        <value description="telephone">06541254</value>
+    </row>
+    <row>
+        <value description="pharmacie_id">-2</value>
+        <value description="nom">Assalam</value>
+        <value description="telephone">052254545</value>
+    </row>
+    <row>
+        <value description="pharmacie_id">-3</value>
+        <value description="nom">Karim</value>
+        <value description="telephone">05221452145</value>
+    </row>
+    </table>
+    <!--Pharmacie-END-->
+
+</dataset>
+
+
+
+
+
+
+
+
+

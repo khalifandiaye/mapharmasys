@@ -1,0 +1,93 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:view>
+<f:loadBundle var="text" basename="#{bonLivraisonList.bundleName}"/>
+<h:head>
+    <title>#{text['bonLivraisonList.title']}</title>
+    <meta name="heading" content="#{text['bonLivraisonList.heading']}"/>
+    <meta name="menu" content="BonLivraisonMenu"/>
+</h:head>
+<body id="bonLivraisonList">
+
+<div class="span10">
+    <h2>#{text['bonLivraisonList.heading']}</h2>
+
+    <h:form id="searchForm" styleClass="form-search">
+    <div id="search" class="input-append">
+        <h:inputText id="q" name="q" size="20" value="#{bonLivraisonList.query}" styleClass="input-medium search-query"/>
+        <h:commandButton value="#{text['button.search']}" styleClass="btn" action="#{bonLivraisonList.search}"/>
+    </div>
+    </h:form>
+
+    <p>#{text['bonLivraisonList.message']}</p>
+
+    <h:form id="editBonLivraison">
+
+    <div id="actions" class="form-actions">
+        <h:commandButton value="#{text['button.add']}" action="add" id="add" immediate="true" styleClass="btn btn-primary"/>
+        <h:commandButton value="#{text['button.done']}" action="mainMenu" id="cancel" immediate="true" styleClass="btn"/>
+    </div>
+
+    <p:dataTable id="bonLivraisons" var="bonLivraison" value="#{bonLivraisonList.bonLivraisons}"
+                 sortBy="#{bonLivraisonList.sortColumn}" paginator="true" rows="25"
+                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                 rowsPerPageTemplate="5,10,15">
+        <p:column>
+            <f:facet name="header">
+                <p:column sortBy="id">
+                    <h:outputText value="#{text['bonLivraison.id']}" />
+                </p:column>
+            </f:facet>
+            <h:commandLink action="#{bonLivraisonForm.edit}" value="#{bonLivraison.id}">
+                <f:param name="id" value="#{bonLivraison.id}"/>
+                <f:param name="from" value="list"/>
+            </h:commandLink>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <p:column sortBy="dateFacturation">
+                    <h:outputText value="#{text['bonLivraison.dateFacturation']}" />
+                </p:column>
+            </f:facet>
+    <h:outputText value="#{bonLivraison.dateFacturation}" escape="true"/>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <p:column sortBy="heureDebut">
+                    <h:outputText value="#{text['bonLivraison.heureDebut']}" />
+                </p:column>
+            </f:facet>
+    <h:outputText value="#{bonLivraison.heureDebut}" escape="true"/>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <p:column sortBy="heureFin">
+                    <h:outputText value="#{text['bonLivraison.heureFin']}" />
+                </p:column>
+            </f:facet>
+    <h:outputText value="#{bonLivraison.heureFin}" escape="true"/>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <p:column sortBy="montantFactural">
+                    <h:outputText value="#{text['bonLivraison.montantFactural']}" />
+                </p:column>
+            </f:facet>
+    <h:outputText value="#{bonLivraison.montantFactural}" escape="true"/>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <p:column sortBy="numDoc">
+                    <h:outputText value="#{text['bonLivraison.numDoc']}" />
+                </p:column>
+            </f:facet>
+    <h:outputText value="#{bonLivraison.numDoc}" escape="true"/>
+        </p:column>
+    </p:dataTable>
+    </h:form>
+</div>
+</body>
+</f:view>
+</html> 
