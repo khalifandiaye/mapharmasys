@@ -1,0 +1,79 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:view>
+<f:loadBundle var="text" basename="#{bonLivraisonForm.bundleName}"/>
+<h:head>
+    <title>#{text['bonLivraisonDetail.title']}</title>
+    <meta name="heading" content="#{text['bonLivraisonDetail.heading']}"/>
+</h:head>
+
+<c:set var="delObject" value="#{text['bonLivraisonList.bonLivraison']}"/>
+<script type="text/javascript">var msgDelConfirm =
+   "<h:outputFormat value="#{text['delete.confirm']}"><f:param value="#{delObject}" /></h:outputFormat>";
+</script>
+
+<div class="span2">
+    <h2>#{text['bonLivraisonDetail.heading']}</h2>
+</div>
+<div class="span7">
+<h:form id="bonLivraisonForm" styleClass="well form-horizontal">
+<div class="control-group">
+    <h:inputHidden value="#{bonLivraisonForm.bonLivraison.id}" id="id"/>
+</div>
+<div class="control-group">
+    <h:outputLabel styleClass="control-label" for="dateFacturation" value="#{text['bonLivraison.dateFacturation']}"/>
+    <div class="controls">
+        <h:inputText id="dateFacturation" value="#{bonLivraisonForm.bonLivraison.dateFacturation}" required="false">
+            <f:convertDateTime pattern="#{text['date.format']}"/>
+        </h:inputText>
+        <p:message for="dateFacturation"/>
+    </div>
+</div>
+<div class="control-group">
+    <h:outputLabel styleClass="control-label" for="heureDebut" value="#{text['bonLivraison.heureDebut']}"/>
+    <div class="controls">
+        <h:inputText id="heureDebut" value="#{bonLivraisonForm.bonLivraison.heureDebut}" required="false">
+            <f:convertDateTime pattern="#{text['date.format']}"/>
+        </h:inputText>
+        <p:message for="heureDebut"/>
+    </div>
+</div>
+<div class="control-group">
+    <h:outputLabel styleClass="control-label" for="heureFin" value="#{text['bonLivraison.heureFin']}"/>
+    <div class="controls">
+        <h:inputText id="heureFin" value="#{bonLivraisonForm.bonLivraison.heureFin}" required="false">
+            <f:convertDateTime pattern="#{text['date.format']}"/>
+        </h:inputText>
+        <p:message for="heureFin"/>
+    </div>
+</div>
+<div class="control-group">
+    <h:outputLabel styleClass="control-label" for="montantFactural" value="#{text['bonLivraison.montantFactural']}"/>
+    <div class="controls">
+        <h:inputText id="montantFactural" value="#{bonLivraisonForm.bonLivraison.montantFactural}" required="false" maxlength="255"/>
+        <p:message for="montantFactural"/>
+    </div>
+</div>
+<div class="control-group">
+    <h:outputLabel styleClass="control-label" for="numDoc" value="#{text['bonLivraison.numDoc']}"/>
+    <div class="controls">
+        <h:inputText id="numDoc" value="#{bonLivraisonForm.bonLivraison.numDoc}" required="false" maxlength="255"/>
+        <p:message for="numDoc"/>
+    </div>
+</div>
+    <div class="form-actions">
+        <h:commandButton value="#{text['button.save']}" action="#{bonLivraisonForm.save}"
+            id="save" styleClass="btn btn-primary"/>
+
+            <h:commandButton value="#{text['button.delete']}" action="#{bonLivraisonForm.delete}"
+                id="delete" styleClass="btn" onclick="return confirmMessage(msgDelConfirm)"/>
+
+        <h:commandButton value="#{text['button.cancel']}" action="cancel" immediate="true"
+            id="cancel" styleClass="btn"/>
+    </div>
+</h:form>
+</div>
+</f:view>
+</html>

@@ -1,0 +1,108 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:view>
+<f:loadBundle var="text" basename="#{medicamentList.bundleName}"/>
+<h:head>
+    <title>#{text['medicamentList.title']}</title>
+    <meta name="heading" content="#{text['medicamentList.heading']}"/>
+    <meta name="menu" content="MedicamentMenu"/>
+</h:head>
+<body id="medicamentList">
+
+<div class="span10">
+    <h2>#{text['medicamentList.heading']}</h2>
+
+    <h:form id="searchForm" styleClass="form-search">
+    <div id="search" class="input-append">
+        <h:inputText id="q" name="q" size="20" value="#{medicamentList.query}" styleClass="input-medium search-query"/>
+        <h:commandButton value="#{text['button.search']}" styleClass="btn" action="#{medicamentList.search}"/>
+    </div>
+    </h:form>
+
+    <p>#{text['medicamentList.message']}</p>
+
+    <h:form id="editMedicament">
+
+    <div id="actions" class="form-actions">
+        <h:commandButton value="#{text['button.add']}" action="add" id="add" immediate="true" styleClass="btn btn-primary"/>
+        <h:commandButton value="#{text['button.done']}" action="mainMenu" id="cancel" immediate="true" styleClass="btn"/>
+    </div>
+
+    <p:dataTable id="medicaments" var="medicament" value="#{medicamentList.medicaments}"
+                 sortBy="#{medicamentList.sortColumn}" paginator="true" rows="25"
+                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                 rowsPerPageTemplate="5,10,15">
+        <p:column>
+            <f:facet name="header">
+                <p:column sortBy="id">
+                    <h:outputText value="#{text['medicament.id']}" />
+                </p:column>
+            </f:facet>
+            <h:commandLink action="#{medicamentForm.edit}" value="#{medicament.id}">
+                <f:param name="id" value="#{medicament.id}"/>
+                <f:param name="from" value="list"/>
+            </h:commandLink>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <p:column sortBy="deleted">
+                    <h:outputText value="#{text['medicament.deleted']}" />
+                </p:column>
+            </f:facet>
+    <h:selectBooleanCheckbox value="#{medicamentForm.medicament.deleted}" id="deleted" disabled="disabled"/>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <p:column sortBy="forme">
+                    <h:outputText value="#{text['medicament.forme']}" />
+                </p:column>
+            </f:facet>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <p:column sortBy="libelle">
+                    <h:outputText value="#{text['medicament.libelle']}" />
+                </p:column>
+            </f:facet>
+    <h:outputText value="#{medicament.libelle}" escape="true"/>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <p:column sortBy="lowEnStock">
+                    <h:outputText value="#{text['medicament.lowEnStock']}" />
+                </p:column>
+            </f:facet>
+    <h:outputText value="#{medicament.lowEnStock}" escape="true"/>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <p:column sortBy="nbrEnStock">
+                    <h:outputText value="#{text['medicament.nbrEnStock']}" />
+                </p:column>
+            </f:facet>
+    <h:outputText value="#{medicament.nbrEnStock}" escape="true"/>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <p:column sortBy="prixAchat">
+                    <h:outputText value="#{text['medicament.prixAchat']}" />
+                </p:column>
+            </f:facet>
+    <h:outputText value="#{medicament.prixAchat}" escape="true"/>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <p:column sortBy="prixUnit">
+                    <h:outputText value="#{text['medicament.prixUnit']}" />
+                </p:column>
+            </f:facet>
+    <h:outputText value="#{medicament.prixUnit}" escape="true"/>
+        </p:column>
+    </p:dataTable>
+    </h:form>
+</div>
+</body>
+</f:view>
+</html> 

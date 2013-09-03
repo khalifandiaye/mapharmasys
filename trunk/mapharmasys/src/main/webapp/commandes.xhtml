@@ -1,0 +1,124 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:view>
+<f:loadBundle var="text" basename="#{commandeList.bundleName}"/>
+<h:head>
+    <title>#{text['commandeList.title']}</title>
+    <meta name="heading" content="#{text['commandeList.heading']}"/>
+    <meta name="menu" content="CommandeMenu"/>
+</h:head>
+<body id="commandeList">
+
+<div class="span10">
+    <h2>#{text['commandeList.heading']}</h2>
+
+    <h:form id="searchForm" styleClass="form-search">
+    <div id="search" class="input-append">
+        <h:inputText id="q" name="q" size="20" value="#{commandeList.query}" styleClass="input-medium search-query"/>
+        <h:commandButton value="#{text['button.search']}" styleClass="btn" action="#{commandeList.search}"/>
+    </div>
+    </h:form>
+
+    <p>#{text['commandeList.message']}</p>
+
+    <h:form id="editCommande">
+
+    <div id="actions" class="form-actions">
+        <h:commandButton value="#{text['button.add']}" action="add" id="add" immediate="true" styleClass="btn btn-primary"/>
+        <h:commandButton value="#{text['button.done']}" action="mainMenu" id="cancel" immediate="true" styleClass="btn"/>
+    </div>
+
+    <p:dataTable id="commandes" var="commande" value="#{commandeList.commandes}"
+                 sortBy="#{commandeList.sortColumn}" paginator="true" rows="25"
+                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                 rowsPerPageTemplate="5,10,15">
+        <p:column>
+            <f:facet name="header">
+                <p:column sortBy="id">
+                    <h:outputText value="#{text['commande.id']}" />
+                </p:column>
+            </f:facet>
+            <h:commandLink action="#{commandeForm.edit}" value="#{commande.id}">
+                <f:param name="id" value="#{commande.id}"/>
+                <f:param name="from" value="list"/>
+            </h:commandLink>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <p:column sortBy="client">
+                    <h:outputText value="#{text['commande.client']}" />
+                </p:column>
+            </f:facet>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <p:column sortBy="dateCommande">
+                    <h:outputText value="#{text['commande.dateCommande']}" />
+                </p:column>
+            </f:facet>
+    <h:outputText value="#{commande.dateCommande}" escape="true"/>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <p:column sortBy="heure">
+                    <h:outputText value="#{text['commande.heure']}" />
+                </p:column>
+            </f:facet>
+    <h:outputText value="#{commande.heure}" escape="true"/>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <p:column sortBy="minute">
+                    <h:outputText value="#{text['commande.minute']}" />
+                </p:column>
+            </f:facet>
+    <h:outputText value="#{commande.minute}" escape="true"/>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <p:column sortBy="montantTotal">
+                    <h:outputText value="#{text['commande.montantTotal']}" />
+                </p:column>
+            </f:facet>
+    <h:outputText value="#{commande.montantTotal}" escape="true"/>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <p:column sortBy="nbrMedicamentTotal">
+                    <h:outputText value="#{text['commande.nbrMedicamentTotal']}" />
+                </p:column>
+            </f:facet>
+    <h:outputText value="#{commande.nbrMedicamentTotal}" escape="true"/>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <p:column sortBy="numero">
+                    <h:outputText value="#{text['commande.numero']}" />
+                </p:column>
+            </f:facet>
+    <h:outputText value="#{commande.numero}" escape="true"/>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <p:column sortBy="typeVente">
+                    <h:outputText value="#{text['commande.typeVente']}" />
+                </p:column>
+            </f:facet>
+    <h:outputText value="#{commande.typeVente}" escape="true"/>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <p:column sortBy="valide">
+                    <h:outputText value="#{text['commande.valide']}" />
+                </p:column>
+            </f:facet>
+    <h:selectBooleanCheckbox value="#{commandeForm.commande.valide}" id="valide" disabled="disabled"/>
+        </p:column>
+    </p:dataTable>
+    </h:form>
+</div>
+</body>
+</f:view>
+</html> 

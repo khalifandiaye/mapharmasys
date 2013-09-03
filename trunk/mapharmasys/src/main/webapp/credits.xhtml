@@ -1,0 +1,91 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:view>
+<f:loadBundle var="text" basename="#{creditList.bundleName}"/>
+<h:head>
+    <title>#{text['creditList.title']}</title>
+    <meta name="heading" content="#{text['creditList.heading']}"/>
+    <meta name="menu" content="CreditMenu"/>
+</h:head>
+<body id="creditList">
+
+<div class="span10">
+    <h2>#{text['creditList.heading']}</h2>
+
+    <h:form id="searchForm" styleClass="form-search">
+    <div id="search" class="input-append">
+        <h:inputText id="q" name="q" size="20" value="#{creditList.query}" styleClass="input-medium search-query"/>
+        <h:commandButton value="#{text['button.search']}" styleClass="btn" action="#{creditList.search}"/>
+    </div>
+    </h:form>
+
+    <p>#{text['creditList.message']}</p>
+
+    <h:form id="editCredit">
+
+    <div id="actions" class="form-actions">
+        <h:commandButton value="#{text['button.add']}" action="add" id="add" immediate="true" styleClass="btn btn-primary"/>
+        <h:commandButton value="#{text['button.done']}" action="mainMenu" id="cancel" immediate="true" styleClass="btn"/>
+    </div>
+
+    <p:dataTable id="credits" var="credit" value="#{creditList.credits}"
+                 sortBy="#{creditList.sortColumn}" paginator="true" rows="25"
+                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                 rowsPerPageTemplate="5,10,15">
+        <p:column>
+            <f:facet name="header">
+                <p:column sortBy="id">
+                    <h:outputText value="#{text['credit.id']}" />
+                </p:column>
+            </f:facet>
+            <h:commandLink action="#{creditForm.edit}" value="#{credit.id}">
+                <f:param name="id" value="#{credit.id}"/>
+                <f:param name="from" value="list"/>
+            </h:commandLink>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <p:column sortBy="avance">
+                    <h:outputText value="#{text['credit.avance']}" />
+                </p:column>
+            </f:facet>
+    <h:outputText value="#{credit.avance}" escape="true"/>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <p:column sortBy="client">
+                    <h:outputText value="#{text['credit.client']}" />
+                </p:column>
+            </f:facet>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <p:column sortBy="commande">
+                    <h:outputText value="#{text['credit.commande']}" />
+                </p:column>
+            </f:facet>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <p:column sortBy="dateCredit">
+                    <h:outputText value="#{text['credit.dateCredit']}" />
+                </p:column>
+            </f:facet>
+    <h:outputText value="#{credit.dateCredit}" escape="true"/>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <p:column sortBy="reste">
+                    <h:outputText value="#{text['credit.reste']}" />
+                </p:column>
+            </f:facet>
+    <h:outputText value="#{credit.reste}" escape="true"/>
+        </p:column>
+    </p:dataTable>
+    </h:form>
+</div>
+</body>
+</f:view>
+</html> 

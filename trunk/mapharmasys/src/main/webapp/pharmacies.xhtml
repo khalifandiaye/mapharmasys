@@ -1,0 +1,76 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:view>
+<f:loadBundle var="text" basename="#{pharmacieList.bundleName}"/>
+<h:head>
+    <title>#{text['pharmacieList.title']}</title>
+    <meta name="heading" content="#{text['pharmacieList.heading']}"/>
+    <meta name="menu" content="PharmacieMenu"/>
+</h:head>
+<body id="pharmacieList">
+
+<div class="span10">
+    <h2>#{text['pharmacieList.heading']}</h2>
+
+    <h:form id="searchForm" styleClass="form-search">
+    <div id="search" class="input-append">
+        <h:inputText id="q" name="q" size="20" value="#{pharmacieList.query}" styleClass="input-medium search-query"/>
+        <h:commandButton value="#{text['button.search']}" styleClass="btn" action="#{pharmacieList.search}"/>
+    </div>
+    </h:form>
+
+    <p>#{text['pharmacieList.message']}</p>
+
+    <h:form id="editPharmacie">
+
+    <div id="actions" class="form-actions">
+        <h:commandButton value="#{text['button.add']}" action="add" id="add" immediate="true" styleClass="btn btn-primary"/>
+        <h:commandButton value="#{text['button.done']}" action="mainMenu" id="cancel" immediate="true" styleClass="btn"/>
+    </div>
+
+    <p:dataTable id="pharmacies" var="pharmacie" value="#{pharmacieList.pharmacies}"
+                 sortBy="#{pharmacieList.sortColumn}" paginator="true" rows="25"
+                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                 rowsPerPageTemplate="5,10,15">
+        <p:column>
+            <f:facet name="header">
+                <p:column sortBy="id">
+                    <h:outputText value="#{text['pharmacie.id']}" />
+                </p:column>
+            </f:facet>
+            <h:commandLink action="#{pharmacieForm.edit}" value="#{pharmacie.id}">
+                <f:param name="id" value="#{pharmacie.id}"/>
+                <f:param name="from" value="list"/>
+            </h:commandLink>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <p:column sortBy="addresse">
+                    <h:outputText value="#{text['pharmacie.addresse']}" />
+                </p:column>
+            </f:facet>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <p:column sortBy="nomPharmacie">
+                    <h:outputText value="#{text['pharmacie.nomPharmacie']}" />
+                </p:column>
+            </f:facet>
+    <h:outputText value="#{pharmacie.nomPharmacie}" escape="true"/>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <p:column sortBy="telephone">
+                    <h:outputText value="#{text['pharmacie.telephone']}" />
+                </p:column>
+            </f:facet>
+    <h:outputText value="#{pharmacie.telephone}" escape="true"/>
+        </p:column>
+    </p:dataTable>
+    </h:form>
+</div>
+</body>
+</f:view>
+</html> 
