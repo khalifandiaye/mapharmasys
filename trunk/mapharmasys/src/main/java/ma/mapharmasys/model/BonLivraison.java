@@ -4,9 +4,12 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -35,6 +38,13 @@ public class BonLivraison extends BaseObject {
 	@Column(name="heure_fin")
 	private Date heureFin;
 
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="fournisseur_id")
+	private Fournisseur fournisseur;
+	
+//	@OneToMany(mappedBy = "bonLivraison", cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
+//	private List<LigneBonLivraison> ligneBonLivraisons = new ArrayList<LigneBonLivraison>();
+	
 	/*
 	 * Constructors
 	 */
