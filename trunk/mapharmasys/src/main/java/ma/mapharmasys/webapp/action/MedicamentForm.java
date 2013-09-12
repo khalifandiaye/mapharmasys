@@ -1,8 +1,11 @@
 package ma.mapharmasys.webapp.action;
 
 import java.io.Serializable;
+import java.util.List;
 
+import ma.mapharmasys.model.Forme;
 import ma.mapharmasys.model.Medicament;
+import ma.mapharmasys.service.FormeManager;
 import ma.mapharmasys.service.MedicamentManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +16,13 @@ import org.springframework.stereotype.Component;
 @Component("medicamentForm")
 @Scope("request")
 public class MedicamentForm extends BasePage implements Serializable {
-    private MedicamentManager medicamentManager;
+    
+	//managers
+	private MedicamentManager medicamentManager;
+    private FormeManager formeManager;
+    
     private Medicament medicament = new Medicament();
     private Long id;
-
-    @Autowired
-    public void setMedicamentManager(@Qualifier("medicamentManager") MedicamentManager medicamentManager) {
-        this.medicamentManager = medicamentManager;
-    }
 
     public Medicament getMedicament() {
         return medicament;
@@ -35,7 +37,7 @@ public class MedicamentForm extends BasePage implements Serializable {
     }
 
     public String delete() {
-        medicamentManager.remove(medicament.getId());
+        medicamentManager.remove(id);
         addMessage("medicament.deleted");
 
         return "list";
@@ -68,5 +70,19 @@ public class MedicamentForm extends BasePage implements Serializable {
         } else {
             return "edit";
         }
+    }
+    
+    public List<Forme> getFormes(){
+    	return sort(formeManager.getAll(), "libelle");
+    }
+    
+    @Autowired
+    public void setMedicamentManager(@Qualifier("medicamentManager") MedicamentManager medicamentManager) {
+        this.medicamentManager = medicamentManager;
+    }
+    
+    @Autowired
+    public void setFormeManager(@Qualifier("formeManager") FormeManager formeManager) {
+        this.formeManager = formeManager;
     }
 } 
