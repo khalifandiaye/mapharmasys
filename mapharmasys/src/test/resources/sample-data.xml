@@ -187,17 +187,21 @@
     <table name="forme">
         <column>forme_id</column>
         <column>type_medicament</column>
+        <column>coefficient_prix_vente</column>
     <row>
         <value description="forme_id">-1</value>
         <value description="type_medicament">Sirop</value>
+        <value description="coefficient_prix_vente">0</value>
     </row>
     <row>
         <value description="forme_id">-2</value>
         <value description="type_medicament">Comprimé</value>
+        <value description="coefficient_prix_vente">0</value>
     </row>
     <row>
         <value description="forme_id">-3</value>
         <value description="type_medicament">Gélule </value>
+        <value description="coefficient_prix_vente">0</value>
     </row>
     </table>
     <!--Forme-END-->

@@ -1,0 +1,78 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:view>
+<f:loadBundle var="text" basename="#{echangeForm.bundleName}"/>
+<h:head>
+    <title>#{text['echangeDetail.title']}</title>
+    <meta name="heading" content="#{text['echangeDetail.heading']}"/>
+    <meta name="menu" content="EchangeMenu"/>
+</h:head>
+
+<c:set var="delObject" value="#{text['echangeList.echange']}"/>
+<script type="text/javascript">var msgDelConfirm =
+   "<h:outputFormat value="#{text['delete.confirm']}"><f:param value="#{delObject}" /></h:outputFormat>";
+</script>
+
+<div class="span2">
+    <h2>#{text['echangeDetail.heading']}</h2>
+</div>
+<div class="span7">
+<h:form id="echangeForm" styleClass="well form-horizontal">
+<div class="control-group">
+    <h:inputHidden value="#{echangeForm.echange.id}" id="id"/>
+</div>
+<div class="control-group">
+    <h:outputLabel styleClass="control-label" for="dateEchange" value="#{text['echange.dateEchange']}"/>
+    <div class="controls">
+        <h:inputText id="dateEchange" value="#{echangeForm.echange.dateEchange}" required="false">
+            <f:convertDateTime pattern="#{text['date.format']}"/>
+        </h:inputText>
+        <p:message for="dateEchange"/>
+    </div>
+</div>
+<div class="control-group">
+    <div class="controls">
+        <!-- todo: change this to read the identifier field from the other pojo -->
+        <h:selectOneMenu value="#{echangeForm.echange.pharmacie}" id="pharmacie" required="false" styleClass="select">
+            <f:selectItems value="#{echangeForm.echange.pharmacie}"/>
+        </h:selectOneMenu>
+        <p:message for="pharmacie"/>
+    </div>
+</div>
+<div class="control-group">
+    <h:outputLabel styleClass="control-label" for="qteMedicament" value="#{text['echange.qteMedicament']}"/>
+    <div class="controls">
+        <h:inputText id="qteMedicament" value="#{echangeForm.echange.qteMedicament}" required="false" maxlength="255"/>
+        <p:message for="qteMedicament"/>
+    </div>
+</div>
+<div class="control-group">
+    <h:outputLabel styleClass="control-label" for="typeEchange" value="#{text['echange.typeEchange']}"/>
+    <div class="controls">
+        <h:inputText id="typeEchange" value="#{echangeForm.echange.typeEchange}" required="true" maxlength="255"/>
+        <p:message for="typeEchange"/>
+    </div>
+</div>
+<div class="control-group">
+    <h:outputLabel styleClass="control-label" for="valeurTotal" value="#{text['echange.valeurTotal']}"/>
+    <div class="controls">
+        <h:inputText id="valeurTotal" value="#{echangeForm.echange.valeurTotal}" required="false" maxlength="255"/>
+        <p:message for="valeurTotal"/>
+    </div>
+</div>
+    <div class="form-actions">
+        <h:commandButton value="#{text['button.save']}" action="#{echangeForm.save}"
+            id="save" styleClass="btn btn-primary"/>
+
+            <h:commandButton value="#{text['button.delete']}" action="#{echangeForm.delete}"
+                id="delete" styleClass="btn" onclick="return confirmMessage(msgDelConfirm)"/>
+
+        <h:commandButton value="#{text['button.cancel']}" action="cancel" immediate="true"
+            id="cancel" styleClass="btn"/>
+    </div>
+</h:form>
+</div>
+</f:view>
+</html>
