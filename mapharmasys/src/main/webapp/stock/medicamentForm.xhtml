@@ -1,0 +1,108 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:view>
+	<f:loadBundle var="text" basename="#{medicamentForm.bundleName}" />
+	<h:head>
+		<title>#{text['medicamentDetail.title']}</title>
+		<meta name="heading" content="#{text['medicamentDetail.heading']}" />
+		<meta name="menu" content="StockMenu" />
+	</h:head>
+
+	<c:set var="delObject" value="#{text['medicamentList.medicament']}" />
+	<script type="text/javascript">
+		var msgDelConfirm = "<h:outputFormat value="#{text['delete.confirm']}"><f:param value="#{delObject}" /></h:outputFormat>";
+	</script>
+
+	<div class="span2"></div>
+	<div class="span7">
+		<div class="breadcrumb" style="text-align: center;">
+			<h2>#{text['medicamentDetail.heading']}</h2>
+		</div>
+
+		<h:form id="medicamentForm" styleClass="well form-horizontal">
+			<div class="control-group">
+				<h:inputHidden value="#{medicamentForm.medicament.id}" id="id" />
+			</div>
+
+			<div class="control-group">
+				<h:outputLabel styleClass="control-label" for="libelle"
+					value="#{text['medicament.libelle']}" />
+				<div class="controls">
+					<h:inputText id="libelle"
+						value="#{medicamentForm.medicament.libelle}" required="true"
+						maxlength="120" />
+					<p:message for="libelle" />
+				</div>
+			</div>
+
+			<div class="control-group">
+				<h:outputLabel styleClass="control-label" for="forme"
+					value="#{text['medicament.forme']}" />
+				<div class="controls">
+					<p:selectOneMenu id="forme"
+						value="#{medicamentForm.medicament.forme.id}"
+						filterMatchMode="contains">
+						<f:selectItems value="#{medicamentForm.formes}" var="forme"
+							itemLabel="#{forme.libelle}" itemValue="#{forme.id}" />
+					</p:selectOneMenu>
+					<p:message for="forme" />
+				</div>
+			</div>
+
+			<div class="control-group">
+				<h:outputLabel styleClass="control-label" for="lowEnStock"
+					value="#{text['medicament.lowEnStock']}" />
+				<div class="controls">
+					<h:inputText id="lowEnStock" styleClass="input-mini"
+						value="#{medicamentForm.medicament.lowEnStock}" required="false" />
+					<p:message for="lowEnStock" />
+				</div>
+			</div>
+			
+			<div class="control-group">
+				<h:outputLabel styleClass="control-label" for="nbrEnStock"
+					value="#{text['medicament.nbrEnStock']}" />
+				<div class="controls">
+					<h:inputText id="nbrEnStock" styleClass="input-mini"
+						value="#{medicamentForm.medicament.nbrEnStock}" required="false" />
+					<p:message for="nbrEnStock" />
+				</div>
+			</div>
+			
+			<div class="control-group">
+				<h:outputLabel styleClass="control-label" for="prixAchat"
+					value="#{text['medicament.prixAchat']}" />
+				<div class="controls">
+					<h:inputText id="prixAchat" styleClass="input-mini"
+						value="#{medicamentForm.medicament.prixAchat}" required="false" />
+					<p:message for="prixAchat" />
+				</div>
+			</div>
+			
+			<div class="control-group">
+				<h:outputLabel styleClass="control-label" for="prixUnit"
+					value="#{text['medicament.prixUnit']}" />
+				<div class="controls">
+					<h:inputText id="prixUnit" styleClass="input-mini"
+						value="#{medicamentForm.medicament.prixUnit}" required="true" />
+					<p:message for="prixUnit" />
+				</div>
+			</div>
+			
+			<div class="form-actions">
+				<p:commandButton value="#{text['button.save']}" 
+					action="#{medicamentForm.save}" id="save"
+					styleClass="btn btn-primary" />
+
+				<h:commandButton value="#{text['button.cancel']}" action="cancel"
+					immediate="true" id="cancel" styleClass="btn" />
+			</div>
+			
+		</h:form>
+	</div>
+</f:view>
+</html>
