@@ -5,13 +5,31 @@
     </Displayers>
     <Menus>
         <Menu name="MainMenu" title="mainMenu.title" page="/mainMenu" roles="ROLE_ADMIN,ROLE_USER"/>
-        <Menu name="UserMenu" title="menu.user" description="User Menu" page="/editProfile" roles="ROLE_ADMIN,ROLE_USER"/>
-        <Menu name="AdminMenu" title="menu.admin" description="Admin Menu" roles="ROLE_ADMIN" width="120" page="/admin/users">
-            <Item name="ViewUsers" title="menu.admin.users" page="/admin/users"/>
-            <Item name="ActiveUsers" title="mainMenu.activeUsers" page="/admin/activeUsers"/>
-            <Item name="ReloadContext" title="menu.admin.reload" page="/admin/reload"/>
-            <Item name="FileUpload" title="menu.selectFile" page="/selectFile"/>
-        </Menu>
-        <Menu name="Logout" title="user.logout" page="/logout" roles="ROLE_ADMIN,ROLE_USER"/>
+        <Menu name="VenteMenu" title="menu.vente" page="/vente/commandes" roles="ROLE_ADMIN,ROLE_USER"/>
+        <Menu name="EchangeMenu" title="menu.echange" page="/echange/echanges" roles="ROLE_ADMIN,ROLE_USER"/>
+        <Menu name="StockMenu" title="menu.stock" page="/stock/medicaments" roles="ROLE_ADMIN,ROLE_USER"/>
+        <Menu name="AdminMenu" title="menu.admin" description="Admin Menu" roles="ROLE_ADMIN" width="120" page="/admin/users"/>
+        
+		<Menu name="AddUserMenu" title="menu.admin.add.user" page="/admin/userForm" roles="ROLE_ADMIN,ROLE_USER"/>
+        <Menu name="ListUserMenu" title="menu.admin.users" page="/admin/users" roles="ROLE_ADMIN,ROLE_USER"/>
+        <Menu name="ListActiveUserMenu" title="mainMenu.activeUsers" page="/admin/activeUsers" roles="ROLE_ADMIN,ROLE_USER"/>
+        <Menu name="ReloadOptionMenu" title="menu.admin.reload" page="/admin/activeUsers" roles="ROLE_ADMIN,ROLE_USER"/>
+        
+        <Menu name="AddVenteMenu" title="menu.vente.add.vente" page="/vente/commandeForm" roles="ROLE_ADMIN,ROLE_USER"/>
+        <Menu name="ListVenteMenu" title="menu.vente.list.vente" page="/vente/commandes" roles="ROLE_ADMIN,ROLE_USER"/>
+        <Menu name="AddClientMenu" title="menu.vente.add.client" page="/vente/clientForm" roles="ROLE_ADMIN,ROLE_USER"/>
+        <Menu name="ListClientMenu" title="menu.vente.list.client" page="/vente/clients" roles="ROLE_ADMIN,ROLE_USER"/>
+        
+        <Menu name="AddMedicamentMenu" title="menu.stock.add.medicament" page="/stock/medicamentForm" roles="ROLE_ADMIN,ROLE_USER"/>
+        <Menu name="ListMedicamentMenu" title="menu.stock.list.medicament" page="/stock/medicaments" roles="ROLE_ADMIN,ROLE_USER"/>
+        <Menu name="AddBLMenu" title="menu.stock.add.bl" page="/stock/bonLivraisonForm" roles="ROLE_ADMIN,ROLE_USER"/>
+        <Menu name="ListBLMenu" title="menu.stock.list.bl" page="/stock/bonLivraisons" roles="ROLE_ADMIN,ROLE_USER"/>
+        <Menu name="AddFournisseurMenu" title="menu.stock.add.fournisseur" page="/stock/fournisseurForm" roles="ROLE_ADMIN,ROLE_USER"/>
+        <Menu name="ListFournisseurMenu" title="menu.stock.list.fournisseur" page="/stock/fournisseurs" roles="ROLE_ADMIN,ROLE_USER"/>
+        
+        <Menu name="AddEchangetMenu" title="menu.echange.add.echange" page="/echange/echangeForm" roles="ROLE_ADMIN,ROLE_USER"/>
+        <Menu name="ListEchangetMenu" title="menu.echange.list.echange" page="/echange/echanges" roles="ROLE_ADMIN,ROLE_USER"/>
+        <Menu name="AddPharmacieMenu" title="menu.echange.add.pharmacie" page="/echange/pharmacieForm" roles="ROLE_ADMIN,ROLE_USER"/>
+        <Menu name="ListPharmacieMenu" title="menu.echange.list.pharmacie" page="/echange/pharmacies" roles="ROLE_ADMIN,ROLE_USER"/>
     </Menus>
 </MenuConfig>

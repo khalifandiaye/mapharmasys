@@ -104,315 +104,315 @@
 
     <!--BonLivraison-nav-START-->
     <navigation-rule>
-        <from-view-id>/bonLivraisons.xhtml</from-view-id>
+        <from-view-id>/stock/bonLivraisons.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>add</from-outcome>
-            <to-view-id>/bonLivraisonForm.xhtml</to-view-id>
+            <to-view-id>/stock/bonLivraisonForm.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>edit</from-outcome>
-            <to-view-id>/bonLivraisonForm.xhtml</to-view-id>
+            <to-view-id>/stock/bonLivraisonForm.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>success</from-outcome>
-            <to-view-id>/bonLivraisons.xhtml</to-view-id>
+            <to-view-id>/stock/bonLivraisons.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/bonLivraisonForm.xhtml</from-view-id>
+        <from-view-id>/stock/bonLivraisonForm.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>cancel</from-outcome>
-            <to-view-id>/bonLivraisons.xhtml</to-view-id>
+            <to-view-id>/stock/bonLivraisons.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>edit</from-outcome>
-            <to-view-id>/bonLivraisonForm.xhtml</to-view-id>
+            <to-view-id>/stock/bonLivraisonForm.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>list</from-outcome>
-            <to-view-id>/bonLivraisons.xhtml</to-view-id>
+            <to-view-id>/stock/bonLivraisons.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
     <!--BonLivraison-nav-END-->
     <!--Client-nav-START-->
     <navigation-rule>
-        <from-view-id>/clients.xhtml</from-view-id>
+        <from-view-id>/vente/clients.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>add</from-outcome>
-            <to-view-id>/clientForm.xhtml</to-view-id>
+            <to-view-id>/vente/clientForm.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>edit</from-outcome>
-            <to-view-id>/clientForm.xhtml</to-view-id>
+            <to-view-id>/vente/clientForm.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>success</from-outcome>
-            <to-view-id>/clients.xhtml</to-view-id>
+            <to-view-id>/vente/clients.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/clientForm.xhtml</from-view-id>
+        <from-view-id>/vente/clientForm.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>cancel</from-outcome>
-            <to-view-id>/clients.xhtml</to-view-id>
+            <to-view-id>/vente/clients.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>edit</from-outcome>
-            <to-view-id>/clientForm.xhtml</to-view-id>
+            <to-view-id>/vente/clientForm.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>list</from-outcome>
-            <to-view-id>/clients.xhtml</to-view-id>
+            <to-view-id>/vente/clients.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
     <!--Client-nav-END-->
     <!--Forme-nav-START-->
     <navigation-rule>
-        <from-view-id>/formes.xhtml</from-view-id>
+        <from-view-id>/stock/formes.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>add</from-outcome>
-            <to-view-id>/formeForm.xhtml</to-view-id>
+            <to-view-id>/stock/formeForm.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>edit</from-outcome>
-            <to-view-id>/formeForm.xhtml</to-view-id>
+            <to-view-id>/stock/formeForm.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>success</from-outcome>
-            <to-view-id>/formes.xhtml</to-view-id>
+            <to-view-id>/stock/formes.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/formeForm.xhtml</from-view-id>
+        <from-view-id>/stock/formeForm.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>cancel</from-outcome>
-            <to-view-id>/formes.xhtml</to-view-id>
+            <to-view-id>/stock/formes.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>edit</from-outcome>
-            <to-view-id>/formeForm.xhtml</to-view-id>
+            <to-view-id>/stock/formeForm.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>list</from-outcome>
-            <to-view-id>/formes.xhtml</to-view-id>
+            <to-view-id>/stock/formes.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
     <!--Forme-nav-END-->
     <!--Fournisseur-nav-START-->
     <navigation-rule>
-        <from-view-id>/fournisseurs.xhtml</from-view-id>
+        <from-view-id>/stock/fournisseurs.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>add</from-outcome>
-            <to-view-id>/fournisseurForm.xhtml</to-view-id>
+            <to-view-id>/stock/fournisseurForm.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>edit</from-outcome>
-            <to-view-id>/fournisseurForm.xhtml</to-view-id>
+            <to-view-id>/stock/fournisseurForm.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>success</from-outcome>
-            <to-view-id>/fournisseurs.xhtml</to-view-id>
+            <to-view-id>/stock/fournisseurs.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/fournisseurForm.xhtml</from-view-id>
+        <from-view-id>/stock/fournisseurForm.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>cancel</from-outcome>
-            <to-view-id>/fournisseurs.xhtml</to-view-id>
+            <to-view-id>/stock/fournisseurs.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>edit</from-outcome>
-            <to-view-id>/fournisseurForm.xhtml</to-view-id>
+            <to-view-id>/stock/fournisseurForm.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>list</from-outcome>
-            <to-view-id>/fournisseurs.xhtml</to-view-id>
+            <to-view-id>/stock/fournisseurs.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
     <!--Fournisseur-nav-END-->
     <!--Medicament-nav-START-->
     <navigation-rule>
-        <from-view-id>/medicaments.xhtml</from-view-id>
+        <from-view-id>/stock/medicaments.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>add</from-outcome>
-            <to-view-id>/medicamentForm.xhtml</to-view-id>
+            <to-view-id>/stock/medicamentForm.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>edit</from-outcome>
-            <to-view-id>/medicamentForm.xhtml</to-view-id>
+            <to-view-id>/stock/medicamentForm.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>success</from-outcome>
-            <to-view-id>/medicaments.xhtml</to-view-id>
+            <to-view-id>/stock/medicaments.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/medicamentForm.xhtml</from-view-id>
+        <from-view-id>/stock/medicamentForm.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>cancel</from-outcome>
-            <to-view-id>/medicaments.xhtml</to-view-id>
+            <to-view-id>/stock/medicaments.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>edit</from-outcome>
-            <to-view-id>/medicamentForm.xhtml</to-view-id>
+            <to-view-id>/stock/medicamentForm.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>list</from-outcome>
-            <to-view-id>/medicaments.xhtml</to-view-id>
+            <to-view-id>/stock/medicaments.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
     <!--Medicament-nav-END-->
     <!--Pharmacie-nav-START-->
     <navigation-rule>
-        <from-view-id>/pharmacies.xhtml</from-view-id>
+        <from-view-id>/echange/pharmacies.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>add</from-outcome>
-            <to-view-id>/pharmacieForm.xhtml</to-view-id>
+            <to-view-id>/echange/pharmacieForm.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>edit</from-outcome>
-            <to-view-id>/pharmacieForm.xhtml</to-view-id>
+            <to-view-id>/echange/pharmacieForm.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>success</from-outcome>
-            <to-view-id>/pharmacies.xhtml</to-view-id>
+            <to-view-id>/echange/pharmacies.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/pharmacieForm.xhtml</from-view-id>
+        <from-view-id>/echange/pharmacieForm.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>cancel</from-outcome>
-            <to-view-id>/pharmacies.xhtml</to-view-id>
+            <to-view-id>/echange/pharmacies.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>edit</from-outcome>
-            <to-view-id>/pharmacieForm.xhtml</to-view-id>
+            <to-view-id>/echange/pharmacieForm.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>list</from-outcome>
-            <to-view-id>/pharmacies.xhtml</to-view-id>
+            <to-view-id>/echange/pharmacies.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
     <!--Pharmacie-nav-END-->
     <!--Commande-nav-START-->
     <navigation-rule>
-        <from-view-id>/commandes.xhtml</from-view-id>
+        <from-view-id>/vente/commandes.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>add</from-outcome>
-            <to-view-id>/commandeForm.xhtml</to-view-id>
+            <to-view-id>/vente/commandeForm.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>edit</from-outcome>
-            <to-view-id>/commandeForm.xhtml</to-view-id>
+            <to-view-id>/vente/commandeForm.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>success</from-outcome>
-            <to-view-id>/commandes.xhtml</to-view-id>
+            <to-view-id>/vente/commandes.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/commandeForm.xhtml</from-view-id>
+        <from-view-id>/vente/commandeForm.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>cancel</from-outcome>
-            <to-view-id>/commandes.xhtml</to-view-id>
+            <to-view-id>/vente/commandes.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>edit</from-outcome>
-            <to-view-id>/commandeForm.xhtml</to-view-id>
+            <to-view-id>/vente/commandeForm.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>list</from-outcome>
-            <to-view-id>/commandes.xhtml</to-view-id>
+            <to-view-id>/vente/commandes.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
     <!--Commande-nav-END-->
     <!--Credit-nav-START-->
     <navigation-rule>
-        <from-view-id>/credits.xhtml</from-view-id>
+        <from-view-id>/vente/credits.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>add</from-outcome>
-            <to-view-id>/creditForm.xhtml</to-view-id>
+            <to-view-id>/vente/creditForm.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>edit</from-outcome>
-            <to-view-id>/creditForm.xhtml</to-view-id>
+            <to-view-id>/vente/creditForm.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>success</from-outcome>
-            <to-view-id>/credits.xhtml</to-view-id>
+            <to-view-id>/vente/credits.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/creditForm.xhtml</from-view-id>
+        <from-view-id>/vente/creditForm.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>cancel</from-outcome>
-            <to-view-id>/credits.xhtml</to-view-id>
+            <to-view-id>/vente/credits.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>edit</from-outcome>
-            <to-view-id>/creditForm.xhtml</to-view-id>
+            <to-view-id>/vente/creditForm.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>list</from-outcome>
-            <to-view-id>/credits.xhtml</to-view-id>
+            <to-view-id>/vente/credits.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
     <!--Credit-nav-END-->
     <!--Echange-nav-START-->
     <navigation-rule>
-        <from-view-id>/echanges.xhtml</from-view-id>
+        <from-view-id>/echange/echanges.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>add</from-outcome>
-            <to-view-id>/echangeForm.xhtml</to-view-id>
+            <to-view-id>/echange/echangeForm.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>edit</from-outcome>
-            <to-view-id>/echangeForm.xhtml</to-view-id>
+            <to-view-id>/echange/echangeForm.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>success</from-outcome>
-            <to-view-id>/echanges.xhtml</to-view-id>
+            <to-view-id>/echange/echanges.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/echangeForm.xhtml</from-view-id>
+        <from-view-id>/echange/echangeForm.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>cancel</from-outcome>
-            <to-view-id>/echanges.xhtml</to-view-id>
+            <to-view-id>/echange/echanges.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>edit</from-outcome>
-            <to-view-id>/echangeForm.xhtml</to-view-id>
+            <to-view-id>/echange/echangeForm.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>list</from-outcome>
-            <to-view-id>/echanges.xhtml</to-view-id>
+            <to-view-id>/echange/echanges.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
