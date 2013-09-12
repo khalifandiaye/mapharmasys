@@ -29,6 +29,9 @@ public class Forme extends BaseObject{
 	@Column(name = "type_medicament", nullable = false, length=50)
 	private String libelle;
 	
+	@Column(name="coefficient_prix_vente")
+	private float coefficient;
+	
 	/*
 	 * Constructors
 	 */
@@ -59,6 +62,14 @@ public class Forme extends BaseObject{
 
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
+	}
+
+	public float getCoefficient() {
+		return coefficient;
+	}
+
+	public void setCoefficient(float coefficient) {
+		this.coefficient = coefficient;
 	}
 
 	@Override

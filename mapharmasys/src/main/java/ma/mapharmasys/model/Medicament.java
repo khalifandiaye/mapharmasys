@@ -71,7 +71,7 @@ public class Medicament extends BaseObject {
 	 */
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="forme_id")
-	private Forme forme;
+	private Forme forme = new Forme();
 	
 	
 	/*
