@@ -1,0 +1,46 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:view>
+<f:loadBundle var="text" basename="#{formeForm.bundleName}"/>
+<h:head>
+    <title>#{text['formeDetail.title']}</title>
+    <meta name="heading" content="#{text['formeDetail.heading']}"/>
+    <meta name="menu" content="StockMenu"/>
+</h:head>
+
+<c:set var="delObject" value="#{text['formeList.forme']}"/>
+<script type="text/javascript">var msgDelConfirm =
+   "<h:outputFormat value="#{text['delete.confirm']}"><f:param value="#{delObject}" /></h:outputFormat>";
+</script>
+
+<div class="span2">
+    <h2>#{text['formeDetail.heading']}</h2>
+</div>
+<div class="span7">
+<h:form id="formeForm" styleClass="well form-horizontal">
+<div class="control-group">
+    <h:inputHidden value="#{formeForm.forme.id}" id="id"/>
+</div>
+<div class="control-group">
+    <h:outputLabel styleClass="control-label" for="libelle" value="#{text['forme.libelle']}"/>
+    <div class="controls">
+        <h:inputText id="libelle" value="#{formeForm.forme.libelle}" required="true" maxlength="50"/>
+        <p:message for="libelle"/>
+    </div>
+</div>
+    <div class="form-actions">
+        <h:commandButton value="#{text['button.save']}" action="#{formeForm.save}"
+            id="save" styleClass="btn btn-primary"/>
+
+            <h:commandButton value="#{text['button.delete']}" action="#{formeForm.delete}"
+                id="delete" styleClass="btn" onclick="return confirmMessage(msgDelConfirm)"/>
+
+        <h:commandButton value="#{text['button.cancel']}" action="cancel" immediate="true"
+            id="cancel" styleClass="btn"/>
+    </div>
+</h:form>
+</div>
+</f:view>
+</html>

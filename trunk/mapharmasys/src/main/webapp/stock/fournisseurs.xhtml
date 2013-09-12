@@ -1,0 +1,42 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:view>
+	<f:loadBundle var="text" basename="#{fournisseurList.bundleName}" />
+	<h:head>
+		<title>#{text['fournisseurList.title']}</title>
+		<meta name="heading" content="#{text['fournisseurList.heading']}" />
+		<meta name="menu" content="StockMenu" />
+	</h:head>
+	<body id="fournisseurList">
+
+		<h2>#{text['fournisseurList.heading']}</h2>
+
+		<p>#{text['fournisseurList.message']}</p>
+
+		<h:form id="editFournisseur">
+
+			<p:dataTable id="fournisseurs" var="fournisseur"
+				value="#{fournisseurList.fournisseurs}"
+				styleClass="table table-striped table-hover"
+				sortBy="#{fournisseurList.sortColumn}" paginator="true" rows="25"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+
+				<p:column headerText="#{text['fournisseur.nom']}"
+					filterBy="#{fournisseur.nom}" filterMatchMode="contains">
+					<h:outputText value="#{fournisseur.nom}" escape="true" />
+				</p:column>
+
+				<p:column headerText="#{text['fournisseur.telephone']}"
+					filterBy="#{fournisseur.telephone}" filterMatchMode="startsWith">
+					<h:outputText value="#{fournisseur.telephone}" escape="true" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</body>
+</f:view>
+</html>
