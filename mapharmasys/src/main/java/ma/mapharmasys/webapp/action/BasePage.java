@@ -1,21 +1,5 @@
 package ma.mapharmasys.webapp.action;
 
-import org.apache.commons.beanutils.BeanComparator;
-import org.apache.commons.collections.comparators.NullComparator;
-import org.apache.commons.collections.comparators.ReverseComparator;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import ma.mapharmasys.Constants;
-import ma.mapharmasys.model.User;
-import ma.mapharmasys.service.MailEngine;
-import ma.mapharmasys.service.UserManager;
-import org.springframework.mail.SimpleMailMessage;
-
-import javax.faces.context.FacesContext;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -25,6 +9,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import ma.mapharmasys.Constants;
+import ma.mapharmasys.model.User;
+import ma.mapharmasys.service.MailEngine;
+import ma.mapharmasys.service.UserManager;
+
+import org.apache.commons.beanutils.BeanComparator;
+import org.apache.commons.collections.comparators.NullComparator;
+import org.apache.commons.collections.comparators.ReverseComparator;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.mail.SimpleMailMessage;
 
 public class BasePage {
     protected final Log log = LogFactory.getLog(getClass());
@@ -251,6 +253,16 @@ public class BasePage {
      */
     @SuppressWarnings("unchecked")
     protected List sort(List list) {
+        Comparator comparator = new BeanComparator(sortColumn, new NullComparator(nullsAreHigh));
+        if (!ascending) {
+            comparator = new ReverseComparator(comparator);
+        }
+        Collections.sort(list, comparator);
+        return list;
+    }
+    
+    @SuppressWarnings("unchecked")
+    protected List sort(List list, String sortColumn) {
         Comparator comparator = new BeanComparator(sortColumn, new NullComparator(nullsAreHigh));
         if (!ascending) {
             comparator = new ReverseComparator(comparator);

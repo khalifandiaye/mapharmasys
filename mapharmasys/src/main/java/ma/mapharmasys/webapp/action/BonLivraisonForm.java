@@ -1,9 +1,14 @@
 package ma.mapharmasys.webapp.action;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import ma.mapharmasys.model.BonLivraison;
+import ma.mapharmasys.model.LigneBonLivraison;
+import ma.mapharmasys.model.Medicament;
 import ma.mapharmasys.service.BonLivraisonManager;
+import ma.mapharmasys.service.MedicamentManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,16 +16,30 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component("bonLivraisonForm")
-@Scope("request")
+@Scope("session")
 public class BonLivraisonForm extends BasePage implements Serializable {
     private BonLivraisonManager bonLivraisonManager;
-    private BonLivraison bonLivraison = new BonLivraison();
+    private MedicamentManager medicamentManager;
+    
+
+	private BonLivraison bonLivraison = new BonLivraison();
+	private Medicament medicament = new Medicament();
+
+	private int nbrMedicament;
     private Long id;
+    private Long medicamentId;
+    
+    private List<LigneBonLivraison> ligneBonLivraisons = new ArrayList<LigneBonLivraison>();
 
     @Autowired
     public void setBonLivraisonManager(@Qualifier("bonLivraisonManager") BonLivraisonManager bonLivraisonManager) {
         this.bonLivraisonManager = bonLivraisonManager;
     }
+    
+    @Autowired
+    public void setMedicamentManager(@Qualifier("medicamentManager") MedicamentManager medicamentManager) {
+		this.medicamentManager = medicamentManager;
+	}
 
     public BonLivraison getBonLivraison() {
         return bonLivraison;
@@ -34,7 +53,15 @@ public class BonLivraisonForm extends BasePage implements Serializable {
         this.id = id;
     }
 
-    public String delete() {
+	public Long getMedicamentId() {
+		return medicamentId;
+	}
+
+	public void setMedicamentId(Long medicamentId) {
+		this.medicamentId = medicamentId;
+	}
+
+	public String delete() {
         bonLivraisonManager.remove(bonLivraison.getId());
         addMessage("bonLivraison.deleted");
 
@@ -69,4 +96,49 @@ public class BonLivraisonForm extends BasePage implements Serializable {
             return "edit";
         }
     }
+
+    public void addLigneBonLivraison() {
+        LigneBonLivraison ligneBonLivraison = new LigneBonLivraison();
+        ligneBonLivraison.setBonLivraison(bonLivraison);
+        ligneBonLivraison.setMedicament(medicamentManager.get(medicament.getId()));
+        ligneBonLivraison.setNbrMedicament(nbrMedicament);
+        this.ligneBonLivraisons.add(ligneBonLivraison);
+    }
+    
+    public void removeLigneBonLivraison(){
+    	log.info("Try to remove a ligne bon livraison [medicament id]:#" + medicamentId);
+		for (int i = 0; i < ligneBonLivraisons.size(); i++) {
+			if (ligneBonLivraisons.get(i).getMedicament().getId() == medicamentId) {
+				ligneBonLivraisons.remove(i);
+			}
+		}
+    }
+    
+	public List<LigneBonLivraison> getLigneBonLivraisons() {
+		return ligneBonLivraisons;
+	}
+
+	public void setLigneBonLivraisons(List<LigneBonLivraison> ligneBonLivraisons) {
+		this.ligneBonLivraisons = ligneBonLivraisons;
+	}
+	
+	public List<Medicament> getMedicaments(){
+		return sort(medicamentManager.getAll(), "libelle");
+	}
+
+	public Medicament getMedicament() {
+		return medicament;
+	}
+
+	public void setMedicament(Medicament medicament) {
+		this.medicament = medicament;
+	}
+
+	public int getNbrMedicament() {
+		return nbrMedicament;
+	}
+
+	public void setNbrMedicament(int nbrMedicament) {
+		this.nbrMedicament = nbrMedicament;
+	}
 } 
