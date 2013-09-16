@@ -1,7 +1,10 @@
 package ma.mapharmasys.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -33,17 +37,17 @@ public class BonLivraison extends BaseObject {
 	private int numDoc;
 	
 	@Column(name="heure_debut")
-	private Date heureDebut;
+	private String heureDebut;
 	
 	@Column(name="heure_fin")
-	private Date heureFin;
+	private String heureFin;
 
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="fournisseur_id")
 	private Fournisseur fournisseur;
 	
-//	@OneToMany(mappedBy = "bonLivraison", cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
-//	private List<LigneBonLivraison> ligneBonLivraisons = new ArrayList<LigneBonLivraison>();
+	@OneToMany(mappedBy = "bonLivraison", cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
+	private List<LigneBonLivraison> ligneBonLivraisons = new ArrayList<LigneBonLivraison>();
 	
 	/*
 	 * Constructors
@@ -54,7 +58,7 @@ public class BonLivraison extends BaseObject {
 
 	
 	public BonLivraison(Date dateFacturation, float montantFactural,
-			int numDoc, Date heureDebut, Date heureFin) {
+			int numDoc, String heureDebut, String heureFin) {
 		super();
 		this.dateFacturation = dateFacturation;
 		this.montantFactural = montantFactural;
@@ -99,21 +103,31 @@ public class BonLivraison extends BaseObject {
 		this.numDoc = numDoc;
 	}
 
-	public Date getHeureDebut() {
+	public String getHeureDebut() {
 		return heureDebut;
 	}
 
-	public void setHeureDebut(Date heureDebut) {
+	public void setHeureDebut(String heureDebut) {
 		this.heureDebut = heureDebut;
 	}
 
-	public Date getHeureFin() {
+	public String getHeureFin() {
 		return heureFin;
 	}
 
-	public void setHeureFin(Date heureFin) {
+	public void setHeureFin(String heureFin) {
 		this.heureFin = heureFin;
 	}
+
+	public List<LigneBonLivraison> getLigneBonLivraisons() {
+		return ligneBonLivraisons;
+	}
+
+
+	public void setLigneBonLivraisons(List<LigneBonLivraison> ligneBonLivraisons) {
+		this.ligneBonLivraisons = ligneBonLivraisons;
+	}
+
 
 	@Override
 	public String toString() {

@@ -17,7 +17,7 @@
 
 		<p>#{text['medicamentList.message']}</p>
 
-		<h:form id="editMedicament">
+		<h:form id="editMedicament" styleClass="form-horizontal">
 
 			<p:dataTable id="medicaments" var="medicament"
 				value="#{medicamentList.medicaments}"
@@ -30,7 +30,7 @@
 					filterBy="#{medicament.libelle}" filterMatchMode="contains">
 					<h:outputText value="#{medicament.libelle}" escape="true" />
 				</p:column>
-				
+
 				<p:column headerText="#{text['medicament.forme']}"
 					filterBy="#{medicament.forme.libelle}" filterMatchMode="contains">
 					<h:outputText value="#{medicament.forme.libelle}" escape="true" />
@@ -55,22 +55,90 @@
 				</p:column>
 
 				<p:column width="10">
-					<h:commandLink action="#{medicamentForm.detail}"
-						class="icon-eye-open" title="#{text['button.view']}">
-						<f:param name="id" value="#{medicament.id}" />
-						<f:param name="from" value="list" />
-					</h:commandLink>
+					<p:commandLink id="trash-medicament" update=":editMedicament:display" oncomplete="dlg.show()" styleClass="icon-eye-open" title="#{text['button.view']}">
+		                <f:setPropertyActionListener value="#{medicament}" target="#{medicamentForm.medicament}" />
+		            </p:commandLink>
 				</p:column>
 
 				<p:column width="10">
 					<h:commandLink action="#{medicamentForm.delete}" class="icon-trash"
+						onclick="return confirmMessage('#{text['medicament.delete.confirm']}')"
 						title="#{text['button.delete']}">
 						<f:param name="id" value="#{medicament.id}" />
 						<f:param name="from" value="list" />
 					</h:commandLink>
 				</p:column>
-
+				
 			</p:dataTable>
+			<p:dialog header="#{text['medicamentDetail.title']}" resizable="false" width="40%" id="display" widgetVar="dlg" showEffect="fade" hideEffect="highlight" modal="true">
+				<h:form id="medicamentForm" styleClass="form-horizontal">
+
+			<div class="control-group">
+				<h:outputLabel styleClass="control-label"
+					value="#{text['medicament.libelle']}" />
+				<div class="controls">
+					<h:outputLabel styleClass="control-label"
+					value="#{medicamentForm.medicament.libelle}" />
+				</div>
+			</div>
+
+			<div class="control-group">
+				<h:outputLabel styleClass="control-label"
+					value="#{text['medicament.forme']}" />
+				<div class="controls">
+					<h:outputLabel styleClass="control-label"
+					value="#{medicamentForm.medicament.forme.libelle}" />
+				</div>
+			</div>
+
+			<div class="control-group">
+				<h:outputLabel styleClass="control-label"
+					value="#{text['medicament.lowEnStock']}" />
+				<div class="controls">
+				<h:outputLabel styleClass="control-label"
+					value="#{medicamentForm.medicament.lowEnStock}" />
+				</div>
+			</div>
+			
+			<div class="control-group">
+				<h:outputLabel styleClass="control-label"
+					value="#{text['medicament.nbrEnStock']}" />
+				<div class="controls">
+					<h:outputLabel styleClass="control-label"
+						value="#{medicamentForm.medicament.nbrEnStock}" />
+				</div>
+			</div>
+			
+			<div class="control-group">
+				<h:outputLabel styleClass="control-label"
+					value="#{text['medicament.prixAchat']}" />
+				<div class="controls">
+					<h:outputLabel styleClass="control-label"
+						value="#{medicamentForm.medicament.prixAchat}" />
+				</div>
+			</div>
+			
+			<div class="control-group">
+				<h:outputLabel styleClass="control-label"
+					value="#{text['medicament.prixUnit']}" />
+				<div class="controls">
+				<h:outputLabel styleClass="control-label"
+					value="#{medicamentForm.medicament.prixUnit}" />
+				</div>
+			</div>
+			
+		</h:form>
+			</p:dialog>  
+			<p:ajaxStatus
+				style="width:64px;height:64px;position:fixed;right:5px;bottom:5px">
+				<f:facet name="start">
+					<p:graphicImage value="/images/ajax-loader.gif" />
+				</f:facet>
+
+				<f:facet name="complete">
+					<h:outputText value="" />
+				</f:facet>
+			</p:ajaxStatus>
 		</h:form>
 	</body>
 </f:view>
