@@ -20,6 +20,7 @@ import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.util.Version;
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.IdentifierLoadAccess;
 import org.hibernate.Query;
@@ -102,7 +103,7 @@ public class GenericDaoHibernate<T, PK extends Serializable> implements GenericD
     @SuppressWarnings("unchecked")
     public List<T> getAll() {
         Session sess = getSession();
-        return sess.createCriteria(persistentClass).list();
+        return sess.createCriteria(persistentClass).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
     }
 
     /**

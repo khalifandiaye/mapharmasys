@@ -1,7 +1,9 @@
 package ma.mapharmasys.webapp.action;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import ma.mapharmasys.dao.SearchException;
 import ma.mapharmasys.model.BonLivraison;
@@ -32,16 +34,17 @@ public class BonLivraisonList extends BasePage implements Serializable {
     }
 
     public BonLivraisonList() {
-        setSortColumn("id"); // sets the default sort column
+        setSortColumn("dateFacturation"); // sets the default sort column
     }
 
     public List<BonLivraison> getBonLivraisons() {
         try {
-            return bonLivraisonManager.search(query, BonLivraison.class);
+        	return bonLivraisonManager.getAll();
         } catch (SearchException se) {
             addError(se.getMessage());
-            return sort(bonLivraisonManager.getAll());
         }
+        
+        return new ArrayList<BonLivraison>();
     }
 
     public String search() {
