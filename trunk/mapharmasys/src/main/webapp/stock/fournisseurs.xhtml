@@ -1,8 +1,11 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/common/template.xhtml">
+	<ui:define name="content">
 
 <f:view>
 	<f:loadBundle var="text" basename="#{fournisseurList.bundleName}" />
@@ -22,9 +25,9 @@
 			<p:dataTable id="fournisseurs" var="fournisseur"
 				value="#{fournisseurList.fournisseurs}"
 				styleClass="table table-striped table-hover"
-				sortBy="#{fournisseurList.sortColumn}" paginator="true" rows="25"
+				sortBy="#{fournisseurList.sortColumn}" paginator="true" rows="15"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-				rowsPerPageTemplate="5,10,15">
+				rowsPerPageTemplate="15,25,50">
 
 				<p:column headerText="#{text['fournisseur.nom']}"
 					filterBy="#{fournisseur.nom}" filterMatchMode="contains">
@@ -35,8 +38,55 @@
 					filterBy="#{fournisseur.telephone}" filterMatchMode="startsWith">
 					<h:outputText value="#{fournisseur.telephone}" escape="true" />
 				</p:column>
+				
+				<p:column width="10">
+					<h:commandLink action="#{fournisseurForm.edit}" class="icon-pencil"
+						title="#{text['button.edit']}">
+						<f:param name="id" value="#{fournisseur.id}" />
+						<f:param name="from" value="list" />
+					</h:commandLink>
+				</p:column>
+
+				<p:column width="10">
+					<p:commandLink id="detail-fournisseur" update=":editFournisseur:display" oncomplete="dlg.show()" styleClass="icon-eye-open" title="#{text['button.view']}">
+		                <f:setPropertyActionListener value="#{fournisseur}" target="#{fournisseurForm.fournisseur}" />
+		            </p:commandLink>
+				</p:column>
+
+				<p:column width="10">
+					<h:commandLink action="#{fournisseurForm.delete}" class="icon-trash"
+						onclick="return confirmMessage('#{text['delete.confirm']}')"
+						title="#{text['button.delete']}">
+						<f:param name="id" value="#{fournisseur.id}" />
+						<f:param name="from" value="list" />
+					</h:commandLink>
+				</p:column>
 			</p:dataTable>
+			<p:dialog header="#{text['fournisseurDetail.title']}" resizable="false" width="40%" id="display" widgetVar="dlg" showEffect="fade" hideEffect="highlight" modal="true">
+				<h:form id="fournisseurForm" styleClass="form-horizontal">
+
+					<div class="control-group">
+						<h:outputLabel styleClass="control-label"
+							value="#{text['fournisseur.nom']}" />
+						<div class="controls">
+							<h:outputLabel styleClass="control-label"
+							value="#{fournisseurForm.fournisseur.nom}" />
+						</div>
+					</div>
+		
+					<div class="control-group">
+						<h:outputLabel styleClass="control-label"
+							value="#{text['fournisseur.telephone']}" />
+						<div class="controls">
+							<h:outputLabel styleClass="control-label"
+							value="#{fournisseurForm.fournisseur.telephone}" />
+						</div>
+					</div>
+					
+				</h:form>
+			</p:dialog>  
 		</h:form>
 	</body>
 </f:view>
-</html>
+</ui:define>
+</ui:composition>

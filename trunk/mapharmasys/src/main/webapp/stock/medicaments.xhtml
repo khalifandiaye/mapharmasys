@@ -1,10 +1,12 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
-
-<f:view>
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/common/template.xhtml">
+	<ui:define name="content">
+		<f:view>
 	<f:loadBundle var="text" basename="#{medicamentList.bundleName}" />
 	<h:head>
 		<title>#{text['medicamentList.title']}</title>
@@ -129,17 +131,8 @@
 			
 		</h:form>
 			</p:dialog>  
-			<p:ajaxStatus
-				style="width:64px;height:64px;position:fixed;right:5px;bottom:5px">
-				<f:facet name="start">
-					<p:graphicImage value="/images/ajax-loader.gif" />
-				</f:facet>
-
-				<f:facet name="complete">
-					<h:outputText value="" />
-				</f:facet>
-			</p:ajaxStatus>
 		</h:form>
 	</body>
 </f:view>
-</html>
+	</ui:define>
+</ui:composition>

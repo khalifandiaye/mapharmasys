@@ -1,8 +1,11 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/common/template.xhtml">	
+<ui:define name="content">
 
 <f:view>
 	<f:loadBundle var="text" basename="#{bonLivraisonForm.bundleName}" />
@@ -15,6 +18,7 @@
 	<c:set var="delObject" value="#{text['bonLivraisonList.bonLivraison']}" />
 	<script type="text/javascript">
 		var msgDelConfirm = "<h:outputFormat value="#{text['delete.confirm']}"><f:param value="#{delObject}" /></h:outputFormat>";
+		var msgCancelConfirm = "<h:outputFormat value="#{text['cancel.confirm']}"/>";
 	</script>
 
 	<div class="span2"></div>
@@ -28,32 +32,42 @@
 			</div>
 
 			<div class="control-group">
+				<h:outputLabel styleClass="control-label" for="numDoc"
+					value="#{text['bonLivraison.numDoc']}" />
+				<div class="controls" style="width: 40%">
+					<h:inputText id="numDoc"
+						value="#{bonLivraisonForm.bonLivraison.numDoc}" required="true"
+						maxlength="255" />
+					<p:message for="numDoc" />
+				</div>
+			</div>
+			
+			<div class="control-group">
+					<h:outputLabel styleClass="control-label" for="medicament"
+						value="#{text['bonLivraison.fournisseur']}" />
+					<div class="controls">
+						<p:selectOneMenu id="fournisseur"
+							value="#{bonLivraisonForm.bonLivraison.fournisseur.id}"
+							filterMatchMode="contains" filter="true" immediate="true">
+							<f:selectItems value="#{bonLivraisonForm.fournisseurs}"
+								var="fournisseur" itemLabel="#{fournisseur.nom}"
+								itemValue="#{fournisseur.id}" />
+						</p:selectOneMenu>
+						<p:message for="fournisseur" />
+					</div>
+				</div>
+
+			<div class="control-group">
 				<h:panelGrid columns="5" cellpadding="10">
 					<h:outputLabel styleClass="control-label" for="dateFacturation"
 						value="#{text['bonLivraison.dateFacturation']}" />
 					<p:calendar id="dateFacturation"
 						value="#{bonLivraisonForm.bonLivraison.dateFacturation}"
 						mode="popup" pattern="dd/MM/yyyy" />
-
-					<p:selectBooleanCheckbox value="#{bonLivraisonForm.useNow}" />
-					<h:outputLabel styleClass="control-label" for="dateFacturation"
-						value="#{text['bonLivraison.dateFacturation.now']}" />
-
 				</h:panelGrid>
 				<p:message for="dateFacturation" />
 			</div>
-
-			<div class="control-group">
-				<h:outputLabel styleClass="control-label" for="numDoc"
-					value="#{text['bonLivraison.numDoc']}" />
-				<div class="controls" style="width: 40%">
-					<h:inputText id="numDoc"
-						value="#{bonLivraisonForm.bonLivraison.numDoc}" required="false"
-						maxlength="255" />
-					<p:message for="numDoc" />
-				</div>
-			</div>
-
+			
 			<div class="control-group">
 				<h:outputLabel styleClass="control-label" for="heureDebut"
 					value="#{text['bonLivraison.heureDebut']}" />
@@ -87,7 +101,7 @@
 				<div class="controls">
 					<h:inputText id="montantFactural" styleClass="input-mini"
 						value="#{bonLivraisonForm.bonLivraison.montantFactural}"
-						required="false" maxlength="255" />
+						required="true" />	
 					<p:message for="montantFactural" />
 				</div>
 			</div>
@@ -133,24 +147,14 @@
 					<p:column>
 						<f:facet name="header">
 							<p:column sortBy="dateFacturation">
-								<h:outputText value="#{text['bonLivraison.dateFacturation']}" />
-							</p:column>
-						</f:facet>
-						<h:outputText value="#{ligneBonLivraison.medicament.id}"
-							escape="true" />
-					</p:column>
-
-					<p:column>
-						<f:facet name="header">
-							<p:column sortBy="dateFacturation">
-								<h:outputText value="#{text['bonLivraison.dateFacturation']}" />
+								<h:outputText value="#{text['bonLivraison.lbl.medicament']}" />
 							</p:column>
 						</f:facet>
 						<h:outputText value="#{ligneBonLivraison.medicament.libelle}"
 							escape="true" />
 					</p:column>
 
-					<p:column headerText="#{text['bonLivraison.dateFacturation']}">
+					<p:column width="30" headerText="#{text['bonLivraison.lbl.nbrMedicament']}">
 						<p:cellEditor>
 							<f:facet name="output">
 								<h:outputText value="#{ligneBonLivraison.nbrMedicament}"
@@ -167,7 +171,7 @@
 					</p:column>
 
 					<p:column width="10">
-						<p:commandLink id="trash-medicament" update="pricesList"
+						<p:commandLink id="trash-medicament" update="@all"
 							actionListener="#{bonLivraisonForm.removeLigneBonLivraison}"
 							styleClass="icon-trash" title="#{text['button.delete']}">
 							<f:setPropertyActionListener
@@ -185,26 +189,11 @@
 					action="#{bonLivraisonForm.save}" id="save"
 					styleClass="btn btn-success" />
 
-				<h:commandButton value="#{text['button.delete']}"
-					action="#{bonLivraisonForm.delete}" id="delete"
-					styleClass="btn btn-info"
-					onclick="return confirmMessage(msgDelConfirm)" />
-
 				<h:commandButton value="#{text['button.cancel']}" action="cancel"
-					immediate="true" id="cancel" styleClass="btn btn-info" />
+					immediate="true" id="cancel" styleClass="btn btn-info" onclick="return confirmMessage(msgCancelConfirm)" />
 			</div>
-
-			<p:ajaxStatus
-				style="width:64px;height:64px;position:fixed;right:5px;bottom:5px">
-				<f:facet name="start">
-					<p:graphicImage value="/images/ajax-loader.gif" />
-				</f:facet>
-
-				<f:facet name="complete">
-					<h:outputText value="" />
-				</f:facet>
-			</p:ajaxStatus>
 		</h:form>
 	</div>
 </f:view>
-</html>
+</ui:define>
+</ui:composition>
