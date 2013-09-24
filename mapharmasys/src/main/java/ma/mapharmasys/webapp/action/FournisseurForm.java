@@ -35,17 +35,21 @@ public class FournisseurForm extends BasePage implements Serializable {
     }
 
     public String delete() {
-        fournisseurManager.remove(fournisseur.getId());
-        addMessage("fournisseur.deleted");
+    	id = new Long(getParameter("id"));
 
-        return "list";
+		if (id != null) {
+			fournisseurManager.remove(id);
+			addMessage("deleted.ok", "Fournisseur");
+		} else
+			addMessage("deleted.nok");
+
+		return "success";
     }
 
     public String edit() {
         // Workaround for not being able to set the id using #{param.id} when using Spring-configured managed-beans
-        if (id == null) {
-            id = new Long(getParameter("id"));
-        }
+        id = new Long(getParameter("id"));
+        
         // Comparison to zero (vs. null) is required with MyFaces 1.2.2, not with previous versions
         if (id != null && id != 0) {
             fournisseur = fournisseurManager.get(id);

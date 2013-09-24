@@ -46,7 +46,7 @@ public class BonLivraisonList extends BasePage implements Serializable {
         
         return new ArrayList<BonLivraison>();
     }
-
+    
     public String search() {
         return "success";
     }
