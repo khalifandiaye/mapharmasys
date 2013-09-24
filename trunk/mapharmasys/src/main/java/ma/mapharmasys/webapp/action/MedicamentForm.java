@@ -3,10 +3,13 @@ package ma.mapharmasys.webapp.action;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.faces.context.FacesContext;
+
 import ma.mapharmasys.model.Forme;
 import ma.mapharmasys.model.Medicament;
 import ma.mapharmasys.service.FormeManager;
 import ma.mapharmasys.service.MedicamentManager;
+import ma.mapharmasys.service.TypeMedicamentManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,6 +23,7 @@ public class MedicamentForm extends BasePage implements Serializable {
 	//managers
 	private MedicamentManager medicamentManager;
     private FormeManager formeManager;
+    private TypeMedicamentManager typeMedicamentManager;
     
     private Medicament medicament = new Medicament();
     private Long id;
@@ -84,6 +88,10 @@ public class MedicamentForm extends BasePage implements Serializable {
     	return sort(formeManager.getAll(), "libelle");
     }
     
+    public List<Forme> getTypeMedicaments(){
+    	return sort(typeMedicamentManager.getAll(), "libelle");
+    }
+    
     @Autowired
     public void setMedicamentManager(@Qualifier("medicamentManager") MedicamentManager medicamentManager) {
         this.medicamentManager = medicamentManager;
@@ -92,5 +100,10 @@ public class MedicamentForm extends BasePage implements Serializable {
     @Autowired
     public void setFormeManager(@Qualifier("formeManager") FormeManager formeManager) {
         this.formeManager = formeManager;
+    }
+    
+    @Autowired
+    public void setTypeMedicamentManager(@Qualifier("typeMedicamentManager") TypeMedicamentManager typeMedicamentManager) {
+        this.typeMedicamentManager = typeMedicamentManager;
     }
 } 

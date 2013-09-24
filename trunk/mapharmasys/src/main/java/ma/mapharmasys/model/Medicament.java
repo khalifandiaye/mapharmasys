@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Index;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
@@ -26,39 +27,46 @@ public class Medicament extends BaseObject {
 	private Long id;
 	
 	/**
+	 * Code du medicament
+	 */
+	@Column(name = "code", nullable = false)
+	private String code;
+	
+	/**
 	 * designation du medicament
 	 */
-	@Column(name = "designation", nullable = false, length=120)
-    @Field
+	@Column(name = "designation", nullable = false)
 	private String libelle;
 	
 	/**
 	 * prix unitaire de vente 
 	 */
 	@Column(name = "prix_unitaire", nullable = false)
-    @Field
 	private float prixUnit;
 	
 	/**
 	 * prix unitaire d achat
 	 */
 	@Column(name = "prix_unitaire_achat")
-    @Field
 	private float prixAchat;
 	
 	/**
 	 * la quantite du medicament presente dans le stock
 	 */
 	@Column(name = "quantite_stock")
-    @Field
 	private int nbrEnStock;
 	
 	/**
 	 * le seuil bas de la quantite du medicament presente dans le stock
 	 */
 	@Column(name = "seuil_bas_stock")
-    @Field
 	private int lowEnStock;
+	
+	/**
+	 * Presentation du medicament
+	 */
+	@Column(name = "presentation")
+	private String presentation;
 	
 	/**
 	 * supression logique du medicament
@@ -73,6 +81,12 @@ public class Medicament extends BaseObject {
 	@JoinColumn(name="forme_id")
 	private Forme forme = new Forme();
 	
+	/**
+	 * le type du medicament
+	 */
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="type_medicament_id")
+	private TypeMedicament typeMedicament = new TypeMedicament();
 	
 	/*
 	 * Constructors
@@ -155,6 +169,30 @@ public class Medicament extends BaseObject {
 
 	public Forme getForme() {
 		return forme;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getPresentation() {
+		return presentation;
+	}
+
+	public void setPresentation(String presentation) {
+		this.presentation = presentation;
+	}
+
+	public TypeMedicament getTypeMedicament() {
+		return typeMedicament;
+	}
+
+	public void setTypeMedicament(TypeMedicament typeMedicament) {
+		this.typeMedicament = typeMedicament;
 	}
 
 	public boolean isDeleted() {

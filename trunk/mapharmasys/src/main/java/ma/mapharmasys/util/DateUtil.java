@@ -43,7 +43,7 @@ public final class DateUtil {
             defaultDatePattern = ResourceBundle.getBundle(Constants.BUNDLE_KEY, locale)
                     .getString("date.format");
         } catch (MissingResourceException mse) {
-            defaultDatePattern = "MM/dd/yyyy";
+            defaultDatePattern = "dd/MM/yyyy";
         }
 
         return defaultDatePattern;

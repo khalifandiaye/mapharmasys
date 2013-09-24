@@ -26,7 +26,7 @@ public class Forme extends BaseObject{
 	@Column(name="forme_id")
 	private Long id;
 	
-	@Column(name = "type_medicament", nullable = false, length=50)
+	@Column(name = "libelle", nullable = false, length=50)
 	private String libelle;
 	
 	@Column(name="coefficient_prix_vente")

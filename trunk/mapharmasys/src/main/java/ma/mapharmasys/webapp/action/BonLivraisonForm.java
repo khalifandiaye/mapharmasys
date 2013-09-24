@@ -5,10 +5,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.faces.context.FacesContext;
+
 import ma.mapharmasys.model.BonLivraison;
 import ma.mapharmasys.model.LigneBonLivraison;
 import ma.mapharmasys.model.Medicament;
 import ma.mapharmasys.service.BonLivraisonManager;
+import ma.mapharmasys.service.FournisseurManager;
 import ma.mapharmasys.service.MedicamentManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +24,14 @@ import org.springframework.stereotype.Component;
 public class BonLivraisonForm extends BasePage implements Serializable {
 	private BonLivraisonManager bonLivraisonManager;
 	private MedicamentManager medicamentManager;
+	private FournisseurManager fournisseurManager;
 
 	private BonLivraison bonLivraison = new BonLivraison();
 	private Medicament medicament = new Medicament();
 
-	private int nbrMedicament;
+	private int nbrMedicament = 1;
 	private Long id;
 	private Long medicamentId;
-	private boolean useNow = false;
 
 	private List<LigneBonLivraison> ligneBonLivraisons = new ArrayList<LigneBonLivraison>();
 
@@ -36,6 +39,12 @@ public class BonLivraisonForm extends BasePage implements Serializable {
 	public void setBonLivraisonManager(
 			@Qualifier("bonLivraisonManager") BonLivraisonManager bonLivraisonManager) {
 		this.bonLivraisonManager = bonLivraisonManager;
+	}
+	
+	@Autowired
+	public void setFournisseurManager(
+			@Qualifier("fournisseurManager") FournisseurManager fournisseurManager) {
+		this.fournisseurManager = fournisseurManager;
 	}
 
 	@Autowired
@@ -64,24 +73,40 @@ public class BonLivraisonForm extends BasePage implements Serializable {
 		this.medicamentId = medicamentId;
 	}
 
-	public void setUseNow(boolean useNow) {
-		this.useNow = useNow;
-	}
-
-	public boolean isUseNow() {
-		return useNow;
-	}
-
 	public String delete() {
-		if (id == null) {
-			id = new Long(getParameter("id"));
-		}
-		
+		id = new Long(getParameter("id"));
+
 		if (id != null) {
 			bonLivraisonManager.remove(id);
 			addMessage("bonLivraison.deleted.ok");
-		}else
+		} else
 			addMessage("bonLivraison.deleted.nok");
+
+		return "success";
+	}
+
+	public String validateBonLivraison() {
+		id = new Long(getParameter("id"));
+
+		if (id != null) {
+			bonLivraison = bonLivraisonManager.get(id);
+			for (LigneBonLivraison ligneBonLivraison : bonLivraison
+					.getLigneBonLivraisons()) {
+				log.info("Try to add " + ligneBonLivraison.getNbrMedicament()
+						+ " of "
+						+ ligneBonLivraison.getMedicament().getLibelle()
+						+ " to stock");
+				medicament = ligneBonLivraison.getMedicament();
+				medicament.setNbrEnStock(medicament.getNbrEnStock()
+						+ ligneBonLivraison.getNbrMedicament());
+				medicamentManager.save(medicament);
+			}
+
+			bonLivraison.setValide(true);
+			bonLivraisonManager.save(bonLivraison);
+			addMessage("bonLivraison.valide.ok");
+		} else
+			addMessage("bonLivraison.valide.nok");
 
 		return "success";
 	}
@@ -89,12 +114,16 @@ public class BonLivraisonForm extends BasePage implements Serializable {
 	public String edit() {
 		// Workaround for not being able to set the id using #{param.id} when
 		// using Spring-configured managed-beans
-		id = new Long(getParameter("id"));
-		
+		try {
+			id = new Long(getParameter("id"));
+		} catch (Exception e) {
+			id = null;
+		}
+
 		// Comparison to zero (vs. null) is required with MyFaces 1.2.2, not
 		// with previous versions
 		if (id != null && id != 0) {
-			log.info("try to load bl by id #"+id);
+			log.info("try to load bl by id #" + id);
 			bonLivraison = bonLivraisonManager.get(id);
 			ligneBonLivraisons = bonLivraison.getLigneBonLivraisons();
 		} else {
@@ -109,30 +138,36 @@ public class BonLivraisonForm extends BasePage implements Serializable {
 
 	public String save() {
 		boolean isNew = (bonLivraison.getId() == null || bonLivraison.getId() == 0);
-		
-		if (isNew) bonLivraison.setDateFacturation(Calendar.getInstance().getTime());
-		
+
 		bonLivraison.setLigneBonLivraisons(ligneBonLivraisons);
-		
+
 		bonLivraisonManager.save(bonLivraison);
 
 		String key = (isNew) ? "bonLivraison.added" : "bonLivraison.updated";
 		addMessage(key);
 
-		if (isNew) {
-			return "list";
-		} else {
-			return "edit";
-		}
+		return "list";
 	}
 
 	public void addLigneBonLivraison() {
-		LigneBonLivraison ligneBonLivraison = new LigneBonLivraison();
-		ligneBonLivraison.setBonLivraison(bonLivraison);
-		ligneBonLivraison.setMedicament(medicamentManager.get(medicament
-				.getId()));
-		ligneBonLivraison.setNbrMedicament(nbrMedicament);
-		this.ligneBonLivraisons.add(ligneBonLivraison);
+		Medicament med = medicamentManager.get(medicament.getId());
+		if (!checkExistLBL()) {
+			LigneBonLivraison ligneBonLivraison = new LigneBonLivraison();
+			ligneBonLivraison.setBonLivraison(bonLivraison);
+			ligneBonLivraison.setMedicament(med);
+			ligneBonLivraison.setNbrMedicament(nbrMedicament);
+			this.ligneBonLivraisons.add(ligneBonLivraison);
+		} else
+			addError("bonLivraison.lbl.medicament.existe", med.getLibelle());
+	}
+
+	private boolean checkExistLBL() {
+		for (LigneBonLivraison lbl : ligneBonLivraisons) {
+			if (lbl.getMedicament().getId() == medicament.getId()) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public void removeLigneBonLivraison() {
@@ -155,6 +190,10 @@ public class BonLivraisonForm extends BasePage implements Serializable {
 
 	public List<Medicament> getMedicaments() {
 		return sort(medicamentManager.getAll(), "libelle");
+	}
+	
+	public List<Medicament> getFournisseurs() {
+		return sort(fournisseurManager.getAll(), "nom");
 	}
 
 	public Medicament getMedicament() {

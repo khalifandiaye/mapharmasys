@@ -1,6 +1,7 @@
 package ma.mapharmasys.model;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +16,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import ma.mapharmasys.util.DateUtil;
 
 @Entity
 @Table(name = "bon_livraison")
@@ -28,7 +32,7 @@ public class BonLivraison extends BaseObject {
 	private Long id;
 	
 	@Column(name="date_facturation")
-	private Date dateFacturation;
+	private Date dateFacturation = Calendar.getInstance().getTime();
 	
 	@Column(name="montant_factural")
 	private float montantFactural;
@@ -41,12 +45,15 @@ public class BonLivraison extends BaseObject {
 	
 	@Column(name="heure_fin")
 	private String heureFin;
+	
+	@Column(name="valide")
+	private boolean valide = false;
 
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="fournisseur_id")
-	private Fournisseur fournisseur;
+	private Fournisseur fournisseur = new Fournisseur();
 	
-	@OneToMany(mappedBy = "bonLivraison", cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "bonLivraison", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval=true, fetch = FetchType.EAGER)
 	private List<LigneBonLivraison> ligneBonLivraisons = new ArrayList<LigneBonLivraison>();
 	
 	/*
@@ -81,6 +88,11 @@ public class BonLivraison extends BaseObject {
 
 	public Date getDateFacturation() {
 		return dateFacturation;
+	}
+	
+	@Transient
+	public String getDateFacturationString() {
+		return DateUtil.getDate(dateFacturation);
 	}
 
 	public void setDateFacturation(Date dateFacturation) {
@@ -126,6 +138,26 @@ public class BonLivraison extends BaseObject {
 
 	public void setLigneBonLivraisons(List<LigneBonLivraison> ligneBonLivraisons) {
 		this.ligneBonLivraisons = ligneBonLivraisons;
+	}
+
+
+	public boolean isValide() {
+		return valide;
+	}
+
+
+	public void setValide(boolean valide) {
+		this.valide = valide;
+	}
+
+
+	public Fournisseur getFournisseur() {
+		return fournisseur;
+	}
+
+
+	public void setFournisseur(Fournisseur fournisseur) {
+		this.fournisseur = fournisseur;
 	}
 
 

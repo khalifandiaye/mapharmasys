@@ -38,6 +38,7 @@ public class BasePage {
     protected String sortColumn;
     protected boolean ascending = true;
     protected boolean nullsAreHigh;
+    protected String currentMenu;
     
     public FacesContext getFacesContext() {
         return FacesContext.getCurrentInstance();
@@ -52,7 +53,12 @@ public class BasePage {
         return getRequest().getParameter(name);
     }
 
-    public Map getCountries() {
+    public String getCurrentMenu() {
+    	currentMenu = FacesContext.getCurrentInstance().getViewRoot().getViewId();
+		return currentMenu;
+	}
+
+	public Map getCountries() {
         CountryModel model = new CountryModel();
         return model.getCountries(getRequest().getLocale());
     }
