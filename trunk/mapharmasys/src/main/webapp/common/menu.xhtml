@@ -1,0 +1,51 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+	
+	<div class="nav-collapse collapse">
+		<ui:param name="currentMenu" value="#{basePage.currentMenu}" />
+		<ul class="nav nav-pills">
+			<li class="#{fn:contains(currentMenu, 'mainMenu') ? 'active' : ''}">
+				<a href="#{facesContext.externalContext.requestContextPath}/mainMenu">#{text['mainMenu.title']}</a>
+			</li>
+
+			<li class="#{fn:contains(currentMenu, 'vente') ? 'active' : ''}">
+				<a href="#{facesContext.externalContext.requestContextPath}/vente/commandes">#{text['menu.vente']}</a>
+			</li>
+
+			<li class="#{fn:contains(currentMenu, 'echange') ? 'active' : ''}">
+				<a href="#{facesContext.externalContext.requestContextPath}/echange/echanges">#{text['menu.echange']}</a>
+			</li>
+
+			<li class="#{fn:contains(currentMenu, 'stock') ? 'active' : ''}">
+				<a href="#{facesContext.externalContext.requestContextPath}/stock/medicaments">#{text['menu.stock']}</a>
+			</li>
+
+			<li class="#{fn:contains(currentMenu, 'admin') ? 'active' : ''}">
+				<a href="#{facesContext.externalContext.requestContextPath}/admin/users">#{text['menu.admin']}</a>
+			</li>
+		</ul>
+	</div>
+	<div class="btn-group pull-right" >
+		<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+			<i class="icon-user"></i><span class="hidden-phone"> 
+				<c:if test="#{facesContext.externalContext.request.remoteUser != null}">
+	            	#{facesContext.externalContext.request.remoteUser}
+	            </c:if></span>
+			<span class="caret"></span>
+		</a>
+		<ul class="dropdown-menu">
+			<li>
+				<a href="#{facesContext.externalContext.requestContextPath}/editProfile">#{text['menu.user']}</a>
+			</li>
+			<li class="divider"></li>
+			<li>
+				<a href="#{facesContext.externalContext.requestContextPath}/logout">#{text['user.logout']}</a>
+			</li>
+		</ul>
+	</div>
+</ui:composition>

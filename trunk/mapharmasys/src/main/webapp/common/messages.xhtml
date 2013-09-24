@@ -1,0 +1,26 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<c:if test="${not empty errors}">
+    <div class="alert alert-error fade in">
+        <a href="#" data-dismiss="alert" class="close"></a>
+        <c:forEach var="error" items="${errors}">
+            <h:outputFormat value="${error}"/><br />
+        </c:forEach>
+    </div>
+</c:if>
+
+<c:if test="${not empty messages}">
+    <div class="alert alert-success fade in">
+        <a href="#" data-dismiss="alert" class="close"></a>
+        <c:forEach var="msg" items="${messages}">
+            <h:outputFormat value="${msg}"/><br />
+        </c:forEach>
+    </div>
+</c:if>
+
+</ui:composition>

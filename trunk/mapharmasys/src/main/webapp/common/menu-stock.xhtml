@@ -1,0 +1,46 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:form>	
+<ui:param name="currentMenu" value="#{basePage.currentMenu}" />
+<div class="nav-collapse collapse">
+<ul class="nav nav-tabs nav-stacked">
+	<li class="breadcrumb">#{text['menu.stock.title.medicament']}</li>
+	
+	<li class="#{fn:contains(currentMenu, 'medicamentForm') ? 'active' : ''}">
+        <h:commandLink value="#{text['menu.stock.add.medicament']}" action="/stock/medicamentForm"/>
+    </li>
+    
+    <li class="#{fn:contains(currentMenu, 'medicaments') ? 'active' : ''}">
+        <h:commandLink value="#{text['menu.stock.list.medicament']}" action="/stock/medicaments"/>
+    </li>
+</ul>
+
+<ul class="nav nav-tabs nav-stacked">
+	<li class="breadcrumb">#{text['menu.stock.title.bl']}</li>
+	
+	<li class="#{fn:contains(currentMenu, 'bonLivraisonForm') ? 'active' : ''}">
+        <h:commandLink value="#{text['menu.stock.add.bl']}" action="#{bonLivraisonForm.edit}"/>
+    </li>
+    
+    <li class="#{fn:contains(currentMenu, 'bonLivraisons') ? 'active' : ''}">
+        <h:commandLink value="#{text['menu.stock.list.bl']}" action="/stock/bonLivraisons"/>
+    </li>
+</ul>
+
+<ul class="nav nav-tabs nav-stacked">
+	<li class="breadcrumb">#{text['menu.stock.title.fournisseur']}</li>
+	
+	<li class="#{fn:contains(currentMenu, 'fournisseurForm') ? 'active' : ''}">
+        <h:commandLink value="#{text['menu.stock.add.fournisseur']}" action="/stock/fournisseurForm"/>
+    </li>
+    
+    <li class="#{fn:contains(currentMenu, 'fournisseurs') ? 'active' : ''}">
+        <h:commandLink value="#{text['menu.stock.list.fournisseur']}" action="/stock/fournisseurs"/>
+    </li>
+</ul>
+</div>
+</h:form>
+</ui:composition>
