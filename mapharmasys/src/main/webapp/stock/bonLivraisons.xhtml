@@ -1,150 +1,182 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/common/template.xhtml">
+	<ui:define name="content">
 
-<f:view>
-	<f:loadBundle var="text" basename="#{bonLivraisonList.bundleName}" />
-	<h:head>
-		<title>#{text['bonLivraisonList.title']}</title>
-		<meta name="heading" content="#{text['bonLivraisonList.heading']}" />
-		<meta name="menu" content="StockMenu" />
-	</h:head>
-	<body id="bonLivraisonList">
+		<f:view>
+			<f:loadBundle var="text" basename="#{bonLivraisonList.bundleName}" />
+			<h:head>
+				<title>#{text['bonLivraisonList.title']}</title>
+				<meta name="heading" content="#{text['bonLivraisonList.heading']}" />
+				<meta name="menu" content="StockMenu" />
+			</h:head>
+			<body id="bonLivraisonList">
 
-		<h2>#{text['bonLivraisonList.heading']}</h2>
+				<h2>#{text['bonLivraisonList.heading']}</h2>
 
-		<p>#{text['bonLivraisonList.message']}</p>
+				<p>#{text['bonLivraisonList.message']}</p>
 
-		<h:form id="editBonLivraison">
+				<h:form id="editBonLivraison">
 
-			<p:dataTable id="bonLivraisons" var="bonLivraison"
-				styleClass="table table-striped table-hover"
-				value="#{bonLivraisonList.bonLivraisons}"
-				sortBy="#{bonLivraisonList.sortColumn}" paginator="true" rows="15"
-				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-				rowsPerPageTemplate="15,25,50">
+					<p:dataTable id="bonLivraisons" var="bonLivraison"
+						styleClass="table table-striped table-hover"
+						value="#{bonLivraisonList.bonLivraisons}"
+						sortBy="#{bonLivraisonList.sortColumn}" paginator="true" rows="15"
+						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="15,25,50">
 
 
-				<p:column headerText="#{text['bonLivraison.numDoc']}"
-					filterBy="#{bonLivraison.numDoc}" filterMatchMode="startsWith">
-					<h:outputText value="#{bonLivraison.numDoc}" escape="true" />
-				</p:column>
+						<p:column headerText="#{text['bonLivraison.numDoc']}"
+							filterBy="#{bonLivraison.numDoc}" filterMatchMode="startsWith">
+							<h:outputText value="#{bonLivraison.numDoc}" escape="true" />
+						</p:column>
 
-				<p:column headerText="#{text['bonLivraison.dateFacturation']}"
-					filterBy="#{bonLivraison.dateFacturation}"
-					filterMatchMode="startsWith">
-					<h:outputText value="#{bonLivraison.dateFacturation}" escape="true" />
-				</p:column>
+						<p:column headerText="#{text['bonLivraison.dateFacturation']}"
+							filterBy="#{bonLivraison.dateFacturation}"
+							filterMatchMode="startsWith">
+							<h:outputText value="#{bonLivraison.dateFacturationString}"
+								escape="true" />
+						</p:column>
 
-				<p:column headerText="#{text['bonLivraison.heureDebut']}"
-					filterBy="#{bonLivraison.heureDebut}" filterMatchMode="startsWith">
-					<h:outputText value="#{bonLivraison.heureDebut}" escape="true" />
-				</p:column>
+						<p:column headerText="#{text['bonLivraison.heureDebut']}"
+							filterBy="#{bonLivraison.heureDebut}"
+							filterMatchMode="startsWith">
+							<h:outputText value="#{bonLivraison.heureDebut}" escape="true" />
+						</p:column>
 
-				<p:column headerText="#{text['bonLivraison.heureFin']}"
-					filterBy="#{bonLivraison.heureFin}" filterMatchMode="startsWith">
-					<h:outputText value="#{bonLivraison.heureFin}" escape="true" />
-				</p:column>
+						<p:column headerText="#{text['bonLivraison.heureFin']}"
+							filterBy="#{bonLivraison.heureFin}" filterMatchMode="startsWith">
+							<h:outputText value="#{bonLivraison.heureFin}" escape="true" />
+						</p:column>
 
-				<p:column headerText="#{text['bonLivraison.montantFactural']}"
-					filterBy="#{bonLivraison.montantFactural}"
-					filterMatchMode="startsWith">
-					<h:outputText value="#{bonLivraison.montantFactural}" escape="true" />
-				</p:column>
+						<p:column headerText="#{text['bonLivraison.montantFactural']}"
+							filterBy="#{bonLivraison.montantFactural}"
+							filterMatchMode="startsWith">
+							<h:outputText value="#{bonLivraison.montantFactural}"
+								escape="true" />
+						</p:column>
 
-				<p:column width="10">
-					<h:commandLink action="#{bonLivraisonForm.edit}"
-						class="icon-pencil" title="#{text['button.edit']}">
-						<f:param name="id" value="#{bonLivraison.id}" />
-						<f:param name="from" value="list" />
-					</h:commandLink>
-				</p:column>
+						<p:column width="10" rendered="#{!bonLivraison.valide}">
+							<h:commandLink action="#{bonLivraisonForm.edit}"
+								class="icon-pencil" title="#{text['button.edit']}">
+								<f:param name="id" value="#{bonLivraison.id}" />
+								<f:param name="from" value="list" />
+							</h:commandLink>
+						</p:column>
 
-				<p:column width="10">
-					<p:commandLink id="detail-bonLivraison"
-						update=":editBonLivraison:display" oncomplete="dlg.show()"
-						styleClass="icon-eye-open" title="#{text['button.view']}">
-						<f:setPropertyActionListener value="#{bonLivraison}"
-							target="#{bonLivraisonForm.bonLivraison}" />
-					</p:commandLink>
-				</p:column>
+						<p:column width="10">
+							<p:commandLink id="detail-bonLivraison"
+								update=":editBonLivraison:display" oncomplete="dlg.show()"
+								styleClass="icon-eye-open" title="#{text['button.view']}">
+								<f:setPropertyActionListener value="#{bonLivraison}"
+									target="#{bonLivraisonForm.bonLivraison}" />
+								<f:setPropertyActionListener value="#{bonLivraison.id}"
+									target="#{bonLivraisonForm.id}" />
+							</p:commandLink>
+						</p:column>
+						
+						<p:column width="10" rendered="#{!bonLivraison.valide}">
+							<h:commandLink action="#{bonLivraisonForm.delete}"
+								onclick="return confirmMessage('#{text['bonLivraison.delete.confirm']}')"
+								class="icon-trash" title="#{text['button.delete']}">
+								<f:param name="id" value="#{bonLivraison.id}" />
+								<f:param name="from" value="list" />
+							</h:commandLink>
+						</p:column>
+						
+						<p:column width="10" rendered="#{!bonLivraison.valide}">
+							<h:commandLink action="#{bonLivraisonForm.validateBonLivraison}"
+								onclick="return confirmMessage('#{text['bonLivraison.valide.confirm']}')"
+								class="icon-ok" title="#{text['button.valide']}">
+								<f:param name="id" value="#{bonLivraison.id}" />
+								<f:param name="from" value="list" />
+							</h:commandLink>
+						</p:column>
+					</p:dataTable>
 
-				<p:column width="10">
-					<h:commandLink action="#{bonLivraisonForm.delete}"
-						onclick="return confirmMessage('#{text['bonLivraison.delete.confirm']}')"
-						class="icon-trash" title="#{text['button.view']}">
-						<f:param name="id" value="#{bonLivraison.id}" />
-						<f:param name="from" value="list" />
-					</h:commandLink>
-				</p:column>
-			</p:dataTable>
-
-			<p:dialog header="#{text['bonLivraisonDetail.title']}"
-				resizable="false" width="40%" id="display" widgetVar="dlg"
-				showEffect="fade" hideEffect="highlight" modal="true">
-				<h:form id="bonLivraisonForm" styleClass="form-horizontal">
-
-					<div class="control-group">
-						<h:outputLabel styleClass="control-label"
-							value="#{text['bonLivraison.numDoc']}" />
-						<div class="controls">
-							<h:outputLabel styleClass="control-label"
-								value="#{bonLivraisonForm.bonLivraison.numDoc}" />
-						</div>
-					</div>
-
-					<div class="control-group">
-						<h:outputLabel styleClass="control-label"
-							value="#{text['bonLivraison.dateFacturation']}" />
-						<div class="controls">
-							<h:outputLabel styleClass="control-label"
-								value="#{bonLivraisonForm.bonLivraison.dateFacturation}" />
-						</div>
-					</div>
-
-					<div class="control-group">
-						<h:outputLabel styleClass="control-label"
-							value="#{text['bonLivraison.heureDebut']}" />
-						<div class="controls">
-							<h:outputLabel styleClass="control-label"
-								value="#{bonLivraisonForm.bonLivraison.heureDebut}" />
-						</div>
-					</div>
-					
-					<div class="control-group">
-						<h:outputLabel styleClass="control-label"
-							value="#{text['bonLivraison.heureFin']}" />
-						<div class="controls">
-							<h:outputLabel styleClass="control-label"
-								value="#{bonLivraisonForm.bonLivraison.heureFin}" />
-						</div>
-					</div>
-
-					<div class="control-group">
-						<h:outputLabel styleClass="control-label"
-							value="#{text['bonLivraison.montantFactural']}" />
-						<div class="controls">
-							<h:outputLabel styleClass="control-label"
-								value="#{bonLivraisonForm.bonLivraison.montantFactural}" />
-						</div>
-					</div>
-
+						<p:dialog header="#{text['bonLivraisonDetail.title']}"
+							resizable="false" width="40%" id="display" widgetVar="dlg"
+							showEffect="fade" hideEffect="highlight" modal="true">
+							<h:form id="bonLivraisonForm" styleClass="form-horizontal">
+	
+								<div class="control-group">
+									<h:outputLabel styleClass="control-label"
+										value="#{text['bonLivraison.numDoc']}" />
+									<div class="controls">
+										<h:outputLabel styleClass="control-label"
+											value="#{bonLivraisonForm.bonLivraison.numDoc}" />
+									</div>
+								</div>
+	
+								<div class="control-group">
+									<h:outputLabel styleClass="control-label"
+										value="#{text['bonLivraison.dateFacturation']}" />
+									<div class="controls">
+										<h:outputLabel styleClass="control-label"
+											value="#{bonLivraisonForm.bonLivraison.dateFacturation}" />
+									</div>
+								</div>
+	
+								<div class="control-group">
+									<h:outputLabel styleClass="control-label"
+										value="#{text['bonLivraison.heureDebut']}" />
+									<div class="controls">
+										<h:outputLabel styleClass="control-label"
+											value="#{bonLivraisonForm.bonLivraison.heureDebut}" />
+									</div>
+								</div>
+	
+								<div class="control-group">
+									<h:outputLabel styleClass="control-label"
+										value="#{text['bonLivraison.heureFin']}" />
+									<div class="controls">
+										<h:outputLabel styleClass="control-label"
+											value="#{bonLivraisonForm.bonLivraison.heureFin}" />
+									</div>
+								</div>
+	
+								<div class="control-group">
+									<h:outputLabel styleClass="control-label"
+										value="#{text['bonLivraison.montantFactural']}" />
+									<div class="controls">
+										<h:outputLabel styleClass="control-label"
+											value="#{bonLivraisonForm.bonLivraison.montantFactural}" />
+									</div>
+								</div>
+								
+						<p:dataTable id="ligneBonLivraisonList" var="ligneBonLivraison"
+						value="#{bonLivraisonForm.bonLivraison.ligneBonLivraisons}">
+	
+						<p:column>
+							<f:facet name="header">
+								<p:column sortBy="dateFacturation">
+									<h:outputText value="#{text['bonLivraison.lbl.medicament']}" />
+								</p:column>
+							</f:facet>
+							<h:outputText value="#{ligneBonLivraison.medicament.libelle}"
+								escape="true" />
+						</p:column>
+	
+						<p:column width="10" headerText="#{text['bonLivraison.lbl.nbrMedicament']}">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{ligneBonLivraison.nbrMedicament}"
+										escape="true" />
+								</f:facet>
+								<f:facet name="input">
+									<h:inputText value="#{ligneBonLivraison.nbrMedicament}" />
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
+					</p:dataTable>
+						</h:form>
+					</p:dialog>
 				</h:form>
-			</p:dialog>
-
-			<p:ajaxStatus
-				style="width:64px;height:64px;position:fixed;right:5px;bottom:5px">
-				<f:facet name="start">
-					<p:graphicImage value="/images/ajax-loader.gif" />
-				</f:facet>
-
-				<f:facet name="complete">
-					<h:outputText value="" />
-				</f:facet>
-			</p:ajaxStatus>
-		</h:form>
-	</body>
-</f:view>
-</html>
+			</body>
+		</f:view>
+	</ui:define>
+</ui:composition>
