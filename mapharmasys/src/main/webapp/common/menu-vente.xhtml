@@ -1,0 +1,34 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:form>	
+<ui:param name="currentMenu" value="#{basePage.currentMenu}" />
+<div class="nav-collapse collapse">
+<ul class="nav nav-tabs nav-stacked">
+	<li class="breadcrumb">#{text['menu.vente.title.vente']}</li>
+	
+	<li class="#{fn:contains(currentMenu, 'commandeForm') ? 'active' : ''}">
+        <h:commandLink value="#{text['menu.vente.add.vente']}" action="/vente/commandeForm"/>
+    </li>
+    
+    <li class="#{fn:contains(currentMenu, 'commandes') ? 'active' : ''}">
+        <h:commandLink value="#{text['menu.vente.list.vente']}" action="/vente/commandes"/>
+    </li>
+</ul>
+
+<ul class="nav nav-tabs nav-stacked">
+	<li class="breadcrumb">#{text['menu.vente.title.client']}</li>
+	
+	<li class="#{fn:contains(currentMenu, 'clientForm') ? 'active' : ''}">
+        <h:commandLink value="#{text['menu.vente.add.client']}" action="/vente/clientForm"/>
+    </li>
+    
+    <li class="#{fn:contains(currentMenu, 'clients') ? 'active' : ''}">
+        <h:commandLink value="#{text['menu.vente.list.client']}" action="/vente/clients"/>
+    </li>
+</ul>
+</div>
+</h:form>
+</ui:composition>
