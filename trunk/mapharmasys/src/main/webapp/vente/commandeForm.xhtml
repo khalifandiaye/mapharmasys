@@ -5,6 +5,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
 	template="/common/template.xhtml">	
+<ui:define name="content">
 
 <f:view>
 <f:loadBundle var="text" basename="#{commandeForm.bundleName}"/>
@@ -20,10 +21,12 @@
 </script>
 
 <div class="span2">
-    <h2>#{text['commandeDetail.heading']}</h2>
 </div>
 <div class="span7">
-<h:form id="commandeForm" styleClass="well form-horizontal">
+<div class="breadcrumb" style="text-align: center;">
+			<h2>#{text['commandeDetail.heading']}</h2>
+		</div>
+<h:form id="commandeForm" styleClass="form-horizontal">
 <div class="control-group">
     <h:inputHidden value="#{commandeForm.commande.id}" id="id"/>
 </div>
@@ -87,19 +90,9 @@
         <p:message for="typeVente"/>
     </div>
 </div>
-<div class="control-group">
-    <h:outputLabel styleClass="control-label" for="valide" value="#{text['commande.valide']}"/>
-    <div class="controls">
-        <h:selectBooleanCheckbox value="#{commandeForm.commande.valide}" id="valide"/>
-        <p:message for="valide"/>
-    </div>
-</div>
     <div class="form-actions">
         <h:commandButton value="#{text['button.save']}" action="#{commandeForm.save}"
             id="save" styleClass="btn btn-primary"/>
-
-            <h:commandButton value="#{text['button.delete']}" action="#{commandeForm.delete}"
-                id="delete" styleClass="btn" onclick="return confirmMessage(msgDelConfirm)"/>
 
         <h:commandButton value="#{text['button.cancel']}" action="cancel" immediate="true"
             id="cancel" styleClass="btn"/>

@@ -239,6 +239,14 @@ public class Commande extends BaseObject{
 		return nbrMedicament;
 	}
 	
+	public float getMontantTotal() {
+		return montantTotal;
+	}
+
+	public int getNbrMedicamentTotal() {
+		return nbrMedicamentTotal;
+	}
+
 	@Override
 	public String toString() {
 		return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE)
