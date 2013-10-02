@@ -1,0 +1,152 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/common/template.xhtml">
+	<ui:define name="content">
+		<f:view>
+			<f:loadBundle var="text" basename="#{clientForm.bundleName}" />
+			<h:head>
+				<title>#{text['clientDetail.title']}</title>
+				<meta name="heading" content="#{text['clientDetail.heading']}" />
+				<meta name="menu" content="VenteMenu" />
+			</h:head>
+
+			<div class="span1"></div>
+			<div class="span10">
+				<div class="breadcrumb" style="text-align: center;">
+					<h2>#{text['clientDetail.heading']}</h2>
+				</div>
+
+				<h:form id="clientDetailForm" styleClass="form-horizontal">
+
+					<div class="control-group">
+						<h:outputLabel styleClass="control-label" for="cin"
+							value="#{text['client.cin']}" />
+						<div class="controls">
+							<h:outputLabel id="cin" styleClass="control-label"
+								value="#{clientForm.client.cin}" />
+						</div>
+					</div>
+
+					<div class="control-group">
+						<h:outputLabel styleClass="control-label" for="nom"
+							value="#{text['client.nom']}" />
+						<div class="controls">
+							<h:outputLabel id="nom" styleClass="control-label"
+								value="#{clientForm.client.nom}" />
+						</div>
+					</div>
+
+					<div class="control-group">
+						<h:outputLabel styleClass="control-label" for="prenom"
+							value="#{text['client.prenom']}" />
+						<div class="controls">
+							<h:outputLabel id="prenom" styleClass="control-label"
+								value="#{clientForm.client.prenom}" />
+						</div>
+					</div>
+
+					<div class="control-group">
+						<h:outputLabel styleClass="control-label" for="telephone"
+							value="#{text['client.telephone']}" />
+						<div class="controls">
+							<h:outputLabel id="telephone" styleClass="control-label"
+								value="#{clientForm.client.telephone}" />
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<h:outputLabel styleClass="control-label" for="reste"
+							value="#{text['credit.reste']}" />
+						<div class="controls">
+							<h:outputLabel id="reste" styleClass="control-label"
+								value="#{clientForm.client.totalReste}" />
+						</div>
+					</div>
+
+					<div class="breadcrumb" style="text-align: center; width: 40%;">
+						<h3>#{text['clientDetail.heading']}</h3>
+					</div>
+					<p:dataTable id="credits" var="credit"
+						value="#{clientForm.client.credits}"
+						styleClass="table table-striped table-hover"
+						sortBy="#{clientList.sortColumn}" paginator="true" rows="5"
+						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15">
+
+						<p:column headerText="#{text['credit.commande.reference']}"
+							filterBy="#{client.cin}" filterMatchMode="startsWith">
+							<h:outputText value="#{credit.commande.reference}" escape="true" />
+						</p:column>
+
+						<p:column headerText="#{text['credit.dateCredit']}"
+							filterBy="#{client.cin}" filterMatchMode="startsWith">
+							<h:outputText value="#{credit.dateCredit}" escape="true" />
+						</p:column>
+
+						<p:column headerText="#{text['commande.lcmd.montant']}"
+							filterBy="#{client.nom}" filterMatchMode="contains">
+							<h:outputText value="#{credit.commande.montantTotal}"
+								escape="true" />
+						</p:column>
+
+						<p:column width="10">
+							<h:commandLink id="detail-client" action="#{commandeForm.detail}"
+								class="icon-eye-open" title="#{text['button.edit']}">
+								<f:param name="id" value="#{client.id}" />
+								<f:param name="from" value="list" />
+							</h:commandLink>
+						</p:column>
+
+						<p:columnGroup type="footer">
+							<p:row>
+								<p:column colspan="2" style="text-align:right"
+									footerText="#{text['credit.totalCredit']}" />
+								<p:column footerText="#{clientForm.client.totalCredit}" />
+							</p:row>
+						</p:columnGroup>
+
+					</p:dataTable>
+
+					<div class="breadcrumb" style="text-align: center; width: 40%;">
+						<h3>#{text['clientDetail.heading']}</h3>
+					</div>
+					<p:dataTable id="avances" var="avance"
+						value="#{clientForm.client.avances}"
+						styleClass="table table-striped table-hover"
+						sortBy="#{clientList.sortColumn}" paginator="true" rows="5"
+						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15">
+
+						<p:column headerText="#{text['avance.dateAvance']}"
+							filterBy="#{client.cin}" filterMatchMode="startsWith">
+							<h:outputText value="#{avance.dateAvance}" escape="true" />
+						</p:column>
+
+						<p:column headerText="#{text['avance.avance']}"
+							filterBy="#{client.cin}" filterMatchMode="startsWith">
+							<h:outputText value="#{avance.avance}" escape="true" />
+						</p:column>
+
+						<p:columnGroup type="footer">
+							<p:row>
+								<p:column colspan="1" style="text-align:right"
+									footerText="#{text['avance.totalAvance']}" />
+								<p:column footerText="#{clientForm.client.totalAvance}" />
+							</p:row>
+						</p:columnGroup>
+					</p:dataTable>
+
+					<div class="form-actions">
+						<h:commandLink value="#{text['button.cancel']}"
+							action="/vente/clients" immediate="true" id="cancel"
+							styleClass="btn" />
+					</div>
+				</h:form>
+			</div>
+		</f:view>
+	</ui:define>
+</ui:composition>
