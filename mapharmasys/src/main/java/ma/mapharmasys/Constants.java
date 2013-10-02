@@ -96,7 +96,6 @@ public final class Constants {
     
     public enum TypeVente{
     	NORMAL,
-    	FACTURE,
     	CREDIT;
     }
 }

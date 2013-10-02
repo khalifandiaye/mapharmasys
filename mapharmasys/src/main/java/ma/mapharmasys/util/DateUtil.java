@@ -71,6 +71,18 @@ public final class DateUtil {
 
         return (returnValue);
     }
+    
+    public static String getDate(Date aDate, String patern) {
+        SimpleDateFormat df;
+        String returnValue = "";
+
+        if (aDate != null) {
+            df = new SimpleDateFormat(patern);
+            returnValue = df.format(aDate);
+        }
+
+        return (returnValue);
+    }
 
     /**
      * This method generates a string representation of a date/time

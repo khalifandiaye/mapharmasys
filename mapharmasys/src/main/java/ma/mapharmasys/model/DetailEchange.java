@@ -63,6 +63,12 @@ public class DetailEchange extends BaseObject {
 		this.qteMedicament = qteMedicament;
 		this.valeur = valeur;
 	}
+	
+	public DetailEchange(Medicament medicament, int qteMedicament) {
+		super();
+		this.medicament = medicament;
+		this.qteMedicament = qteMedicament;
+	}
 
 	/*
 	 * getters/setter

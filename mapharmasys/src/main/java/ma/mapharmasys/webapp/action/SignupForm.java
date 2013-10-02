@@ -79,13 +79,4 @@ public class SignupForm extends BasePage implements Serializable {
         return "mainMenu";
     }
 
-    public String getCountry() {
-        return getUser().getAddress().getCountry();
-    }
-
-    // for some reason, the country drop-down won't do 
-    // getUser().getAddress().setCountry(value)
-    public void setCountry(String country) {
-        getUser().getAddress().setCountry(country);
-    }
 }
