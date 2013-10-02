@@ -5,7 +5,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
 	template="/common/template.xhtml">	
-
+<ui:define name="content">
 <f:view>
 	<f:loadBundle var="text" basename="#{clientForm.bundleName}" />
 	<h:head>
@@ -20,20 +20,20 @@
 	</script>
 
 	<div class="span2"></div>
-	<div class="span7">
+	<div class="span8">
 		<div class="breadcrumb" style="text-align: center;">
 			<h2>#{text['clientDetail.heading']}</h2>
 		</div>
-		<h:form id="clientForm" styleClass="well form-horizontal">
+		<h:form id="clientForm" styleClass="form-horizontal">
 			<div class="control-group">
 				<h:inputHidden value="#{clientForm.client.id}" id="id" />
 			</div>
-			<div class="control-group"></div>
+
 			<div class="control-group">
 				<h:outputLabel styleClass="control-label" for="cin"
 					value="#{text['client.cin']}" />
 				<div class="controls">
-					<h:inputText id="cin" value="#{clientForm.client.cin}"
+					<h:inputText id="cin" value="#{clientForm.client.cin}" styleClass="input-medium"
 						required="false" maxlength="15" />
 					<p:message for="cin" />
 				</div>
@@ -42,7 +42,7 @@
 				<h:outputLabel styleClass="control-label" for="nom"
 					value="#{text['client.nom']}" />
 				<div class="controls">
-					<h:inputText id="nom" value="#{clientForm.client.nom}"
+					<h:inputText id="nom" value="#{clientForm.client.nom}" styleClass="input-large"
 						required="false" maxlength="50" />
 					<p:message for="nom" />
 				</div>
@@ -51,7 +51,7 @@
 				<h:outputLabel styleClass="control-label" for="prenom"
 					value="#{text['client.prenom']}" />
 				<div class="controls">
-					<h:inputText id="prenom" value="#{clientForm.client.prenom}"
+					<h:inputText id="prenom" value="#{clientForm.client.prenom}" styleClass="input-large"
 						required="false" maxlength="50" />
 					<p:message for="prenom" />
 				</div>
@@ -60,18 +60,16 @@
 				<h:outputLabel styleClass="control-label" for="telephone"
 					value="#{text['client.telephone']}" />
 				<div class="controls">
-					<h:inputText id="telephone" value="#{clientForm.client.telephone}"
-						required="false" maxlength="15" />
+					<h:inputText id="telephone" value="#{clientForm.client.telephone}" styleClass="input-large"
+						required="false" maxlength="15" validatorMessage="#{text['client.telephone.error']}">
+						<f:validateRegex pattern="^[0-9]+[- ]?[0-9]+|^$ " />
+					</h:inputText>
 					<p:message for="telephone" />
 				</div>
 			</div>
 			<div class="form-actions">
 				<h:commandButton value="#{text['button.save']}"
 					action="#{clientForm.save}" id="save" styleClass="btn btn-primary" />
-
-				<h:commandButton value="#{text['button.delete']}"
-					action="#{clientForm.delete}" id="delete" styleClass="btn"
-					onclick="return confirmMessage(msgDelConfirm)" />
 
 				<h:commandButton value="#{text['button.cancel']}" action="cancel"
 					immediate="true" id="cancel" styleClass="btn" />

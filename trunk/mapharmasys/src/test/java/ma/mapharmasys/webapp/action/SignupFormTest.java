@@ -39,8 +39,6 @@ public class SignupFormTest extends BasePageTestCase {
 
         Address address = new Address();
         address.setCity("Denver");
-        address.setProvince("CO");
-        address.setCountry("USA");
         address.setPostalCode("80210");
         user.setAddress(address);
 

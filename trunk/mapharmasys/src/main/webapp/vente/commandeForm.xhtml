@@ -4,101 +4,245 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
-	template="/common/template.xhtml">	
-<ui:define name="content">
+	template="/common/template.xhtml">
+	<ui:define name="content">
 
-<f:view>
-<f:loadBundle var="text" basename="#{commandeForm.bundleName}"/>
-<h:head>
-    <title>#{text['commandeDetail.title']}</title>
-    <meta name="heading" content="#{text['commandeDetail.heading']}"/>
-    <meta name="menu" content="VenteMenu"/>
-</h:head>
+		<f:view>
+			<f:loadBundle var="text" basename="#{commandeForm.bundleName}" />
+			<h:head>
+				<title>#{text['commandeDetail.title']}</title>
+				<meta name="heading" content="#{text['commandeDetail.heading']}" />
+				<meta name="menu" content="VenteMenu" />
+			</h:head>
 
-<c:set var="delObject" value="#{text['commandeList.commande']}"/>
-<script type="text/javascript">var msgDelConfirm =
-   "<h:outputFormat value="#{text['delete.confirm']}"><f:param value="#{delObject}" /></h:outputFormat>";
-</script>
+			<c:set var="delObject" value="#{text['commandeList.commande']}" />
+			<script type="text/javascript">
+				var msgDelConfirm = "<h:outputFormat value="#{text['delete.confirm']}"><f:param value="#{delObject}" /></h:outputFormat>";
+			</script>
+			<div class="span1" />
+			<div class="span9">
+				<div class="breadcrumb" style="text-align: center;">
+					<h2>#{text['commandeDetail.heading']}</h2>
+				</div>
+				<h:form id="commandeForm" styleClass="form-horizontal">
+					<div class="control-group">
+						<h:inputHidden value="#{commandeForm.commande.id}" id="id" />
+					</div>
 
-<div class="span2">
-</div>
-<div class="span7">
-<div class="breadcrumb" style="text-align: center;">
-			<h2>#{text['commandeDetail.heading']}</h2>
-		</div>
-<h:form id="commandeForm" styleClass="form-horizontal">
-<div class="control-group">
-    <h:inputHidden value="#{commandeForm.commande.id}" id="id"/>
-</div>
-<div class="control-group">
-    <div class="controls">
-        <!-- todo: change this to read the identifier field from the other pojo -->
-        <h:selectOneMenu value="#{commandeForm.commande.client}" id="client" required="false" styleClass="select">
-            <f:selectItems value="#{commandeForm.commande.client}"/>
-        </h:selectOneMenu>
-        <p:message for="client"/>
-    </div>
-</div>
-<div class="control-group">
-    <h:outputLabel styleClass="control-label" for="dateCommande" value="#{text['commande.dateCommande']}"/>
-    <div class="controls">
-        <h:inputText id="dateCommande" value="#{commandeForm.commande.dateCommande}" required="false">
-            <f:convertDateTime pattern="#{text['date.format']}"/>
-        </h:inputText>
-        <p:message for="dateCommande"/>
-    </div>
-</div>
-<div class="control-group">
-    <h:outputLabel styleClass="control-label" for="heure" value="#{text['commande.heure']}"/>
-    <div class="controls">
-        <h:inputText id="heure" value="#{commandeForm.commande.heure}" required="false" maxlength="255"/>
-        <p:message for="heure"/>
-    </div>
-</div>
-<div class="control-group">
-    <h:outputLabel styleClass="control-label" for="minute" value="#{text['commande.minute']}"/>
-    <div class="controls">
-        <h:inputText id="minute" value="#{commandeForm.commande.minute}" required="false" maxlength="255"/>
-        <p:message for="minute"/>
-    </div>
-</div>
-<div class="control-group">
-    <h:outputLabel styleClass="control-label" for="montantTotal" value="#{text['commande.montantTotal']}"/>
-    <div class="controls">
-        <h:inputText id="montantTotal" value="#{commandeForm.commande.montantTotal}" required="false" maxlength="255"/>
-        <p:message for="montantTotal"/>
-    </div>
-</div>
-<div class="control-group">
-    <h:outputLabel styleClass="control-label" for="nbrMedicamentTotal" value="#{text['commande.nbrMedicamentTotal']}"/>
-    <div class="controls">
-        <h:inputText id="nbrMedicamentTotal" value="#{commandeForm.commande.nbrMedicamentTotal}" required="false" maxlength="255"/>
-        <p:message for="nbrMedicamentTotal"/>
-    </div>
-</div>
-<div class="control-group">
-    <h:outputLabel styleClass="control-label" for="numero" value="#{text['commande.numero']}"/>
-    <div class="controls">
-        <h:inputText id="numero" value="#{commandeForm.commande.numero}" required="false" maxlength="255"/>
-        <p:message for="numero"/>
-    </div>
-</div>
-<div class="control-group">
-    <h:outputLabel styleClass="control-label" for="typeVente" value="#{text['commande.typeVente']}"/>
-    <div class="controls">
-        <h:inputText id="typeVente" value="#{commandeForm.commande.typeVente}" required="false" maxlength="255"/>
-        <p:message for="typeVente"/>
-    </div>
-</div>
-    <div class="form-actions">
-        <h:commandButton value="#{text['button.save']}" action="#{commandeForm.save}"
-            id="save" styleClass="btn btn-primary"/>
+					<div class="control-group">
+						<h:outputLabel styleClass="control-label" for="reference"
+							value="#{text['commande.reference']}" />
+						<div class="controls">
+							<h:inputText id="reference"
+								value="#{commandeForm.commande.reference}" disabled="true"
+								styleClass="input-large" required="false" maxlength="255" />
+							<p:message for="reference" />
+						</div>
+					</div>
 
-        <h:commandButton value="#{text['button.cancel']}" action="cancel" immediate="true"
-            id="cancel" styleClass="btn"/>
-    </div>
-</h:form>
-</div>
-</f:view>
+					<div class="control-group">
+						<h:outputLabel styleClass="control-label" for="dateCommande"
+							value="#{text['commande.dateCommande']}" />
+						<div class="controls" style="width: 25%">
+							<p:calendar id="dateCommande"
+								value="#{commandeForm.commande.dateCommande}" mode="popup"
+								pattern="dd/MM/yyyy HH:mm" />
+							<p:message for="dateCommande" />
+						</div>
+					</div>
+
+
+					<div class="control-group">
+						<h:outputLabel styleClass="control-label" for="typeVente"
+							value="#{text['commande.typeVente']}" />
+						<div class="controls">
+							<p:selectOneMenu id="typeVente"
+								value="#{commandeForm.commande.typeVente}" immediate="true">
+								<f:selectItems value="#{commandeForm.typeVentes}"
+									var="typeVente" itemLabel="#{typeVente.label}"
+									itemValue="#{typeVente.key}" />
+							</p:selectOneMenu>
+							<p:message for="typeVente" />
+						</div>
+					</div>
+
+					<div class="control-group">
+						<h:outputLabel styleClass="control-label" for="client"
+							value="#{text['commande.client']}" />
+						<div class="controls">
+							<p:selectOneMenu id="client" filter="true"
+								filterMatchMode="contains"
+								value="#{commandeForm.commande.client.id}" immediate="true">
+								<f:selectItem itemLabel="#{text['select.item.empty']}"
+									itemValue="-1" />
+								<f:selectItems value="#{commandeForm.clients}" var="client"
+									itemLabel="#{client.fullName}" itemValue="#{client.id}" />
+							</p:selectOneMenu>
+							<p:message for="client" />
+						</div>
+					</div>
+					
+					
+					
+					<p:panel  header="#{text['commande.add.client']}"  toggleable="true" collapsed="true">
+						<p:ajax event="toggle" listener="#{commandeForm.showHideClient}" update="@this" />
+						<div class="control-group">
+							<h:outputLabel styleClass="control-label" for="cin"
+								value="#{text['client.cin']}" />
+							<div class="controls">
+								<h:inputText id="cin" value="#{commandeForm.client.cin}"
+									styleClass="input-medium" />
+								<p:message for="cin" />
+							</div>
+						</div>
+
+						<div class="control-group">
+							<h:outputLabel styleClass="control-label" for="nom"
+								value="#{text['client.nom']}" />
+							<div class="controls">
+								<h:inputText id="nom" value="#{commandeForm.client.nom}"
+									styleClass="input-large" />
+								<p:message for="nom" />
+							</div>
+						</div>
+
+						<div class="control-group">
+							<h:outputLabel styleClass="control-label" for="prenom"
+								value="#{text['client.prenom']}" />
+							<div class="controls">
+								<h:inputText id="prenom" value="#{commandeForm.client.prenom}"
+									styleClass="input-large" />
+								<p:message for="prenom" />
+							</div>
+						</div>
+
+						<div class="control-group">
+							<h:outputLabel styleClass="control-label" for="telephone"
+								value="#{text['client.telephone']}" />
+							<div class="controls">
+								<h:inputText id="telephone"
+									value="#{commandeForm.client.telephone}"
+									validatorMessage="#{text['client.telephone.error']}"
+									styleClass="input-large">
+									<f:validateRegex pattern="^[0-9]+[- ]?[0-9]+|^$ " />
+								</h:inputText>
+								<p:message for="telephone" />
+							</div>
+						</div>
+					</p:panel>
+
+					<br/>
+
+					<div class="well">
+						<div class="control-group">
+							<h:outputLabel styleClass="control-label" for="medicament"
+								value="#{text['medicament.forme']}" />
+							<div class="controls">
+								<p:selectOneMenu id="medicament"
+									value="#{commandeForm.medicament.id}"
+									filterMatchMode="contains" filter="true" immediate="true">
+									<f:selectItems value="#{commandeForm.medicaments}"
+										var="medicament" itemLabel="#{medicament.libelle}"
+										itemValue="#{medicament.id}" />
+								</p:selectOneMenu>
+								<p:message for="medicament" />
+							</div>
+						</div>
+
+						<div class="control-group">
+							<h:outputLabel styleClass="control-label" for="nbrMedicament"
+								value="#{text['medicament.libelle']}" />
+							<div class="controls">
+								<p:inputText id="nbrMedicament" styleClass="input-mini"
+									value="#{commandeForm.nbrMedicament}" immediate="true"
+									required="true" maxlength="120" />
+								<p:message for="nbrMedicament" />
+							</div>
+						</div>
+
+						<div style="text-align: center;">
+							<p:commandButton value="#{text['menu.stock.add.medicament']}"
+								process="@form" update="ligneCommandeList"
+								action="#{commandeForm.addLigneCommande}" />
+						</div>
+
+						<br />
+
+						<p:dataTable id="ligneCommandeList" var="ligneCommande"
+							value="#{commandeForm.commande.ligneCommandes}" editable="true">
+
+							<p:column>
+								<f:facet name="header">
+									<p:column sortBy="dateFacturation">
+										<h:outputText value="#{text['commande.lcmd.medicament']}" />
+									</p:column>
+								</f:facet>
+								<h:outputText value="#{ligneCommande.medicament.libelle}"
+									escape="true" />
+							</p:column>
+
+							<p:column width="30"
+								headerText="#{text['commande.lcmd.nbrMedicament']}">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{ligneCommande.nbrMedicament}"
+											escape="true" />
+									</f:facet>
+									<f:facet name="input">
+										<h:inputText value="#{ligneCommande.nbrMedicament}" />
+									</f:facet>
+								</p:cellEditor>
+								
+							</p:column>
+
+							<p:column width="30" headerText="#{text['commande.lcmd.prix']}">
+								<h:outputText value="#{ligneCommande.medicament.prixUnit}"
+									escape="true" />
+							</p:column>
+
+							<p:column width="30"
+								headerText="#{text['commande.lcmd.montant']}"
+								footerText="#{text['commande.montantTotal']}">
+								<h:outputText value="#{ligneCommande.montant}" escape="true" />
+							</p:column>
+
+							<p:column width="10">
+								<p:rowEditor />
+							</p:column>
+
+							<p:column width="10">
+								<p:commandLink id="trash-medicament" update="@all"
+									actionListener="#{commandeForm.removeLigneCommande}"
+									styleClass="icon-trash" title="#{text['button.delete']}">
+									<f:setPropertyActionListener
+										value="#{ligneCommande.medicament.id}"
+										target="#{commandeForm.medicament.id}" />
+								</p:commandLink>
+							</p:column>
+
+							<p:columnGroup type="footer">
+								<p:row>
+									<p:column colspan="3" style="text-align:right"
+										footerText="#{text['commande.montantTotal']}" />
+									<p:column footerText="#{commandeForm.commande.montantTotal}" />
+								</p:row>
+							</p:columnGroup>
+
+						</p:dataTable>
+
+					</div>
+					
+
+					<div class="form-actions">
+						<h:commandButton value="#{text['button.save']}"
+							action="#{commandeForm.save}" id="save"
+							styleClass="btn btn-primary" />
+
+						<h:commandButton value="#{text['button.cancel']}" action="cancel"
+							immediate="true" id="cancel" styleClass="btn" />
+					</div>
+				</h:form>
+			</div>
+		</f:view>
 	</ui:define>
 </ui:composition>

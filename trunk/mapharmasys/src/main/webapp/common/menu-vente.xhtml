@@ -10,7 +10,7 @@
 	<li class="breadcrumb">#{text['menu.vente.title.vente']}</li>
 	
 	<li class="#{fn:contains(currentMenu, 'commandeForm') ? 'active' : ''}">
-        <h:commandLink value="#{text['menu.vente.add.vente']}" action="/vente/commandeForm"/>
+        <h:commandLink value="#{text['menu.vente.add.vente']}" action="#{commandeForm.edit}"/>
     </li>
     
     <li class="#{fn:contains(currentMenu, 'commandes') ? 'active' : ''}">

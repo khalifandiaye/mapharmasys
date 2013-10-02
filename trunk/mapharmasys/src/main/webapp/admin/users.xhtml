@@ -1,6 +1,11 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jsp/jstl/core"
-      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" 
-      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/common/template.xhtml">
+	<ui:define name="content">
 <f:view>
 <f:loadBundle var="text" basename="#{userList.bundleName}"/>
 <h:head>
@@ -8,30 +13,11 @@
     <meta name="menu" content="AdminMenu"/>
 </h:head>
 <h:body>
-<div class="span10">
-    <h2>#{text['userList.heading']}</h2>
-
-    <h:form id="searchForm" styleClass="form-search">
-    <div id="search" class="input-append">
-        <h:inputText id="q" size="20" value="#{userList.query}" styleClass="input-medium search-query"/>
-        <h:commandButton styleClass="btn" action="#{userList.search}" value="#{text['button.search']}"/>
-    </div>
-    </h:form>
+    <h2>#{text['userList.title']}</h2>
 
     <h:form id="editUser">
 
-    <div id="actions" class="form-actions">
-        <h:commandButton action="#{userForm.add}" value="#{text['button.add']}" id="add" styleClass="btn btn-primary">
-            <f:param name="from" value="list"/>
-        </h:commandButton>
-        <h:commandButton value="#{text['button.done']}" action="mainMenu" id="cancel"
-            immediate="true" styleClass="btn">
-        </h:commandButton>
-    </div>
-
-    <p:dataTable id="users" var="user" value="#{userList.users}" sortBy="#{userList.sortColumn}" paginator="true" rows="25" 
-                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                 rowsPerPageTemplate="5,10,15">
+    <p:dataTable id="users" var="user" value="#{userList.users}">
         <p:column style="width: 25%">
             <f:facet name="header">
                 <p:column sortBy="username" >
@@ -71,7 +57,7 @@
         </p:column>
     </p:dataTable>
     </h:form>
-</div>
 </h:body>
 </f:view>
-</html>
+</ui:define>
+</ui:composition>

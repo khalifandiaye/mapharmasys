@@ -1,6 +1,11 @@
-<html xmlns="http://www.w3.org/1999/xhtml" 
-      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" 
-      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/common/template.xhtml">
+	<ui:define name="content">
 <f:view>
 <f:loadBundle var="text" basename="#{basePage.bundleName}"/>
 <h:head>
@@ -8,20 +13,13 @@
     <meta name="menu" content="AdminMenu"/>
 </h:head>
 
-<div class="span10">
     <h2>#{text['activeUsers.heading']}</h2>
 
     <p>#{text['activeUsers.message']}</p>
 
-    <div id="actions" class="form-actions">
-        <input type="button" class="btn" onclick="location.href='../mainMenu'" value="#{text['button.done']}"/>
-    </div>
-
     <h:form id="activeUsersForm">
 
-    <p:dataTable id="activeUsers" var="user" value="#{activeUserList.users}" sortBy="#{activeUserList.sortColumn}" paginator="true" rows="25" 
-                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                 rowsPerPageTemplate="5,10,15">
+    <p:dataTable id="activeUsers" var="user" value="#{activeUserList.users}">
         <p:column style="width: 25%">
             <f:facet name="header">
                 <p:column sortBy="username" >
@@ -45,6 +43,6 @@
     </p:dataTable>
    
     </h:form>
-</div>
 </f:view>
-</html>   
+</ui:define>
+</ui:composition>
