@@ -4,6 +4,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import ma.mapharmasys.Constants;
 import ma.mapharmasys.service.LookupManager;
+import ma.mapharmasys.service.MedicamentManager;
+
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.authentication.AuthenticationProvider;
