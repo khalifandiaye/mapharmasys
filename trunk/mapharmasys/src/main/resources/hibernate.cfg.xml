@@ -15,7 +15,10 @@
         <mapping class="ma.mapharmasys.model.Pharmacie"/>
         <mapping class="ma.mapharmasys.model.Commande"/>
         <mapping class="ma.mapharmasys.model.Credit"/>
+        <mapping class="ma.mapharmasys.model.Avance"/>
         <mapping class="ma.mapharmasys.model.Echange"/>
         <mapping class="ma.mapharmasys.model.LigneBonLivraison"/>
+        <mapping class="ma.mapharmasys.model.LigneCommande"/>
+        <mapping class="ma.mapharmasys.model.DetailEchange"/>
     </session-factory>
 </hibernate-configuration>
