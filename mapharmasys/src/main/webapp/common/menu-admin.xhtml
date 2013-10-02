@@ -1,25 +1,29 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:f="http://java.sun.com/jsf/core"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:menu="http://struts-menu.sf.net/tag-el"
-	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-	xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator"
-	xmlns:page="http://www.opensymphony.com/sitemesh/page"
-	xmlns:appfuse="http://www.appfuse.org/tags/jsf"
-	xmlns:sql="http://java.sun.com/jsp/jstl/sql"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
-<menu:useMenuDisplayer name="Velocity" config="navbarMenu.vm" permissions="rolesAdapter">
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:form>	
+<ui:param name="currentMenu" value="#{basePage.currentMenu}" />
 <div class="nav-collapse collapse">
 <ul class="nav nav-tabs nav-stacked">
-	<li class="breadcrumb"><fmt:message key="menu.admin.title.user"/></li>
-    <menu:displayMenu name="AddUserMenu"/>
-    <menu:displayMenu name="ListUserMenu"/>
-    <menu:displayMenu name="ListActiveUserMenu"/>
-    <menu:displayMenu name="ReloadOptionMenu"/>
+	<li class="breadcrumb">#{text['menu.admin']}</li>
+	
+	<li class="#{fn:contains(currentMenu, 'userForm') ? 'active' : ''}">
+        <h:commandLink id="editUser" value="#{text['menu.admin.add.user']}" action="#{userForm.edit}">
+        	<f:param name="from" value="list"></f:param>
+        </h:commandLink>
+    </li>
+    
+    <li class="#{fn:contains(currentMenu, 'users') ? 'active' : ''}">
+        <a href="#{facesContext.externalContext.requestContextPath}/admin/users">#{text['menu.admin.users']}</a>
+    </li>
+    
+    <li class="#{fn:contains(currentMenu, 'activeUsers') ? 'active' : ''}">
+        <h:commandLink id="activeUsers" value="#{text['mainMenu.activeUsers']}" action="/admin/activeUsers"/>
+    </li>
 </ul>
+
 </div>
-</menu:useMenuDisplayer>
-</html>
+</h:form>
+</ui:composition>

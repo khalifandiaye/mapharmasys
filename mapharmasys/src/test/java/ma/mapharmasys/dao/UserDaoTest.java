@@ -114,8 +114,6 @@ public class UserDaoTest extends BaseDaoTestCase {
         user.setLastName("Last");
         Address address = new Address();
         address.setCity("Denver");
-        address.setProvince("CO");
-        address.setCountry("USA");
         address.setPostalCode("80210");
         user.setAddress(address);
         user.setEmail("testuser@appfuse.org");

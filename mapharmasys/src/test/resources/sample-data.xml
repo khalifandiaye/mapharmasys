@@ -8,11 +8,9 @@
         <column>last_name</column>
         <column>address</column>
         <column>city</column>
-        <column>country</column>
         <column>email</column>
         <column>phone_number</column>
         <column>postal_code</column>
-        <column>province</column>
         <column>website</column>
         <column>password_hint</column>
         <column>version</column>
@@ -21,18 +19,16 @@
         <column>account_locked</column>
         <column>credentials_expired</column>
         <row>
-            <value description="id">-1</value>
+            <value description="id">1</value>
             <value description="username">user</value>
             <value description="password">b6b1f4781776979c0775c71ebdd8bdc084aac5fe</value>
             <value description="first_name">Tomcat</value>
             <value description="last_name">User</value>
             <value description="address"></value>
             <value description="city">Denver</value>
-            <value description="country">US</value>
             <value description="email">matt_raible@yahoo.com</value>
             <value description="phone_number"></value>
             <value description="postal_code">80210</value>
-            <value description="province">CO</value>
             <value description="website">http://tomcat.apache.org</value>
             <value description="password_hint"><![CDATA[A male kitty.]]></value>
             <value description="version">1</value>
@@ -42,18 +38,16 @@
             <value description="credentials_expired">0</value>
         </row>
         <row>
-            <value description="id">-2</value>
+            <value description="id">2</value>
             <value description="username">admin</value>
             <value description="password">a40546cc4fd6a12572828bb803380888ad1bfdab</value>
             <value description="first_name">Matt</value>
             <value description="last_name">Raible</value>
             <value description="address"></value>
             <value description="city">Denver</value>
-            <value description="country">US</value>
             <value description="email">matt@raibledesigns.com</value>
             <value description="phone_number"></value>
             <value description="postal_code">80210</value>
-            <value description="province">CO</value>
             <value description="website">http://raibledesigns.com</value>
             <value description="password_hint"><![CDATA[Not a female kitty.]]></value>
             <value description="version">1</value>
@@ -63,18 +57,16 @@
             <value description="credentials_expired">0</value>
         </row>
         <row>
-            <value description="id">-3</value>
+            <value description="id">3</value>
             <value description="username">two_roles_user</value>
             <value description="password">a40546cc4fd6a12572828bb803380888ad1bfdab</value>
             <value description="first_name">Two Roles</value>
             <value description="last_name">User</value>
             <value description="address"></value>
             <value description="city">Denver</value>
-            <value description="country">US</value>
             <value description="email">two_roles_user@appfuse.org</value>
             <value description="phone_number"></value>
             <value description="postal_code">80210</value>
-            <value description="province">CO</value>
             <value description="website">http://raibledesigns.com</value>
             <value description="password_hint"><![CDATA[Not a female kitty.]]></value>
             <value description="version">1</value>
@@ -89,12 +81,12 @@
         <column>name</column>
         <column>description</column>
         <row>
-            <value description="id">-1</value>
+            <value description="id">1</value>
             <value description="name">ROLE_ADMIN</value>
             <value description="description"><![CDATA[Administrator role (can edit Users)]]></value>
         </row>
         <row>
-            <value description="id">-2</value>
+            <value description="id">2</value>
             <value description="name">ROLE_USER</value>
             <value description="description"><![CDATA[Default role for all Users]]></value>
         </row>
@@ -103,20 +95,20 @@
         <column>user_id</column>
         <column>role_id</column>
         <row>
-            <value description="user_id">-1</value>
-            <value description="role_id">-2</value>
+            <value description="user_id">1</value>
+            <value description="role_id">2</value>
         </row>
         <row>
-            <value description="user_id">-2</value>
-            <value description="role_id">-1</value>
+            <value description="user_id">2</value>
+            <value description="role_id">1</value>
         </row>
         <row>
-            <value description="user_id">-3</value>
-            <value description="role_id">-1</value>
+            <value description="user_id">3</value>
+            <value description="role_id">1</value>
         </row>
         <row>
-            <value description="user_id">-3</value>
-            <value description="role_id">-2</value>
+            <value description="user_id">3</value>
+            <value description="role_id">2</value>
         </row>
     </table>
     <!--BonLivraison-START-->
@@ -129,7 +121,7 @@
         <column>num_doc</column>
         <column>valide</column>
     <row>
-        <value description="bon_livraison_id">-1</value>
+        <value description="bon_livraison_id">1</value>
         <value description="date_facturation">2013-08-30</value>
         <value description="heure_debut">2013-08-30</value>
         <value description="heure_fin">2013-08-30</value>
@@ -138,7 +130,7 @@
         <value description="valide">false</value>
     </row>
     <row>
-        <value description="bon_livraison_id">-2</value>
+        <value description="bon_livraison_id">2</value>
         <value description="date_facturation">2013-08-30</value>
         <value description="heure_debut">2013-08-30</value>
         <value description="heure_fin">2013-08-30</value>
@@ -147,7 +139,7 @@
         <value description="valide">false</value>
     </row>
     <row>
-        <value description="bon_livraison_id">-3</value>
+        <value description="bon_livraison_id">3</value>
         <value description="date_facturation">2013-08-30</value>
         <value description="heure_debut">2013-08-30</value>
         <value description="heure_fin">2013-08-30</value>
@@ -165,21 +157,21 @@
         <column>prenom</column>
         <column>telephone</column>
     <row>
-        <value description="client_id">-1</value>
+        <value description="client_id">1</value>
         <value description="cin">WyAwXxPjHxVlHmF</value>
         <value description="nom">Sahimi</value>
         <value description="prenom">Ahmed</value>
         <value description="telephone">065254125</value>
     </row>
     <row>
-        <value description="client_id">-2</value>
+        <value description="client_id">2</value>
         <value description="cin">XfKxZxXkLjEwRiP</value>
         <value description="nom">Latifi</value>
         <value description="prenom">Hicham</value>
         <value description="telephone">0625325145</value>
     </row>
     <row>
-        <value description="client_id">-3</value>
+        <value description="client_id">3</value>
         <value description="cin">RvAjJdOmJeOrKqY</value>
         <value description="nom">Karimi</value>
         <value description="prenom">Khaled</value>
@@ -193,17 +185,17 @@
         <column>libelle</column>
         <column>coefficient_prix_vente</column>
     <row>
-        <value description="forme_id">-1</value>
+        <value description="forme_id">1</value>
         <value description="libelle">Sirop</value>
         <value description="coefficient_prix_vente">0</value>
     </row>
     <row>
-        <value description="forme_id">-2</value>
+        <value description="forme_id">2</value>
         <value description="libelle">Comprimé</value>
         <value description="coefficient_prix_vente">0</value>
     </row>
     <row>
-        <value description="forme_id">-3</value>
+        <value description="forme_id">3</value>
         <value description="libelle">Gélule</value>
         <value description="coefficient_prix_vente">0</value>
     </row>
@@ -215,11 +207,11 @@
         <column>type_medicament_id</column>
         <column>libelle</column>
     <row>
-        <value description="type_medicament">-1</value>
+        <value description="type_medicament">1</value>
         <value description="libelle">Principes</value>
     </row>
     <row>
-        <value description="forme_id">-2</value>
+        <value description="forme_id">2</value>
         <value description="type_medicament">Generique</value>
     </row>
     </table>
@@ -231,17 +223,17 @@
         <column>nom</column>
         <column>telephone</column>
     <row>
-        <value description="fournisseur_id">-1</value>
+        <value description="fournisseur_id">1</value>
         <value description="nom">Bayer SA</value>
         <value description="telephone">0522545452</value>
     </row>
     <row>
-        <value description="fournisseur_id">-2</value>
+        <value description="fournisseur_id">2</value>
         <value description="nom">AFRIC PHAR</value>
         <value description="telephone">052214548754</value>
     </row>
     <row>
-        <value description="fournisseur_id">-3</value>
+        <value description="fournisseur_id">3</value>
         <value description="nom">ROCHE</value>
         <value description="telephone">052224954122</value>
     </row>
@@ -259,10 +251,10 @@
         <column>prix_unitaire_achat</column>
         <column>prix_unitaire</column>
     <row>
-        <value description="medicament_id">-1</value>
+        <value description="medicament_id">1</value>
         <value description="code">6115454847574</value>
         <value description="supprime">0</value>
-        <value description="forme_id">-1</value>
+        <value description="forme_id">1</value>
         <value description="designation">ACIDAC</value>
         <value description="seuil_bas_stock">2</value>
         <value description="quantite_stock">5</value>
@@ -270,10 +262,10 @@
         <value description="prix_unitaire">22.15</value>
     </row>
     <row>
-        <value description="medicament_id">-2</value>
+        <value description="medicament_id">2</value>
         <value description="code">61154545646544</value>
         <value description="supprime">0</value>
-        <value description="forme_id">-2</value>
+        <value description="forme_id">2</value>
         <value description="designation">ALFAPROXINE</value>
         <value description="seuil_bas_stock">2</value>
         <value description="quantite_stock">10</value>
@@ -281,10 +273,10 @@
         <value description="prix_unitaire">27.14</value>
     </row>
     <row>
-        <value description="medicament_id">-3</value>
+        <value description="medicament_id">3</value>
         <value description="code">61154542121</value>
         <value description="supprime">0</value>
-        <value description="forme_id">-3</value>
+        <value description="forme_id">3</value>
         <value description="designation">ANCOTIL</value>
         <value description="seuil_bas_stock">2</value>
         <value description="quantite_stock">7</value>
@@ -299,17 +291,17 @@
         <column>nom</column>
         <column>telephone</column>
     <row>
-        <value description="pharmacie_id">-1</value>
+        <value description="pharmacie_id">1</value>
         <value description="nom">Zoubir</value>
         <value description="telephone">06541254</value>
     </row>
     <row>
-        <value description="pharmacie_id">-2</value>
+        <value description="pharmacie_id">2</value>
         <value description="nom">Assalam</value>
         <value description="telephone">052254545</value>
     </row>
     <row>
-        <value description="pharmacie_id">-3</value>
+        <value description="pharmacie_id">3</value>
         <value description="nom">Karim</value>
         <value description="telephone">05221452145</value>
     </row>

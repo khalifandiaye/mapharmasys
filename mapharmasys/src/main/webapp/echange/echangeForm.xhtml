@@ -4,81 +4,227 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
-	template="/common/template.xhtml">	
+	template="/common/template.xhtml">
+	<ui:define name="content">
+		<f:view>
+			<f:loadBundle var="text" basename="#{echangeForm.bundleName}" />
+			<h:head>
+				<title>#{text['echangeDetail.title']}</title>
+				<meta name="heading" content="#{text['echangeDetail.heading']}" />
+				<meta name="menu" content="EchangeMenu" />
+			</h:head>
 
-<f:view>
-<f:loadBundle var="text" basename="#{echangeForm.bundleName}"/>
-<h:head>
-    <title>#{text['echangeDetail.title']}</title>
-    <meta name="heading" content="#{text['echangeDetail.heading']}"/>
-    <meta name="menu" content="EchangeMenu"/>
-</h:head>
+			<c:set var="delObject" value="#{text['echangeList.echange']}" />
+			<script type="text/javascript">
+				var msgDelConfirm = "<h:outputFormat value="#{text['delete.confirm']}"><f:param value="#{delObject}" /></h:outputFormat>";
+			</script>
 
-<c:set var="delObject" value="#{text['echangeList.echange']}"/>
-<script type="text/javascript">var msgDelConfirm =
-   "<h:outputFormat value="#{text['delete.confirm']}"><f:param value="#{delObject}" /></h:outputFormat>";
-</script>
+				<div class="breadcrumb" style="text-align: center;">
+					<h2>#{text['echangeDetail.heading']}</h2>
+				</div>
+				<h:form id="echangeForm" styleClass="form-horizontal">
+					<div class="control-group">
+						<h:inputHidden value="#{echangeForm.echange.id}" id="id" />
+					</div>
 
-<div class="span2">
+					<p:growl id="growl" sticky="true" showDetail="true" />
 
-</div>
-<div class="span7">
-<div class="breadcrumb" style="text-align: center;"><h2>#{text['echangeDetail.heading']}</h2></div>
-<h:form id="echangeForm" styleClass="well form-horizontal">
-<div class="control-group">
-    <h:inputHidden value="#{echangeForm.echange.id}" id="id"/>
-</div>
-<div class="control-group">
-    <h:outputLabel styleClass="control-label" for="dateEchange" value="#{text['echange.dateEchange']}"/>
-    <div class="controls">
-        <h:inputText id="dateEchange" value="#{echangeForm.echange.dateEchange}" required="false">
-            <f:convertDateTime pattern="#{text['date.format']}"/>
-        </h:inputText>
-        <p:message for="dateEchange"/>
-    </div>
-</div>
-<div class="control-group">
-    <div class="controls">
-        <!-- todo: change this to read the identifier field from the other pojo -->
-        <h:selectOneMenu value="#{echangeForm.echange.pharmacie}" id="pharmacie" required="false" styleClass="select">
-            <f:selectItems value="#{echangeForm.echange.pharmacie}"/>
-        </h:selectOneMenu>
-        <p:message for="pharmacie"/>
-    </div>
-</div>
-<div class="control-group">
-    <h:outputLabel styleClass="control-label" for="qteMedicament" value="#{text['echange.qteMedicament']}"/>
-    <div class="controls">
-        <h:inputText id="qteMedicament" value="#{echangeForm.echange.qteMedicament}" required="false" maxlength="255"/>
-        <p:message for="qteMedicament"/>
-    </div>
-</div>
-<div class="control-group">
-    <h:outputLabel styleClass="control-label" for="typeEchange" value="#{text['echange.typeEchange']}"/>
-    <div class="controls">
-        <h:inputText id="typeEchange" value="#{echangeForm.echange.typeEchange}" required="true" maxlength="255"/>
-        <p:message for="typeEchange"/>
-    </div>
-</div>
-<div class="control-group">
-    <h:outputLabel styleClass="control-label" for="valeurTotal" value="#{text['echange.valeurTotal']}"/>
-    <div class="controls">
-        <h:inputText id="valeurTotal" value="#{echangeForm.echange.valeurTotal}" required="false" maxlength="255"/>
-        <p:message for="valeurTotal"/>
-    </div>
-</div>
-    <div class="form-actions">
-        <h:commandButton value="#{text['button.save']}" action="#{echangeForm.save}"
-            id="save" styleClass="btn btn-primary"/>
+					<p:wizard backLabel="#{text['button.back']}" nextLabel="#{text['button.next']}">
 
-            <h:commandButton value="#{text['button.delete']}" action="#{echangeForm.delete}"
-                id="delete" styleClass="btn" onclick="return confirmMessage(msgDelConfirm)"/>
+						<p:tab id="echangeDetail" title="Echange Detail">
+							<p:panel header="Echange Details">
+								<div class="control-group">
+									<h:outputLabel styleClass="control-label" for="dateEchange"
+										value="#{text['echange.dateEchange']}" />
+									<div class="controls" style="width: 25%">
+										<p:calendar id="dateEchange"
+											value="#{echangeForm.echange.dateEchange}" mode="popup"
+											pattern="dd/MM/yyyy HH:mm" />
+										<p:message for="dateEchange" />
+									</div>
+								</div>
 
-        <h:commandButton value="#{text['button.cancel']}" action="cancel" immediate="true"
-            id="cancel" styleClass="btn"/>
-    </div>
-</h:form>
-</div>
-</f:view>
-</ui:define>
+								<div class="control-group">
+									<h:outputLabel styleClass="control-label" for="pharmacie"
+										value="#{text['echange.pharmacie']}" />
+									<div class="controls">
+										<p:selectOneMenu id="pharmacie" filter="true"
+											filterMatchMode="contains"
+											value="#{echangeForm.echange.pharmacie.id}">
+											<f:selectItems value="#{echangeForm.pharmacies}"
+												var="pharmacie" itemLabel="#{pharmacie.nomPharmacie}"
+												itemValue="#{pharmacie.id}" />
+										</p:selectOneMenu>
+										<p:message for="pharmacie" />
+									</div>
+								</div>
+								
+								<div class="control-group">
+									<h:outputLabel styleClass="control-label" for="typeEchange"
+										value="#{text['echange.typeEchange']}" />
+									<div class="controls">
+										<p:selectOneMenu id="typeEchange"
+											value="#{echangeForm.echange.typeEchange}">
+											<f:selectItems value="#{echangeForm.typeEchanges}"
+												var="typeEchange" itemLabel="#{typeEchange.label}"
+												itemValue="#{typeEchange.key}" />
+										</p:selectOneMenu>
+										<p:message for="typeEchange" />
+									</div>
+								</div>
+							</p:panel>
+						</p:tab>
+
+
+
+						<p:tab id="medicamentEchange" title="Medicaments">
+							<p:panel header="Medicaments Details">
+								<div class="control-group">
+									<h:outputLabel styleClass="control-label" for="medicament"
+										value="#{text['medicament.libelle']}" />
+									<div class="controls">
+										<p:selectOneMenu id="medicament"
+											value="#{echangeForm.medicament.id}"
+											filterMatchMode="contains" filter="true" immediate="true">
+											<f:selectItems value="#{echangeForm.medicaments}"
+												var="medicament" itemLabel="#{medicament.libelle}"
+												itemValue="#{medicament.id}" />
+										</p:selectOneMenu>
+										<p:message for="medicament" />
+									</div>
+								</div>
+
+								<div class="control-group">
+									<h:outputLabel styleClass="control-label" for="nbrMedicament"
+										value="#{text['medicament.qte']}" />
+									<div class="controls">
+										<p:inputText id="nbrMedicament" styleClass="input-mini"
+											value="#{echangeForm.nbrMedicament}"
+											immediate="true" required="true" maxlength="120" />
+										<p:message for="nbrMedicament" />
+									</div>
+								</div>
+
+								<div style="text-align: center;">
+									<p:commandButton value="#{text['menu.stock.add.medicament']}"
+										process="@form" update="detailEchangeList"
+										action="#{echangeForm.addDetailEchange}" />
+								</div>
+
+								<br />
+
+								<p:dataTable id="detailEchangeList" var="detailEchange"
+									value="#{echangeForm.echange.detailEchanges}" editable="true">
+
+									<p:column>
+										<f:facet name="header">
+											<p:column>
+												<h:outputText value="#{text['medicament.libelle']}" />
+											</p:column>
+										</f:facet>
+										<h:outputText value="#{detailEchange.medicament.libelle}"
+											escape="true" />
+									</p:column>
+
+									<p:column width="30"
+										headerText="#{text['bonLivraison.lbl.nbrMedicament']}">
+										<p:cellEditor>
+											<f:facet name="output">
+												<h:outputText value="#{detailEchange.qteMedicament}"
+													escape="true" />
+											</f:facet>
+											<f:facet name="input">
+												<h:inputText value="#{detailEchange.qteMedicament}" />
+											</f:facet>
+										</p:cellEditor>
+									</p:column>
+
+									<p:column width="10">
+										<p:rowEditor />
+									</p:column>
+
+									<p:column width="10">
+										<p:commandLink id="trash-medicament" update="@form"
+											actionListener="#{echangeForm.removeDetailEchange}"
+											styleClass="icon-trash" title="#{text['button.delete']}">
+											<f:setPropertyActionListener
+												value="#{detailEchange.medicament.id}"
+												target="#{echangeForm.medicament.id}" />
+										</p:commandLink>
+									</p:column>
+
+								</p:dataTable>
+							</p:panel>
+						</p:tab>
+
+						<p:tab id="confirmationEchange" title="Confirmation">
+							<p:panel header="Confirmation Details">
+							
+								<div class="control-group">
+									<h:outputLabel styleClass="control-label" for="dateEchangeConf"
+										value="#{text['echange.dateEchange']}" />
+									<div class="controls">
+									<h:outputText style="" id="dateEchangeConf" styleClass="control-label"
+										value="#{echangeForm.echange.dateEchange}" >
+										<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm"/>
+									</h:outputText>
+									</div>
+								</div>
+								
+								<div class="control-group">
+									<h:outputLabel styleClass="control-label" for="pharmacieConf"
+										value="#{text['echange.pharmacie']}" />
+									<div class="controls">
+									<h:outputLabel id="pharmacieConf" styleClass="control-label"
+										value="#{echangeForm.echange.pharmacie.nomPharmacie}" />
+									</div>
+								</div>
+								
+								<div class="control-group">
+									<h:outputLabel styleClass="control-label" for="typeEchangeConf"
+										value="#{text['echange.typeEchange']}" />
+									<div class="controls">
+									<h:outputLabel id="typeEchangeConf" styleClass="control-label" for="dateEchange"
+										value="#{echangeForm.echange.typeEchange}" />
+									</div>
+								</div>
+								
+								<p:dataTable id="detailEchangeListConf" var="detailEchange"
+									value="#{echangeForm.echange.detailEchanges}">
+
+									<p:column>
+										<f:facet name="header">
+											<p:column>
+												<h:outputText value="#{text['medicament.libelle']}" />
+											</p:column>
+										</f:facet>
+										<h:outputText value="#{detailEchange.medicament.libelle}"
+											escape="true" />
+									</p:column>
+
+									<p:column width="30"
+										headerText="#{text['bonLivraison.lbl.nbrMedicament']}">
+												<h:outputText value="#{detailEchange.qteMedicament}"
+													escape="true" />
+									</p:column>
+
+								</p:dataTable>
+								<br></br>
+								<div style="text-align: center;">
+								<h:commandButton value="#{text['button.save']}"
+									action="#{echangeForm.save}" id="save"
+									styleClass="btn btn-primary" />
+									</div>
+							</p:panel>
+						</p:tab>
+
+					</p:wizard>
+
+					<div class="form-actions">
+						<h:commandButton value="#{text['button.cancel']}" action="cancel"
+							immediate="true" id="cancel" styleClass="btn" />
+					</div>
+				</h:form>
+		</f:view>
+	</ui:define>
 </ui:composition>

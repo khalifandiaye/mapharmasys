@@ -7,54 +7,106 @@
 	template="/common/template.xhtml">
 	<ui:define name="content">
 
-<f:view>
-	<f:loadBundle var="text" basename="#{commandeList.bundleName}" />
-	<h:head>
-		<title>#{text['commandeList.title']}</title>
-		<meta name="heading" content="#{text['commandeList.heading']}" />
-		<meta name="menu" content="VenteMenu" />
-	</h:head>
-	<body id="commandeList">
+		<f:view>
+			<f:loadBundle var="text" basename="#{commandeList.bundleName}" />
+			<h:head>
+				<title>#{text['commandeList.title']}</title>
+				<meta name="heading" content="#{text['commandeList.heading']}" />
+				<meta name="menu" content="VenteMenu" />
+			</h:head>
+			<body id="commandeList">
 
-		<h2>#{text['commandeList.heading']}</h2>
+				<h2>#{text['commandeList.heading']}</h2>
 
-		<p>#{text['commandeList.message']}</p>
+				<p>#{text['commandeList.message']}</p>
 
-		<h:form id="editCommande">
+				<h:form id="editCommande">
 
-			<p:dataTable id="commandes" var="commande"
-				value="#{commandeList.commandes}"
-				sortBy="#{commandeList.sortColumn}" paginator="true" rows="15"
-				styleClass="table table-striped table-hover"
-				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-				rowsPerPageTemplate="15,25,50">
+					<p:dataTable id="commandes" var="commande"
+						value="#{commandeList.commandes}"
+						sortBy="#{commandeList.sortColumn}" paginator="true" rows="15"
+						styleClass="table table-striped table-hover"
+						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="15,25,50">
 
-				<p:column headerText="#{text['commande.numero']}" filterBy="#{commande.numero}" filterMatchMode="startsWith">
-					<h:outputText value="#{commande.numero}" escape="true" />
-				</p:column>
-				
-				<p:column headerText="#{text['commande.client']}">
+						<p:column headerText="#{text['commande.reference']}"
+							filterBy="#{commande.reference}" filterMatchMode="startsWith">
+							<h:outputText value="#{commande.reference}" escape="true" />
+						</p:column>
+						
+						<p:column headerText="#{text['commande.dateCommande']}"
+							filterBy="#{commande.dateCommandeString}" filterMatchMode="startsWith">
+							<h:outputText value="#{commande.dateCommandeString}" escape="true" />
+						</p:column>
 
-				</p:column>
+						<p:column headerText="#{text['commande.montantTotal']}"
+							filterBy="#{commande.montantTotal}" filterMatchMode="startsWith">
+							<h:outputText value="#{commande.montantTotal}" escape="true" />
+						</p:column>
 
-				<p:column headerText="#{text['commande.dateCommande']}" filterBy="#{commande.dateCommande}" filterMatchMode="startsWith">
-					<h:outputText value="#{commande.dateCommande}" escape="true" /> : <h:outputText	value="#{commande.minute}" escape="true" />
-				</p:column>
+						<p:column width="10">
+							<h:commandLink action="#{commandeForm.edit}" class="icon-pencil"
+								title="#{text['button.edit']}">
+								<f:param name="id" value="#{commande.id}" />
+								<f:param name="from" value="list" />
+							</h:commandLink>
+						</p:column>
 
-				<p:column headerText="#{text['commande.heure']}" filterBy="#{commande.heure}" filterMatchMode="startsWith">
-					<h:outputText value="#{commande.heure}" escape="true" />
-				</p:column>
+						<p:column width="10">
+							<p:commandLink id="detail-commande"
+								update=":editCommande:display" oncomplete="dlg.show()"
+								styleClass="icon-eye-open" title="#{text['button.view']}">
+								<f:setPropertyActionListener value="#{commande}"
+									target="#{commandeForm.commande}" />
+							</p:commandLink>
+						</p:column>
 
-				<p:column headerText="#{text['commande.montantTotal']}" filterBy="#{commande.montantTotal}" filterMatchMode="startsWith">
-					<h:outputText value="#{commande.montantTotal}" escape="true" />
-				</p:column>
+						<p:column width="10">
+							<h:commandLink action="#{commandeForm.delete}" class="icon-trash"
+								onclick="return confirmMessage('#{text['delete.confirm']}')"
+								title="#{text['button.delete']}">
+								<f:param name="id" value="#{commande.id}" />
+								<f:param name="from" value="list" />
+							</h:commandLink>
+						</p:column>
 
-				<p:column headerText="#{text['commande.nbrMedicamentTotal']}" filterBy="#{commande.nbrMedicamentTotal}" filterMatchMode="startsWith">
-					<h:outputText value="#{commande.nbrMedicamentTotal}" escape="true" />
-				</p:column>
-			</p:dataTable>
-		</h:form>
-	</body>
-</f:view>
+					</p:dataTable>
+					<p:dialog header="#{text['montantTotalDetail.title']}"
+						resizable="false" width="40%" id="display" widgetVar="dlg"
+						showEffect="fade" hideEffect="highlight" modal="true">
+						<h:form id="montantTotalForm" styleClass="form-horizontal">
+
+							<div class="control-group">
+								<h:outputLabel styleClass="control-label" for="reference"
+									value="#{text['commande.reference']}" />
+								<div class="controls">
+									<h:outputLabel id="reference" styleClass="control-label"
+										value="#{commandeForm.commande.reference}" />
+								</div>
+							</div>
+							
+							<div class="control-group">
+								<h:outputLabel styleClass="control-label" for="dateCommande"
+									value="#{text['commande.dateCommande']}" />
+								<div class="controls">
+									<h:outputLabel id="dateCommande" styleClass="control-label"
+										value="#{commandeForm.commande.dateCommande}" />
+								</div>
+							</div>
+							
+							<div class="control-group">
+								<h:outputLabel styleClass="control-label" for="montantTotal"
+									value="#{text['commande.montantTotal']}" />
+								<div class="controls">
+									<h:outputLabel id="montantTotal" styleClass="control-label"
+										value="#{commandeForm.commande.montantTotal}" />
+								</div>
+							</div>
+
+						</h:form>
+					</p:dialog>
+				</h:form>
+			</body>
+		</f:view>
 	</ui:define>
 </ui:composition>

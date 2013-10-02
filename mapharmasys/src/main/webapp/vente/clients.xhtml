@@ -7,51 +7,118 @@
 	template="/common/template.xhtml">
 	<ui:define name="content">
 
-<f:view>
-	<f:loadBundle var="text" basename="#{clientList.bundleName}" />
-	<h:head>
-		<title>#{text['clientList.title']}</title>
-		<meta name="heading" content="#{text['clientList.heading']}" />
-		<meta name="menu" content="VenteMenu" />
-	</h:head>
-	<body id="clientList">
+		<f:view>
+			<f:loadBundle var="text" basename="#{clientList.bundleName}" />
+			<h:head>
+				<title>#{text['clientList.title']}</title>
+				<meta name="heading" content="#{text['clientList.heading']}" />
+				<meta name="menu" content="VenteMenu" />
+			</h:head>
+			<body id="clientList">
 
-		<div class="span10">
-			<h2>#{text['clientList.heading']}</h2>
+				<div class="span10">
+					<h2>#{text['clientList.heading']}</h2>
 
-			<p>#{text['clientList.message']}</p>
+					<p>#{text['clientList.message']}</p>
 
-			<h:form id="editClient">
+					<h:form id="editClient">
 
-				<p:dataTable id="clients" var="client" value="#{clientList.clients}"
-					styleClass="table table-striped table-hover"
-					sortBy="#{clientList.sortColumn}" paginator="true" rows="15"
-					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-					rowsPerPageTemplate="15,25,50">
+						<p:dataTable id="clients" var="client"
+							value="#{clientList.clients}"
+							styleClass="table table-striped table-hover"
+							sortBy="#{clientList.sortColumn}" paginator="true" rows="15"
+							paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="15,25,50">
 
-					<p:column headerText="#{text['client.cin']}"
-						filterBy="#{client.cin}" filterMatchMode="startsWith">
-						<h:outputText value="#{client.cin}" escape="true" />
-					</p:column>
+							<p:column headerText="#{text['client.cin']}"
+								filterBy="#{client.cin}" filterMatchMode="startsWith">
+								<h:outputText value="#{client.cin}" escape="true" />
+							</p:column>
 
-					<p:column headerText="#{text['client.nom']}"
-						filterBy="#{client.nom}" filterMatchMode="contains">
-						<h:outputText value="#{client.nom}" escape="true" />
-					</p:column>
+							<p:column headerText="#{text['client.nom']}"
+								filterBy="#{client.nom}" filterMatchMode="contains">
+								<h:outputText value="#{client.nom}" escape="true" />
+							</p:column>
 
-					<p:column headerText="#{text['client.prenom']}"
-						filterBy="#{client.prenom}" filterMatchMode="contains">
-						<h:outputText value="#{client.prenom}" escape="true" />
-					</p:column>
+							<p:column headerText="#{text['client.prenom']}"
+								filterBy="#{client.prenom}" filterMatchMode="contains">
+								<h:outputText value="#{client.prenom}" escape="true" />
+							</p:column>
 
-					<p:column headerText="#{text['client.telephone']}"
-						filterBy="#{client.telephone}" filterMatchMode="startsWith">
-						<h:outputText value="#{client.telephone}" escape="true" />
-					</p:column>
-				</p:dataTable>
-			</h:form>
-		</div>
-	</body>
-</f:view>
-</ui:define>
+							<p:column headerText="#{text['client.telephone']}"
+								filterBy="#{client.telephone}" filterMatchMode="startsWith">
+								<h:outputText value="#{client.telephone}" escape="true" />
+							</p:column>
+
+							<p:column width="10">
+								<h:commandLink action="#{clientForm.edit}" class="icon-pencil"
+									title="#{text['button.edit']}">
+									<f:param name="id" value="#{client.id}" />
+									<f:param name="from" value="list" />
+								</h:commandLink>
+							</p:column>
+
+							<p:column width="10">
+								<h:commandLink id="detail-client" action="#{clientForm.detail}"
+									class="icon-eye-open" title="#{text['button.edit']}">
+									<f:param name="id" value="#{client.id}" />
+									<f:param name="from" value="list" />
+								</h:commandLink>
+							</p:column>
+
+							<p:column width="10">
+								<p:commandLink id="avance-client" update=":editClient:display"
+									oncomplete="dlg.show()" styleClass="icon-plus-sign"
+									title="#{text['button.add.avance']}">
+									<f:setPropertyActionListener value="#{client}"
+										target="#{clientForm.client}" />
+								</p:commandLink>
+							</p:column>
+
+							<p:column width="10">
+								<h:commandLink action="#{clientForm.delete}" class="icon-trash"
+									onclick="return confirmMessage('#{text['delete.confirm']}')"
+									title="#{text['button.delete']}">
+									<f:param name="id" value="#{client.id}" />
+									<f:param name="from" value="list" />
+								</h:commandLink>
+							</p:column>
+
+						</p:dataTable>
+
+						<p:dialog header="#{text['button.add.avance']}" resizable="false"
+							width="40%" id="display" widgetVar="dlg" showEffect="fade"
+							hideEffect="highlight" modal="true">
+							<h:form id="avanceForm" styleClass="form-horizontal">
+
+								<div class="control-group">
+									<h:outputLabel styleClass="control-label" for="dateAvance"
+										value="#{text['avance.dateAvance']}" />
+									<div class="controls" style="width: 25%">
+										<p:calendar id="dateAvance"
+											value="#{clientForm.avance.dateAvance}" mode="popup"
+											pattern="dd/MM/yyyy HH:mm" />
+										<p:message for="dateAvance" />
+									</div>
+								</div>
+
+								<div class="control-group">
+									<h:outputLabel styleClass="control-label" for="avance"
+										value="#{text['avance.avance']}" />
+									<div class="controls">
+										<h:inputText id="avance" value="#{clientForm.avance.avance}"
+											styleClass="input-large" required="false" />
+										<p:message for="avance" />
+									</div>
+								</div>
+								<p:commandLink ajax="true" update="avanceForm" process="@form"
+									value="ok" actionListener="#{clientForm.addAvance}"
+									oncomplete="dlg.hide()" />
+							</h:form>
+						</p:dialog>
+					</h:form>
+				</div>
+			</body>
+		</f:view>
+	</ui:define>
 </ui:composition>
