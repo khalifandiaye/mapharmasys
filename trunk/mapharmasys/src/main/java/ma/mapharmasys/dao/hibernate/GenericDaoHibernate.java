@@ -103,7 +103,7 @@ public class GenericDaoHibernate<T, PK extends Serializable> implements GenericD
     @SuppressWarnings("unchecked")
     public List<T> getAll() {
         Session sess = getSession();
-        return sess.createCriteria(persistentClass).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+        return sess.createQuery("FROM " + persistentClass.getName() + " ORDER BY id desc").list();//createCriteria(persistentClass).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
     }
 
     /**

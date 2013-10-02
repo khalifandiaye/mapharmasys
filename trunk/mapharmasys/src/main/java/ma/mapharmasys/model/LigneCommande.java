@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import ma.mapharmasys.util.CommonUtil;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
@@ -36,7 +38,7 @@ public class LigneCommande extends BaseObject {
 	private int nbrMedicament = 1;
 	
 	@Column(name="montant")
-	private float montant;
+	private Double montant;
 	
 	/*
 	 * Constructors
@@ -47,7 +49,7 @@ public class LigneCommande extends BaseObject {
 	}
 	
 	public LigneCommande(Long id, Commande commande, Medicament medicament,
-			int nbrMedicament, float montant) {
+			int nbrMedicament, Double montant) {
 		super();
 		this.id = id;
 		this.commande = commande;
@@ -92,11 +94,12 @@ public class LigneCommande extends BaseObject {
 		this.nbrMedicament = nbrMedicament;
 	}
 
-	public float getMontant() {
-		return montant;
+	public Double getMontant() {
+		montant = Double.valueOf(medicament.getPrixUnit()) * nbrMedicament;
+		return CommonUtil.getDoubleValue(montant);
 	}
 
-	public void setMontant(float montant) {
+	public void setMontant(Double montant) {
 		this.montant = montant;
 	}
 

@@ -41,9 +41,7 @@ public class MedicamentForm extends BasePage implements Serializable {
     }
 
     public String delete() {
-    	if (id == null) {
-            id = new Long(getParameter("id"));
-        }
+        id = new Long(getParameter("id"));
     	
     	if (id != null) {
     		medicamentManager.remove(id);

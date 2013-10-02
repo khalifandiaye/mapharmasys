@@ -1,8 +1,11 @@
 package ma.mapharmasys.model;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,21 +14,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import ma.mapharmasys.Constants.TypeVente;
-
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import ma.mapharmasys.util.CommonUtil;
+import ma.mapharmasys.util.DateUtil;
 
 @Entity
 @Table(name = "commande")
 public class Commande extends BaseObject{
 	
 	private static final long serialVersionUID = 3725892799067871594L;
-	private static final Log LOG = LogFactory.getLog(Commande.class);
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,8 +37,8 @@ public class Commande extends BaseObject{
 	 * numero de commande (utiliser pour effectuer une facture) 
 	 * ordonne de maniere croissant
 	 */
-	@Column(name="numero_commande")
-	private Long numero;
+	@Column(name="reference_commande")
+	private String reference;
 	
 	/**
 	 * Commande validee
@@ -49,25 +50,11 @@ public class Commande extends BaseObject{
 	 * Date de la commande
 	 */
 	@Column(name="date_commande")
-	private Date dateCommande;
+	private Date dateCommande = Calendar.getInstance().getTime();
 	
-	/**
-	 * heure de la commande
-	 */
-	@Column(name="heure")
-	private String heure;
-	
-	/**
-	 * minute de la commande
-	 */
-	@Column(name="minute")
-	private String minute;
 	
 	@Column(name="montant_total")
-	private float montantTotal;
-	
-	@Column(name="nbr_medicament")
-	private int nbrMedicamentTotal;
+	private Double montantTotal;
 	
 	/**
 	 * Type de vente normale, facture ou credit
@@ -76,14 +63,11 @@ public class Commande extends BaseObject{
 	private TypeVente typeVente;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="client_id", nullable= true)
-	private Client client;
+	@JoinColumn(name="client_id", nullable = true)
+	private Client client = new Client();
 	
-//	@Transient
-//	private List<LigneCommande> ligneCommandes = new ArrayList<LigneCommande>();
-	
-//	@OneToMany(mappedBy = "commande", cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
-//	private List<LigneCommande> ligneCommandes = new ArrayList<LigneCommande>();
+	@OneToMany(mappedBy = "commande", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval=true, fetch = FetchType.EAGER)
+	private List<LigneCommande> ligneCommandes = new ArrayList<LigneCommande>();
 	
 	/*
 	 * Constructors
@@ -93,13 +77,12 @@ public class Commande extends BaseObject{
 		super();
 	}
 	
-	public Commande(Long numero, Date dateCommande, float montantTotal, int nbrMedicamentTotal,
+	public Commande(String reference, Date dateCommande, Double montantTotal, int nbrMedicamentTotal,
 			TypeVente typeVente, Client client) {
 		super();
-		this.setNumero(numero);
+		this.setReference(reference);
 		this.dateCommande = dateCommande;
 		this.montantTotal = montantTotal;
-		this.nbrMedicamentTotal = nbrMedicamentTotal;
 		this.typeVente = typeVente;
 		this.client = client;
 	}
@@ -116,30 +99,6 @@ public class Commande extends BaseObject{
 		this.id = id;
 	}
 
-	public void setNumero(Long numero) {
-		this.numero = numero;
-	}
-
-	public Long getNumero() {
-		return numero;
-	}
-
-	public String getHeure() {
-		return heure;
-	}
-
-	public void setHeure(String heure) {
-		this.heure = heure;
-	}
-
-	public String getMinute() {
-		return minute;
-	}
-
-	public void setMinute(String minute) {
-		this.minute = minute;
-	}
-
 	public boolean isValide() {
 		return valide;
 	}
@@ -151,25 +110,18 @@ public class Commande extends BaseObject{
 	public Date getDateCommande() {
 		return dateCommande;
 	}
+	
+	@Transient
+	public String getDateCommandeString() {
+		return DateUtil.getDate(dateCommande, "dd/MM/yyyy HH:mm");
+	}
 
 	public void setDateCommande(Date dateCommande) {
 		this.dateCommande = dateCommande;
 	}
 
-//	public float getMontantTotal() {
-//		return getMontantTotal(ligneCommandes);
-//	}
-
-	public void setMontantTotal(float montantTotal) {
+	public void setMontantTotal(Double montantTotal) {
 		this.montantTotal = montantTotal;
-	}
-
-//	public int getNbrMedicamentTotal() {
-//		return getNbrTotalMedicamnt(ligneCommandes);
-//	}
-
-	public void setNbrMedicamentTotal(int nbrMedicamentTotal) {
-		this.nbrMedicamentTotal = nbrMedicamentTotal;
 	}
 
 	public TypeVente getTypeVente() {
@@ -188,88 +140,78 @@ public class Commande extends BaseObject{
 		this.client = client;
 	}
 
-//	public Set<LigneCommande> getLigneCommandes() {
-//		return ligneCommandes;
-//	}
-//
-//	public void setLigneCommandes(Set<LigneCommande> ligneCommandes) {
-//		this.ligneCommandes = ligneCommandes;
-//	}
 
-//	public void setLigneCommandes(List<LigneCommande> ligneCommandes) {
-//		this.ligneCommandes = ligneCommandes;
-//	}
-//
-//	public List<LigneCommande> getLigneCommandes() {
-//		return ligneCommandes;
-//	}
-//	
-//	public void addLigneCommande(LigneCommande ligneCommande){
-//		LOG.info("[Commande] Add ligne commande > Entring ...");
-//		if (ligneCommandes == null)
-//			ligneCommandes = new ArrayList<LigneCommande>();
-//		
-//		LOG.info("[Commande] Add ligne commande > ligneCommandes size : " + ligneCommandes.size());
-//		if (!ligneCommandes.contains(ligneCommande)) {
-//			ligneCommandes.add(ligneCommande);
-//			LOG.info("[Commande] Add ligne commande > ligneCommande added : " + ligneCommande);
-//		}else
-//			LOG.info("[Commande] Add ligne commande > ligneCommande already exist : " + ligneCommande);
-//	}
+	public void setLigneCommandes(List<LigneCommande> ligneCommandes) {
+		this.ligneCommandes = ligneCommandes;
+	}
+
+	public List<LigneCommande> getLigneCommandes() {
+		return ligneCommandes;
+	}
 	
 	/*
 	 * get montant total (la somme de tt les montant des lignes des commandes)
 	 */
-    private float getMontantTotal(List<LigneCommande> listeLCs) {
-		float montantTotal = 0f;
-		for (LigneCommande ligneCommande : listeLCs) {
+	public Double getMontantTotal() {
+		montantTotal = 0d;
+		for (LigneCommande ligneCommande : ligneCommandes) {
 			montantTotal += ligneCommande.getMontant();
 		}
-		return montantTotal;
+		return CommonUtil.getDoubleValue(montantTotal);
 	}
 
-    /*
-     * get nombre medicament total (la somme de tt les medcament dans les lignes de commandes)
-     */
-	private int getNbrTotalMedicamnt(List<LigneCommande> listeLCs) {
-		int nbrMedicament = 0;
-		for (LigneCommande ligneCommande : listeLCs) {
-			nbrMedicament += ligneCommande.getNbrMedicament();
+	public String getReference() {
+		if (reference == null) {
+			reference = CommonUtil.getReference();
 		}
-		return nbrMedicament;
+		return reference;
+	}
+
+	public void setReference(String reference) {
+		this.reference = reference;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Commande other = (Commande) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 	
-	public float getMontantTotal() {
-		return montantTotal;
-	}
-
-	public int getNbrMedicamentTotal() {
-		return nbrMedicamentTotal;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((client == null) ? 0 : client.hashCode());
+		result = prime * result
+				+ ((dateCommande == null) ? 0 : dateCommande.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result
+				+ ((ligneCommandes == null) ? 0 : ligneCommandes.hashCode());
+		result = prime * result
+				+ ((reference == null) ? 0 : reference.hashCode());
+		result = prime * result
+				+ ((typeVente == null) ? 0 : typeVente.hashCode());
+		result = prime * result + (valide ? 1231 : 1237);
+		return result;
 	}
 
 	@Override
 	public String toString() {
-		return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE)
-				.append("CommandeId", this.id)
-				.append("Numero", this.numero).toString();
-	}
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) {
-            return true;
-        }
-        if (!(o instanceof Commande)) {
-            return false;
-        }
-
-        final Commande commande = (Commande) o;
-
-        return !(this.id != null ? !this.id.equals(commande.getId()) : commande.getId() != null);
-	}
-	@Override
-	public int hashCode() {
-		// TODO Auto-generated method stub
-		return 0;
+		return "Commande [id=" + id + ", reference=" + reference + ", valide="
+				+ valide + ", dateCommande=" + dateCommande + ", montantTotal="
+				+ montantTotal + ", typeVente=" + typeVente + ", client="
+				+ client + ", ligneCommandes=" + ligneCommandes + "]";
 	}
 
 }

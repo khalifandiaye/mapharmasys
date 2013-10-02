@@ -22,8 +22,6 @@ public class Address extends BaseObject implements Serializable {
     private static final long serialVersionUID = 3617859655330969141L;
     private String address;
     private String city;
-    private String province;
-    private String country;
     private String postalCode;
 
     @Column(length = 150)
@@ -38,17 +36,6 @@ public class Address extends BaseObject implements Serializable {
         return city;
     }
 
-    @Column(length = 100)
-    @Field
-    public String getProvince() {
-        return province;
-    }
-
-    @Column(length = 100)
-    @Field
-    public String getCountry() {
-        return country;
-    }
 
     @Column(name = "postal_code", length = 15)
     @Field(analyze= Analyze.NO)
@@ -64,16 +51,8 @@ public class Address extends BaseObject implements Serializable {
         this.city = city;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
-    }
-
-    public void setProvince(String province) {
-        this.province = province;
     }
 
     /**
@@ -104,8 +83,6 @@ public class Address extends BaseObject implements Serializable {
         int result;
         result = (address != null ? address.hashCode() : 0);
         result = 29 * result + (city != null ? city.hashCode() : 0);
-        result = 29 * result + (province != null ? province.hashCode() : 0);
-        result = 29 * result + (country != null ? country.hashCode() : 0);
         result = 29 * result + (postalCode != null ? postalCode.hashCode() : 0);
         return result;
     }
@@ -117,9 +94,7 @@ public class Address extends BaseObject implements Serializable {
      */
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
-                .append("country", this.country)
                 .append("address", this.address)
-                .append("province", this.province)
                 .append("postalCode", this.postalCode)
                 .append("city", this.city).toString();
     }

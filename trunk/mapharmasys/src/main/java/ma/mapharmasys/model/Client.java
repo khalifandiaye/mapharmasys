@@ -1,47 +1,70 @@
 package ma.mapharmasys.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.search.annotations.IndexedEmbedded;
+import ma.mapharmasys.util.CommonUtil;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "client")
 public class Client extends BaseObject {
 
 	private static final long serialVersionUID = 6696443542727618987L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="client_id")
+	@Column(name = "client_id")
 	private Long id;
-	
-	@Column(name="nom", length=50)
+
+	@Column(name = "nom", length = 50)
 	private String nom;
-	
-	@Column(name="prenom", length=50)
+
+	@Column(name = "prenom", length = 50)
 	private String prenom;
-	
-	@Column(name="cin", length=15)
+
+	@Column(name = "cin", length = 15)
 	private String cin;
-	
-	@Column(name="telephone", length=15)
+
+	@Column(name = "telephone", length = 15)
 	private String telephone;
-	
-	@Embedded
-	@IndexedEmbedded
-	private Address addresse = new Address();
+
+	@Column(name = "total_credit")
+	private Double totalCredit;
+
+	@Column(name = "total_avance")
+	private Double totalAvance;
+
+	@Column(name = "total_reste")
+	private Double totalReste;
+
+	@OneToMany(mappedBy = "client", cascade = { CascadeType.PERSIST,
+			CascadeType.MERGE, CascadeType.REFRESH }, orphanRemoval = true, fetch = FetchType.EAGER)
+	@Fetch(value = FetchMode.SUBSELECT)
+	private List<Credit> credits = new ArrayList<Credit>();
+
+	@OneToMany(mappedBy = "client", cascade = { CascadeType.PERSIST,
+			CascadeType.MERGE, CascadeType.REFRESH }, orphanRemoval = true, fetch = FetchType.EAGER)
+	@Fetch(value = FetchMode.SUBSELECT)
+	private List<Avance> avances = new ArrayList<Avance>();
 
 	/*
-	 * COnstrictors
+	 * Constructors
 	 */
-	
+
 	public Client() {
 		super();
 	}
@@ -53,13 +76,12 @@ public class Client extends BaseObject {
 		this.prenom = prenom;
 		this.cin = cin;
 		this.telephone = telephone;
-		this.addresse = addresse;
 	}
 
 	/*
 	 * getters/setters
 	 */
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -100,23 +122,72 @@ public class Client extends BaseObject {
 		this.telephone = telephone;
 	}
 
-	public Address getAddresse() {
-		return addresse;
+	/**
+	 * Returns the full name.
+	 * 
+	 * @return firstName + ' ' + lastName
+	 */
+	@Transient
+	public String getFullName() {
+		StringBuilder builder = new StringBuilder();
+		builder.append(prenom != null ? prenom : "");
+		builder.append((prenom != null && nom != null) ? " " : "");
+		builder.append(nom != null ? nom : "");
+		return builder.toString();
 	}
 
-	public void setAddresse(Address addresse) {
-		this.addresse = addresse;
+	public Double getTotalCredit() {
+		totalCredit = 0d;
+		if (credits != null && !credits.isEmpty()) {
+			for (Credit credit : credits) {
+				totalCredit += credit.getCommande().getMontantTotal();
+			}
+		}
+		return CommonUtil.getDoubleValue(totalCredit);
 	}
-	
-	/**
-     * Returns the full name.
-     *
-     * @return firstName + ' ' + lastName
-     */
-    @Transient
-    public String getFullName() {
-        return prenom != null ? prenom : "" + ' ' + nom != null ? nom : "";
-    } 
+
+	public void setTotalCredit(Double totalCredit) {
+		this.totalCredit = totalCredit;
+	}
+
+	public Double getTotalAvance() {
+		totalAvance = 0d;
+		if(avances != null && !avances.isEmpty()){
+			for (Avance avance : avances) {
+				totalAvance += avance.getAvance();
+			}
+		}
+		return CommonUtil.getDoubleValue(totalAvance);
+	}
+
+	public void setTotalAvance(Double totalAvance) {
+		this.totalAvance = totalAvance;
+	}
+
+	public Double getTotalReste() {
+		totalReste = getTotalCredit() - getTotalAvance();
+		return CommonUtil.getDoubleValue(totalReste);
+	}
+
+	public void setTotalReste(Double totalReste) {
+		this.totalReste = totalReste;
+	}
+
+	public List<Credit> getCredits() {
+		return credits;
+	}
+
+	public void setCredits(List<Credit> credits) {
+		this.credits = credits;
+	}
+
+	public List<Avance> getAvances() {
+		return avances;
+	}
+
+	public void setAvances(List<Avance> avances) {
+		this.avances = avances;
+	}
 
 	@Override
 	public String toString() {

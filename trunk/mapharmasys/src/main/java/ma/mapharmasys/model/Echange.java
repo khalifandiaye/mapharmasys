@@ -1,8 +1,11 @@
 package ma.mapharmasys.model;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import ma.mapharmasys.Constants.TypeEchange;
@@ -33,7 +37,7 @@ public class Echange extends BaseObject {
 	 */
 	@Column(name = "date_echange")
 	@Field
-	private Date dateEchange;
+	private Date dateEchange = Calendar.getInstance().getTime();
 	
 	/**
 	 * valeur dechange = total prix achat des medicament dans l echange
@@ -47,21 +51,19 @@ public class Echange extends BaseObject {
 	@Column(name="quantite_medicament")
 	private int qteMedicament;
 	
-	/**
-	 * liste detail echange
-	 */
-//	@OneToMany(mappedBy = "detailEchange", cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
-//	private Set<DetailEchange> detailEchanges = new HashSet<DetailEchange>();
 	
 	/**
 	 * pharmacie concernee par lechange
 	 */
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="pharmacie_id")
-	private Pharmacie pharmacie;
+	private Pharmacie pharmacie = new Pharmacie();
 	
 	@Column(name = "type_echange", nullable = false)
 	private TypeEchange typeEchange;
+	
+	@OneToMany(mappedBy = "echange", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval=true, fetch = FetchType.EAGER)
+	private List<DetailEchange> detailEchanges = new ArrayList<DetailEchange>();
 	
 	/*
 	 * COnstructors
@@ -70,7 +72,7 @@ public class Echange extends BaseObject {
 		super();
 	}
 
-	public Echange(Set<Medicament> medicaments, Pharmacie pharmacie,
+	public Echange(Pharmacie pharmacie,
 			TypeEchange typeEchange) {
 		super();
 		this.pharmacie = pharmacie;
@@ -129,30 +131,52 @@ public class Echange extends BaseObject {
 		this.typeEchange = typeEchange;
 	}
 
-//	public void setDetailEchanges(Set<DetailEchange> detailEchanges) {
-//		this.detailEchanges = detailEchanges;
-//	}
-//
-//	public Set<DetailEchange> getDetailEchanges() {
-//		return detailEchanges;
-//	}
-
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<DetailEchange> getDetailEchanges() {
+		return detailEchanges;
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		// TODO Auto-generated method stub
-		return false;
+	public void setDetailEchanges(List<DetailEchange> detailEchanges) {
+		this.detailEchanges = detailEchanges;
 	}
 
 	@Override
 	public int hashCode() {
-		// TODO Auto-generated method stub
-		return 0;
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((dateEchange == null) ? 0 : dateEchange.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result
+				+ ((pharmacie == null) ? 0 : pharmacie.hashCode());
+		result = prime * result + qteMedicament;
+		result = prime * result
+				+ ((typeEchange == null) ? 0 : typeEchange.hashCode());
+		result = prime * result + Float.floatToIntBits(valeurTotal);
+		return result;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Echange other = (Echange) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Echange [id=" + id + ", dateEchange=" + dateEchange
+				+ ", valeurTotal=" + valeurTotal + ", qteMedicament="
+				+ qteMedicament + ", pharmacie=" + pharmacie + ", typeEchange="
+				+ typeEchange + "]";
+	}
 }
